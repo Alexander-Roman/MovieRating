@@ -2,6 +2,7 @@ package com.epam.movierating.servlet;
 
 import com.epam.movierating.command.Command;
 import com.epam.movierating.command.CommandFactory;
+import com.epam.movierating.entity.CommandResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,10 +30,15 @@ public class FrontController extends HttpServlet {
         try {
             String commandRequest = request.getParameter(COMMAND_PARAM);
             Command command = CommandFactory.create(commandRequest);
-            String page = command.execute(request, response);
+            CommandResult commandResult = command.execute(request, response);
+            String page = commandResult.getPage();
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
-            requestDispatcher.forward(request, response);
+            if (commandResult.isRedirect()) {
+                response.sendRedirect(page);
+            } else {
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
+                requestDispatcher.forward(request, response);
+            }
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }

@@ -2,11 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-<jsp:include page="../template/head.jsp" />
+<jsp:include page="WEB-INF/template/head.jsp" />
 <body>
 <div class="table-layout">
 
-    <jsp:include page="../template/header.jsp" />
+    <jsp:include page="WEB-INF/template/header.jsp" />
 
     <main class="page-main flex-middle">
         <div class="row">
@@ -28,18 +28,11 @@
                     </div>
                 </c:if>
 
-                <div class="alert">
-                    <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <strong>Error!</strong> ${requestScope.errorMessage} Test
-                </div>
-
-
-
             </div>
         </div>
     </main>
 
-    <jsp:include page="../template/footer.jsp" />
+    <jsp:include page="WEB-INF/template/footer.jsp" />
 
 </div>
 </body>

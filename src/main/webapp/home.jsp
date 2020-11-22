@@ -1,18 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
-<jsp:include page="../template/head.jsp" />
+<jsp:include page="WEB-INF/template/head.jsp" />
 <body>
 <div class="table-layout">
 
-    <jsp:include page="../template/header.jsp" />
+    <jsp:include page="WEB-INF/template/header.jsp" />
 
     <main class="page-main flex-middle">
         <div class="row">
             <div class="main">
                 <h2>MOVIES RATING</h2>
                 <div class="flex flex-right">
-                    <button class="button" type="submit">+ Add</button>
+                    <button class="add-button" type="submit">+ Add</button>
                 </div>
                 <table class="table" id="movies">
                     <tr>
@@ -110,7 +110,7 @@
         </div>
     </main>
 
-    <jsp:include page="../template/footer.jsp" />
+    <jsp:include page="WEB-INF/template/footer.jsp" />
 
 </div>
 </body>

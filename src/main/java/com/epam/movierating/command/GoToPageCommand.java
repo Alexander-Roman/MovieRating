@@ -5,10 +5,16 @@ import com.epam.movierating.entity.CommandResult;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class EmptyCommand implements Command {
+public class GoToPageCommand implements Command {
+
+    private final String page;
+
+    public GoToPageCommand(String page) {
+        this.page = page;
+    }
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
-        return CommandResult.forward("home.jsp");
+        return CommandResult.forward(page);
     }
 }
