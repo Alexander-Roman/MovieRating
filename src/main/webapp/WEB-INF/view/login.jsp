@@ -2,11 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-<jsp:include page="WEB-INF/template/head.jsp" />
+<jsp:include page="../template/head.jsp" />
 <body>
 <div class="table-layout">
 
-    <jsp:include page="WEB-INF/template/header.jsp" />
+    <jsp:include page="../template/header.jsp" />
 
     <main class="page-main flex-middle">
         <div class="row">
@@ -32,7 +32,7 @@
         </div>
     </main>
 
-    <jsp:include page="WEB-INF/template/footer.jsp" />
+    <jsp:include page="../template/footer.jsp" />
 
 </div>
 </body>

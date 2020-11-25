@@ -261,6 +261,12 @@ body {
     display: flex;
 }
 
+.flex-wrap {
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
 .flex-right {
     -webkit-justify-content: flex-end;
     -ms-justify-content: flex-end;
@@ -454,6 +460,10 @@ body {
     background-color: #ddd;
 }
 
+.table tr:not(:first-child) {
+    cursor: pointer;
+}
+
 .table th {
     padding-top: 12px;
     padding-bottom: 12px;
@@ -536,6 +546,11 @@ body {
     cursor: pointer;
 }
 
+.add-button:hover {
+    background: #ff7f50;
+}
+
+
 /* Responsive Inline Login Form */
 
 .login-form-inline {
@@ -608,16 +623,174 @@ body {
     color: black;
 }
 
+/* Movie */
 
+.poster {
+    max-width: 300px;
+    margin-right: 20px;
+}
 
+.movie-description {
+    flex-basis: 300px;
+    flex-grow: 1;
+}
 
+/* Comments */
 
+.comment-container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    padding: 0 10px;
+    margin: 10px 0;
+}
 
+.comment-container:nth-child(odd) {
+    border-color: #ccc;
+    background-color: #ddd;
+}
 
+.comment-container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
 
-/* Fake image, just for tests */
-.fakeimg {
-    background-color: #aaa;
+.comment-time {
+    float: right;
+    color: #aaa;
+}
+
+/* Comment form */
+
+.comment-form-container textarea {
     width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+.comment-form-container label {
+    padding: 12px 12px 12px 0;
+    display: block;
+}
+
+.comment-form-container input[type=submit] {
+    float: right;
+
+    padding: 6px 10px;
+    margin-top: 8px;
+    background: #ddd;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.comment-form-container input[type=submit]:hover {
+    background-color: #ff7f50;
+}
+
+.comment-form-container {
+    background-color: #f2f2f2;
     padding: 20px;
+}
+
+/* Clear floats after the columns */
+.comment-form-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Custom Radio Buttons */
+
+.radio-container {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    margin-top: 4px;
+    margin-right: 5px;
+    min-width: 52px;
+}
+
+.radio-container:last-of-type {
+    margin-right: 15px;
+}
+
+
+/* Hide the browser's default radio button */
+.radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radio-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radio-container:hover input ~ .radio-checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio-container input:checked ~ .radio-checkmark {
+    background-color: #ff7f50;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio-container input:checked ~ .radio-checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio-container .radio-checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.custom-radio input[type=submit] {
+    padding: 6px 10px;
+    background: #ddd;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+
+    display: inline-block;
+}
+
+.custom-radio input[type=submit]:hover {
+    background: #ff7f50;
+}
+
+.custom-radio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }

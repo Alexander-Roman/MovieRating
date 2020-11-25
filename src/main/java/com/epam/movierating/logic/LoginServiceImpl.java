@@ -4,6 +4,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public boolean login(String user, String password) {
-        return "user".equals(user) && "password".equals(password);
+        return user.equals(password);
     }
 }

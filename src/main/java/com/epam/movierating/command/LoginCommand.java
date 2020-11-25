@@ -19,10 +19,10 @@ public class LoginCommand implements Command {
         String password = request.getParameter(PASSWORD_PARAM);
         boolean isValid = LOGIN_SERVICE.login(login, password);
         if (isValid) {
-            return CommandResult.redirect("home.jsp");
+            return CommandResult.redirect(Page.INDEX);
         } else {
             request.setAttribute("errorMessage", "Invalid credentials!");
-            return CommandResult.forward("login.jsp");
+            return CommandResult.forward(Page.LOGIN);
         }
     }
 }
