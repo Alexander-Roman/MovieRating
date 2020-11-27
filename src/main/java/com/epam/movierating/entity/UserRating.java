@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public final class UserRating {
 
-    private final int assessment;
     private final Movie assessedMovie;
     private final Account assessor;
+    private final int assessment;
 
-    public UserRating(int assessment, Movie assessedMovie, Account assessor) {
-        this.assessment = assessment;
+    public UserRating(Movie assessedMovie, Account assessor, int assessment) {
         this.assessedMovie = assessedMovie;
         this.assessor = assessor;
+        this.assessment = assessment;
     }
 
     public int getAssessment() {
@@ -26,34 +26,5 @@ public final class UserRating {
         return assessor;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        UserRating that = (UserRating) o;
-        return assessment == that.assessment &&
-                Objects.equals(assessedMovie, that.assessedMovie) &&
-                Objects.equals(assessor, that.assessor);
-    }
 
-    @Override
-    public int hashCode() {
-        int result = assessment;
-        result = 31 * result + (assessedMovie != null ? assessedMovie.hashCode() : 0);
-        result = 31 * result + (assessor != null ? assessor.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "assessment=" + assessment +
-                ", assessedMovie=" + assessedMovie +
-                ", assessor=" + assessor +
-                '}';
-    }
 }

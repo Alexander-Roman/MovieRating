@@ -3,7 +3,6 @@ package com.epam.movierating.command;
 import com.epam.movierating.entity.CommandResult;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class GoToPageCommand implements Command {
 
@@ -14,7 +13,7 @@ public class GoToPageCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request) {
         return CommandResult.forward(page);
     }
 }

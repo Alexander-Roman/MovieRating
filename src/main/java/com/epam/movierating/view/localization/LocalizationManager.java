@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 public enum LocalizationManager {
 
     EN(ResourceBundle.getBundle("property.localization", Locale.ENGLISH)),
+    BE(ResourceBundle.getBundle("property.localization", new Locale("be", "BY"))),
     RU(ResourceBundle.getBundle("property.localization", new Locale("ru", "BY")));
 
     private final ResourceBundle bundle;

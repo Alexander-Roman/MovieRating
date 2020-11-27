@@ -8,12 +8,18 @@ public final class Movie {
     private final String title;
     private final String director;
     private final int releaseYear;
+    private final String synopsis;
+    private final String posterPath;
+    private final double rating;
 
-    public Movie(long movieId, String title, String director, int releaseYear) {
+    public Movie(long movieId, String title, String director, int releaseYear, String synopsis, String posterPath, double rating) {
         this.movieId = movieId;
         this.title = title;
         this.director = director;
         this.releaseYear = releaseYear;
+        this.synopsis = synopsis;
+        this.posterPath = posterPath;
+        this.rating = rating;
     }
 
     public long getMovieId() {
@@ -32,37 +38,15 @@ public final class Movie {
         return releaseYear;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Movie movie = (Movie) o;
-        return movieId == movie.movieId &&
-                releaseYear == movie.releaseYear &&
-                Objects.equals(title, movie.title) &&
-                Objects.equals(director, movie.director);
+    public String getSynopsis() {
+        return synopsis;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (movieId ^ (movieId >>> 32));
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (director != null ? director.hashCode() : 0);
-        result = 31 * result + releaseYear;
-        return result;
+    public String getPosterPath() {
+        return posterPath;
     }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "movieId=" + movieId +
-                ", title='" + title + '\'' +
-                ", director='" + director + '\'' +
-                ", releaseYear=" + releaseYear +
-                '}';
+    public double getRating() {
+        return rating;
     }
 }

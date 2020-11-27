@@ -5,7 +5,6 @@ import com.epam.movierating.logic.LoginService;
 import com.epam.movierating.logic.LoginServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class LoginCommand implements Command {
 
@@ -14,7 +13,7 @@ public class LoginCommand implements Command {
     private static final LoginService LOGIN_SERVICE = new LoginServiceImpl();
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+    public CommandResult execute(HttpServletRequest request) {
         String login = request.getParameter(USERNAME_PARAM);
         String password = request.getParameter(PASSWORD_PARAM);
         boolean isValid = LOGIN_SERVICE.login(login, password);

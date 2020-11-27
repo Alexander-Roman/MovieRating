@@ -18,7 +18,28 @@
                 <div class="flex flex-right">
                     <button class="add-button" type="submit">+ Add</button>
                 </div>
-                <ctg:movie-list movies="${requestScope.movies}"/>
+
+
+                <table class="table" id="movies">
+                    <tr>
+                        <th>No.</th>
+                        <th>Movie</th>
+                        <th>Director</th>
+                        <th>Year</th>
+                        <th>Rating</th>
+                    </tr>
+                    <c:forEach var="movie" items="${requestScope.movies}" varStatus="counter">
+                        <tr data-movie-page="<c:url value="controller?command=moviePage&movieId=${movie.movieId}"/>">
+                            <td>${counter.count}</td>
+                            <td>${movie.title}</td>
+                            <td>${movie.director}</td>
+                            <td>${movie.releaseYear}</td>
+                            <td>${movie.rating}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+
+
                 <div class="flex-middle">
                     <div class="pagination">
                         <a href="#">&laquo;</a>

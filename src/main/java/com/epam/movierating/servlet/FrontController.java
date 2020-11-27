@@ -2,6 +2,8 @@ package com.epam.movierating.servlet;
 
 import com.epam.movierating.command.Command;
 import com.epam.movierating.command.CommandFactory;
+import com.epam.movierating.connection.ConnectionPool;
+import com.epam.movierating.connection.ConnectionPoolException;
 import com.epam.movierating.entity.CommandResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,8 +31,9 @@ public class FrontController extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) {
         try {
             String commandRequest = request.getParameter(COMMAND_PARAM);
+            LOGGER.info(commandRequest + " command received!");
             Command command = CommandFactory.create(commandRequest);
-            CommandResult commandResult = command.execute(request, response);
+            CommandResult commandResult = command.execute(request);
             String page = commandResult.getPage();
 
             if (commandResult.isRedirect()) {
@@ -42,5 +45,16 @@ public class FrontController extends HttpServlet {
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
+            connectionPool.destroy();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        super.destroy();
     }
 }
