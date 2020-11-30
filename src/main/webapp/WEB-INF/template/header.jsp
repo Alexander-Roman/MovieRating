@@ -2,8 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="property/localization"/>
+<fmt:setLocale value="${sessionScope.localization.locale}"/>
+<fmt:setBundle basename="${sessionScope.localization.baseBundleName}"/>
 
 <header class="page-header">
     <div class="header">
@@ -19,13 +19,13 @@
         <div class="navbar-dropdown right">
             <a class="navbar-item navbar-drop-item localization"></a>
             <div class="navbar-dropdown-content">
-                <a href="<c:url value="/controller?command=locale&language=en&country="/>">
+                <a href="<c:url value="/controller?command=locale&language=EN"/>">
                     <fmt:message key="navbar.link.locale.en"/>
                 </a>
-                <a href="<c:url value="/controller?command=locale&language=be&country=BY"/>">
+                <a href="<c:url value="/controller?command=locale&language=BE"/>">
                     <fmt:message key="navbar.link.locale.be.by"/>
                 </a>
-                <a href="<c:url value="/controller?command=locale&language=ru&country=BY"/>">
+                <a href="<c:url value="/controller?command=locale&language=RU"/>">
                     <fmt:message key="navbar.link.locale.ru.by"/>
                 </a>
             </div>

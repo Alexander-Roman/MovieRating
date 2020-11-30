@@ -3,8 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="ctg" uri="custom-tags" %>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="property/localization"/>
+<fmt:setLocale value="${sessionScope.localization.locale}"/>
+<fmt:setBundle basename="${sessionScope.localization.baseBundleName}"/>
 
 <!DOCTYPE html>
 <html lang="<fmt:message key="html.lang" />">

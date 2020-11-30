@@ -1,28 +1,33 @@
 package com.epam.movierating.command;
 
 import com.epam.movierating.constant.Attribute;
-import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
+import com.epam.movierating.logic.LocalizationService;
+import com.epam.movierating.logic.LocalizationServiceImpl;
+import com.epam.movierating.view.localization.LocalizationManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Locale;
 
 public class LocaleCommand implements Command {
 
     private static final String REFERER_HEADER = "Referer";
+    private final LocalizationService localizationService;
+
+    public LocaleCommand() {
+        localizationService = new LocalizationServiceImpl();
+    }
+
+    public LocaleCommand(LocalizationService localizationService) {
+        this.localizationService = localizationService;
+    }
 
     @Override
     public CommandResult execute(HttpServletRequest request) {
         String language = request.getParameter(Parameter.LANGUAGE);
-        String country = request.getParameter(Parameter.COUNTRY);
+        LocalizationManager localization = localizationService.getLocalizationManager(language);
         HttpSession session = request.getSession();
-
-        if (language != null && country != null) {
-            Locale locale = new Locale(language, country);
-            session.setAttribute(Attribute.LOCALE, locale);
-        }
-
+        session.setAttribute(Attribute.LOCALIZATION, localization);
         String page = request.getHeader(REFERER_HEADER);
         if (page == null) {
             page = request.getContextPath();

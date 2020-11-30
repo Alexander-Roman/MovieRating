@@ -1,8 +1,6 @@
 package com.epam.movierating.dao.manager;
 
-import com.epam.movierating.dao.DaoException;
-import com.epam.movierating.dao.MovieDao;
-import com.epam.movierating.dao.MovieDaoImpl;
+import com.epam.movierating.dao.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -18,6 +16,11 @@ public class DaoConnectionManagerImpl implements DaoConnectionManager {
     @Override
     public MovieDao createMovieDao() {
         return new MovieDaoImpl(connection);
+    }
+
+    @Override
+    public AccountDao createAccountDao() {
+        return new AccountDaoImpl(connection);
     }
 
     @Override

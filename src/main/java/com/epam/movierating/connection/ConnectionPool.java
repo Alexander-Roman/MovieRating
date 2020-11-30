@@ -25,7 +25,7 @@ public final class ConnectionPool {
         if (instance != null) {
             throw new RuntimeException("No more than one instance is allowed for ConnectionPoolImpl class!");
         }
-        DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
         for (int i = 0; i < POOL_SIZE; i++) {
             ProxyConnection proxyConnection = ProxyConnectionFactory.create();
             connections.offer(proxyConnection);

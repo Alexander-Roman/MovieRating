@@ -7,12 +7,14 @@ public final class Account extends Identifiable {
     private final String userName;
     private final String password;
     private final Role role;
+    private final boolean blocked;
 
-    public Account(Long id, String userName, String password, Role role) {
+    public Account(Long id, String userName, String password, Role role, boolean blocked) {
         super(id);
         this.userName = userName;
         this.password = password;
         this.role = role;
+        this.blocked = blocked;
     }
 
     public String getUserName() {
@@ -27,6 +29,10 @@ public final class Account extends Identifiable {
         return role;
     }
 
+    public boolean isBlocked() {
+        return blocked;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -39,7 +45,8 @@ public final class Account extends Identifiable {
             return false;
         }
         Account account = (Account) o;
-        return Objects.equals(userName, account.userName) &&
+        return blocked == account.blocked &&
+                Objects.equals(userName, account.userName) &&
                 Objects.equals(password, account.password) &&
                 role == account.role;
     }
@@ -50,6 +57,7 @@ public final class Account extends Identifiable {
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (blocked ? 1 : 0);
         return result;
     }
 
@@ -60,6 +68,7 @@ public final class Account extends Identifiable {
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", blocked=" + blocked +
                 '}';
     }
 }

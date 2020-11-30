@@ -21,10 +21,10 @@
                     <button type="submit">Submit</button>
                 </form>
 
-                <c:if test="${requestScope.errorMessage != null}">
+                <c:if test="${requestScope.message != null}">
                     <div class="alert">
                         <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                        <strong>Error!</strong> ${requestScope.errorMessage}
+                        <strong>Error!</strong> ${requestScope.message}
                     </div>
                 </c:if>
 

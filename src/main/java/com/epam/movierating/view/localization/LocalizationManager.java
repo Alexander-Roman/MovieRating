@@ -15,11 +15,19 @@ public enum LocalizationManager {
         this.bundle = bundle;
     }
 
+    public ResourceBundle getBundle() {
+        return bundle;
+    }
+
     public String getMessage(String key) {
         return bundle.getString(key);
     }
 
     public Locale getLocale() {
         return bundle.getLocale();
+    }
+
+    public String getBaseBundleName() {
+        return bundle.getBaseBundleName();
     }
 }

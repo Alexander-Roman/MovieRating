@@ -1,6 +1,10 @@
 package com.epam.movierating.logic;
 
+import com.epam.movierating.entity.Account;
+
+import java.util.Optional;
+
 public interface LoginService {
 
-    boolean login(String user, String password);
+    Optional<Account> authenticate(String username, String password) throws ServiceException;
 }
