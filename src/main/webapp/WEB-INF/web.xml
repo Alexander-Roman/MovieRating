@@ -15,6 +15,16 @@
     <url-pattern>/controller</url-pattern>
   </servlet-mapping>
 
+  <filter>
+    <filter-name>LocaleFilter</filter-name>
+    <filter-class>com.epam.movierating.filter.LocaleFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>LocaleFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <jsp-config>
     <taglib>
       <taglib-uri>custom-tags</taglib-uri>

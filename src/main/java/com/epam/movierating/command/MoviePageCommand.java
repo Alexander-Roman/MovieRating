@@ -1,6 +1,6 @@
 package com.epam.movierating.command;
 
-import com.epam.movierating.entity.CommandResult;
+import com.epam.movierating.constant.Page;
 
 import javax.servlet.http.HttpServletRequest;
 

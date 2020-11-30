@@ -2,22 +2,17 @@ package com.epam.movierating.entity;
 
 import java.util.Objects;
 
-public final class Account {
+public final class Account extends Identifiable {
 
-    private final long accountId;
     private final String userName;
     private final String password;
     private final Role role;
 
-    public Account(long accountId, String userName, String password, Role role) {
-        this.accountId = accountId;
+    public Account(Long id, String userName, String password, Role role) {
+        super(id);
         this.userName = userName;
         this.password = password;
         this.role = role;
-    }
-
-    public long getAccountId() {
-        return accountId;
     }
 
     public String getUserName() {
@@ -40,16 +35,18 @@ public final class Account {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+        if (!super.equals(o)) {
+            return false;
+        }
         Account account = (Account) o;
-        return accountId == account.accountId &&
-                Objects.equals(userName, account.userName) &&
+        return Objects.equals(userName, account.userName) &&
                 Objects.equals(password, account.password) &&
                 role == account.role;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (accountId ^ (accountId >>> 32));
+        int result = super.hashCode();
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
@@ -59,7 +56,7 @@ public final class Account {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "accountId=" + accountId +
+                "id=" + getId() +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +

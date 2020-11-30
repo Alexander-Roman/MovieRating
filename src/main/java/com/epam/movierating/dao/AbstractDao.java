@@ -1,63 +1,43 @@
 package com.epam.movierating.dao;
 
-import com.epam.movierating.connection.ConnectionPool;
-import com.epam.movierating.connection.ConnectionPoolException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.epam.movierating.dao.mapper.RowMapper;
+import com.epam.movierating.entity.Identifiable;
 
-import java.io.Closeable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AbstractDao implements Closeable {
+public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
 
-    private static final Logger LOGGER = LogManager.getLogger();
     private Connection connection;
-    private Statement statement;
 
-    public AbstractDao() throws DaoException {
-        try {
-            ConnectionPool connectionPool = ConnectionPool.getInstance();
-            connection = connectionPool.getConnection();
-        } catch (SQLException | ConnectionPoolException e) {
+    public AbstractDao(Connection connection) {
+        this.connection = connection;
+    }
+
+    protected List<T> execute(String sql, RowMapper<T> rowMapper, Object... parameters) throws DaoException {
+        List<T> results = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < parameters.length; i++) {
+                preparedStatement.setObject(i + 1, parameters[i]);
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                T result = rowMapper.map(resultSet);
+                results.add(result);
+            }
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
+        return results;
     }
 
-    public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return connection.prepareStatement(sql);
-    }
 
     @Override
-    public void close() {
-        try {
-            closeStatement();
-        } catch (DaoException e) {
-            LOGGER.error(e.getMessage(), e);
-        } finally {
-            try {
-                closeConnection();
-            } catch (DaoException e) {
-                LOGGER.error(e.getMessage(), e);
-            }
-        }
-    }
-
-    private void closeStatement() throws DaoException {
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                throw new DaoException(e);
-            } finally {
-                statement = null;
-            }
-        }
-    }
-
-    private void closeConnection() throws DaoException {
+    public void close() throws DaoException {
         if (connection != null) {
             try {
                 connection.close();

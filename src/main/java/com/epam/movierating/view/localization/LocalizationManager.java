@@ -18,4 +18,8 @@ public enum LocalizationManager {
     public String getMessage(String key) {
         return bundle.getString(key);
     }
+
+    public Locale getLocale() {
+        return bundle.getLocale();
+    }
 }

@@ -5,6 +5,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.Objects;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.Lock;
@@ -13,15 +14,12 @@ import java.util.concurrent.locks.ReentrantLock;
 public final class ConnectionPool {
 
     private static final int POOL_SIZE = 10;
-    private static final String DATABASE_URL = "jdbc:mysql://localhost/movie_rating?useSSL=false&serverTimezone=UTC";
-    private static final String USER = "Alexander";
-    private static final String PASSWORD = "8s5rP4m8";
     private static final Lock INSTANCE_LOCK = new ReentrantLock();
 
     private static ConnectionPool instance = null;
     private static boolean isReady = false;
 
-    private final BlockingQueue<ProxyConnection> connections = new ArrayBlockingQueue<ProxyConnection>(POOL_SIZE);
+    private final BlockingQueue<ProxyConnection> connections = new ArrayBlockingQueue<>(POOL_SIZE);
 
     private ConnectionPool() throws SQLException {
         if (instance != null) {
@@ -29,8 +27,7 @@ public final class ConnectionPool {
         }
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         for (int i = 0; i < POOL_SIZE; i++) {
-            Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-            ProxyConnection proxyConnection = new ProxyConnection(connection);
+            ProxyConnection proxyConnection = ProxyConnectionFactory.create();
             connections.offer(proxyConnection);
         }
     }
@@ -97,6 +94,23 @@ public final class ConnectionPool {
     @Override
     public Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException("Cloned copies not allowed for ConnectionPoolImpl class!");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ConnectionPool that = (ConnectionPool) o;
+        return Objects.equals(connections, that.connections);
+    }
+
+    @Override
+    public int hashCode() {
+        return connections.hashCode();
     }
 
     @Override

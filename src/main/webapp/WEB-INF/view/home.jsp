@@ -1,11 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="ctg" uri="custom-tags" %>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<fmt:setLocale value="${sessionScope.locale}"/>
+<fmt:setBundle basename="property/localization"/>
 
 <!DOCTYPE html>
-<html lang="en">
-<jsp:include page="../template/head.jsp"/>
+<html lang="<fmt:message key="html.lang" />">
+<head>
+    <title><fmt:message key="page.home.title"/></title>
+    <jsp:include page="../template/metadata.jsp"/>
+</head>
+
 <body>
 <div class="table-layout">
 
@@ -29,7 +36,7 @@
                         <th>Rating</th>
                     </tr>
                     <c:forEach var="movie" items="${requestScope.movies}" varStatus="counter">
-                        <tr data-movie-page="<c:url value="controller?command=moviePage&movieId=${movie.movieId}"/>">
+                        <tr data-movie-page="<c:url value="controller?command=moviePage&movieId=${movie.id}"/>">
                             <td>${counter.count}</td>
                             <td>${movie.title}</td>
                             <td>${movie.director}</td>

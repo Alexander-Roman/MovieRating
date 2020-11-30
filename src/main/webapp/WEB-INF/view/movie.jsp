@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-<jsp:include page="../template/head.jsp"/>
+<jsp:include page="../template/metadata.jsp"/>
 <body>
 <div class="table-layout">
 

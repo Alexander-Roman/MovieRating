@@ -10,28 +10,18 @@ CREATE TABLE movies
     release_year YEAR,
     synopsis     TEXT,
     poster_path  VARCHAR(255) UNIQUE,
+    rating       DOUBLE(4, 2),
     PRIMARY KEY (movie_id)
-);
-
-CREATE TABLE roles
-(
-    role_id INT AUTO_INCREMENT,
-    role    VARCHAR(45) NOT NULL UNIQUE,
-    PRIMARY KEY (role_id)
 );
 
 CREATE TABLE accounts
 (
     account_id BIGINT AUTO_INCREMENT,
-    user_name  VARCHAR(45) NOT NULL UNIQUE,
-    password   VARCHAR(40) NOT NULL,
-    role_id    INT         NOT NULL,
-    PRIMARY KEY (account_id),
-    FOREIGN KEY (role_id) REFERENCES roles (role_id)
+    user_name  VARCHAR(45)                      NOT NULL UNIQUE,
+    password   VARCHAR(40)                      NOT NULL,
+    role       ENUM ('USER', 'EDITOR', 'ADMIN') NOT NULL,
+    PRIMARY KEY (account_id)
 );
-
-CREATE INDEX user_name_index
-    ON accounts (user_name);
 
 CREATE TABLE comments
 (
@@ -41,16 +31,20 @@ CREATE TABLE comments
     date_time  DATETIME     NOT NULL,
     text       VARCHAR(255) NOT NULL,
     PRIMARY KEY (comment_id),
-    FOREIGN KEY (movie_id) REFERENCES movies (movie_id),
-    FOREIGN KEY (account_id) REFERENCES accounts (account_id)
+    FOREIGN KEY (movie_id) REFERENCES movies (movie_id) ON DELETE CASCADE,
+    FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 );
 
-CREATE TABLE user_rating
+CREATE TABLE user_ratings
 (
+    rate_id    BIGINT AUTO_INCREMENT,
     movie_id   BIGINT,
     account_id BIGINT,
     assessment TINYINT(2) UNSIGNED NOT NULL,
-    CONSTRAINT assessment_id PRIMARY KEY (movie_id, account_id),
-    FOREIGN KEY (movie_id) REFERENCES movies (movie_id),
-    FOREIGN KEY (account_id) REFERENCES accounts (account_id)
+    PRIMARY KEY (rate_id),
+    FOREIGN KEY (movie_id) REFERENCES movies (movie_id) ON DELETE CASCADE,
+    FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 );
+
+CREATE UNIQUE INDEX rate_index
+    ON user_ratings (movie_id, account_id);

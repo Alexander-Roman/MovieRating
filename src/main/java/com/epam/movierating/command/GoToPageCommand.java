@@ -1,7 +1,5 @@
 package com.epam.movierating.command;
 
-import com.epam.movierating.entity.CommandResult;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class GoToPageCommand implements Command {

@@ -1,6 +1,6 @@
 package com.epam.movierating.command;
 
-import com.epam.movierating.entity.CommandResult;
+import com.epam.movierating.constant.Page;
 import com.epam.movierating.entity.Movie;
 import com.epam.movierating.logic.MovieService;
 import com.epam.movierating.logic.MovieServiceImpl;
@@ -15,13 +15,8 @@ public class HomePageCommand implements Command {
     private final MovieService movieService = new MovieServiceImpl();
 
     @Override
-    public CommandResult execute(HttpServletRequest request) throws CommandException {
-        List<Movie> movies;
-        try {
-            movies = movieService.getAll();
-        } catch (ServiceException e) {
-            throw new CommandException(e);
-        }
+    public CommandResult execute(HttpServletRequest request) throws ServiceException {
+        List<Movie> movies = movieService.getAll();
         request.setAttribute(MOVIES_ATTRIBUTE, movies);
         return CommandResult.forward(Page.HOME);
     }

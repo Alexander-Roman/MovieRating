@@ -2,28 +2,23 @@ package com.epam.movierating.entity;
 
 import java.util.Objects;
 
-public final class Movie {
+public final class Movie extends Identifiable {
 
-    private final long movieId;
     private final String title;
     private final String director;
-    private final int releaseYear;
+    private final Integer releaseYear;
     private final String synopsis;
     private final String posterPath;
-    private final double rating;
+    private final Double rating;
 
-    public Movie(long movieId, String title, String director, int releaseYear, String synopsis, String posterPath, double rating) {
-        this.movieId = movieId;
+    public Movie(Long id, String title, String director, Integer releaseYear, String synopsis, String posterPath, Double rating) {
+        super(id);
         this.title = title;
         this.director = director;
         this.releaseYear = releaseYear;
         this.synopsis = synopsis;
         this.posterPath = posterPath;
         this.rating = rating;
-    }
-
-    public long getMovieId() {
-        return movieId;
     }
 
     public String getTitle() {
@@ -34,7 +29,7 @@ public final class Movie {
         return director;
     }
 
-    public int getReleaseYear() {
+    public Integer getReleaseYear() {
         return releaseYear;
     }
 
@@ -46,7 +41,52 @@ public final class Movie {
         return posterPath;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        Movie movie = (Movie) o;
+        return Objects.equals(title, movie.title) &&
+                Objects.equals(director, movie.director) &&
+                Objects.equals(releaseYear, movie.releaseYear) &&
+                Objects.equals(synopsis, movie.synopsis) &&
+                Objects.equals(posterPath, movie.posterPath) &&
+                Objects.equals(rating, movie.rating);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (director != null ? director.hashCode() : 0);
+        result = 31 * result + (releaseYear != null ? releaseYear.hashCode() : 0);
+        result = 31 * result + (synopsis != null ? synopsis.hashCode() : 0);
+        result = 31 * result + (posterPath != null ? posterPath.hashCode() : 0);
+        result = 31 * result + (rating != null ? rating.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "id=" + getId() +
+                ", title='" + title + '\'' +
+                ", director='" + director + '\'' +
+                ", releaseYear=" + releaseYear +
+                ", synopsis='" + synopsis + '\'' +
+                ", posterPath='" + posterPath + '\'' +
+                ", rating=" + rating +
+                '}';
     }
 }

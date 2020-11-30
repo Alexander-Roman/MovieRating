@@ -3,24 +3,19 @@ package com.epam.movierating.entity;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public final class Comment {
+public final class Comment extends Identifiable {
 
-    private final long commentID;
     private final Movie targetMovie;
     private final Account author;
     private final LocalDateTime dateTime;
     private final String text;
 
-    public Comment(long commentID, Movie targetMovie, Account author, LocalDateTime dateTime, String text) {
-        this.commentID = commentID;
+    public Comment(Long id, Movie targetMovie, Account author, LocalDateTime dateTime, String text) {
+        super(id);
         this.targetMovie = targetMovie;
         this.author = author;
         this.dateTime = dateTime;
         this.text = text;
-    }
-
-    public long getCommentID() {
-        return commentID;
     }
 
     public Movie getTargetMovie() {
@@ -47,9 +42,11 @@ public final class Comment {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+        if (!super.equals(o)) {
+            return false;
+        }
         Comment comment = (Comment) o;
-        return commentID == comment.commentID &&
-                Objects.equals(targetMovie, comment.targetMovie) &&
+        return Objects.equals(targetMovie, comment.targetMovie) &&
                 Objects.equals(author, comment.author) &&
                 Objects.equals(dateTime, comment.dateTime) &&
                 Objects.equals(text, comment.text);
@@ -57,7 +54,7 @@ public final class Comment {
 
     @Override
     public int hashCode() {
-        int result = (int) (commentID ^ (commentID >>> 32));
+        int result = super.hashCode();
         result = 31 * result + (targetMovie != null ? targetMovie.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
@@ -68,7 +65,7 @@ public final class Comment {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "commentID=" + commentID +
+                "id=" + getId() +
                 ", targetMovie=" + targetMovie +
                 ", author=" + author +
                 ", dateTime=" + dateTime +

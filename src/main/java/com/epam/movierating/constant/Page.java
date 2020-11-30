@@ -1,4 +1,4 @@
-package com.epam.movierating.command;
+package com.epam.movierating.constant;
 
 public class Page {
     public final static String INDEX = "index.jsp";

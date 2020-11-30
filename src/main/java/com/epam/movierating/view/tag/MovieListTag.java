@@ -54,7 +54,7 @@ public class MovieListTag extends TagSupport {
         for (Movie movie : movies) {
             stringBuilder
                     .append("<tr data-movie-page=\"controller?command=moviePage&movieId=")
-                    .append(movie.getMovieId())
+                    .append(movie.getId())
                     .append("\">")
                     .append("<td>")
                     .append(movies.indexOf(movie) + 1)

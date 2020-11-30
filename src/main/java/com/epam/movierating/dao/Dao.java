@@ -1,20 +1,17 @@
 package com.epam.movierating.dao;
 
-import java.io.Closeable;
+import com.epam.movierating.entity.Identifiable;
+
 import java.util.List;
 import java.util.Optional;
 
-public interface Dao<T> extends Closeable {
+public interface Dao<T extends Identifiable> extends AutoCloseable {
 
-    //Optional<T> create(T object);
+    long save(T object) throws DaoException;
 
-    List<T> getAll() throws DaoException;
+    List<T> findAll() throws DaoException;
 
-    //Optional<T> getById(long id);
+    Optional<T> find(long id) throws DaoException;
 
-    //Optional<T> updateById(T updated);
-
-    //boolean deleteById(long id);
-
-    //boolean delete(T object);
+    void delete(long id) throws DaoException;
 }
