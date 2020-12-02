@@ -20,19 +20,24 @@ public final class ConnectionPool {
     private static boolean isReady = false;
 
     private final BlockingQueue<ProxyConnection> connections = new ArrayBlockingQueue<>(POOL_SIZE);
+    private final ProxyConnectionFactory proxyConnectionFactory = ProxyConnectionFactory.getInstance();
 
-    private ConnectionPool() throws SQLException {
+    private ConnectionPool() throws ConnectionPoolException {
         if (instance != null) {
-            throw new RuntimeException("No more than one instance is allowed for ConnectionPoolImpl class!");
+            throw new RuntimeException("No more than one instance is allowed for ConnectionPool class!");
         }
-        DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+        try {
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+        } catch (SQLException e) {
+            throw new ConnectionPoolException(e);
+        }
         for (int i = 0; i < POOL_SIZE; i++) {
-            ProxyConnection proxyConnection = ProxyConnectionFactory.create();
+            ProxyConnection proxyConnection = proxyConnectionFactory.create();
             connections.offer(proxyConnection);
         }
     }
 
-    public static ConnectionPool getInstance() throws SQLException {
+    public static ConnectionPool getInstance() {
         if (!isReady) {
             INSTANCE_LOCK.lock();
             try {
@@ -40,6 +45,8 @@ public final class ConnectionPool {
                     instance = new ConnectionPool();
                     isReady = true;
                 }
+            } catch (ConnectionPoolException e) {
+                throw new RuntimeException("ConnectionPool instance is not created!", e);
             } finally {
                 INSTANCE_LOCK.unlock();
             }
@@ -56,10 +63,7 @@ public final class ConnectionPool {
     }
 
     //package-private
-    void releaseConnection(ProxyConnection proxyConnection) throws SQLException {
-        if (!proxyConnection.getAutoCommit()) {
-            proxyConnection.setAutoCommit(true);
-        }
+    void releaseConnection(ProxyConnection proxyConnection) {
         connections.offer(proxyConnection);
     }
 

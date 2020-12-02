@@ -14,7 +14,7 @@ public class DaoConnectionManagerFactory {
             ConnectionPool connectionPool = ConnectionPool.getInstance();
             Connection connection = connectionPool.getConnection();
             return new DaoConnectionManagerImpl(connection);
-        } catch (SQLException | ConnectionPoolException e) {
+        } catch (ConnectionPoolException e) {
             throw new DaoException(e);
         }
     }
