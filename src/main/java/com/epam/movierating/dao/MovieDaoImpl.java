@@ -9,10 +9,19 @@ import java.util.Optional;
 
 public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
 
+    private static final String TABLE_NAME = "movies";
     private static final String SQL_SELECT_ALL = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating FROM movies;";
+    private static final String SQL_SELECT_PAGE = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating " +
+            "FROM movies ORDER BY rating DESC LIMIT ? OFFSET ?;";
 
     public MovieDaoImpl(Connection connection) {
         super(connection);
+    }
+
+    @Override
+    public List<Movie> findSetSorted(int amount, int from) throws DaoException {
+        int offset = from - 1;
+        return execute(SQL_SELECT_PAGE, new MovieRowMapper(), amount, offset);
     }
 
     @Override
@@ -33,5 +42,10 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
     @Override
     public void delete(long id) throws DaoException {
 
+    }
+
+    @Override
+    public String getTableName() {
+        return TABLE_NAME;
     }
 }

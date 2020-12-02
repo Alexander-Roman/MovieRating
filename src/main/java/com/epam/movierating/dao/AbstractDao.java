@@ -19,6 +19,7 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
         this.connection = connection;
     }
 
+
     protected Optional<T> executeForFirstResult(String sql, RowMapper<T> rowMapper, Object... parameters) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             for (int i = 0; i < parameters.length; i++) {
@@ -53,6 +54,22 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
         return results;
     }
 
+    @Override
+    public long getElementsAmount() throws DaoException {
+        String tableName = getTableName();
+        long amount = 0;
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM " + tableName + ";")) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                amount = resultSet.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return amount;
+    }
+
+    public abstract String getTableName();
 
     @Override
     public void close() throws DaoException {
@@ -66,4 +83,6 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
             }
         }
     }
+
+
 }

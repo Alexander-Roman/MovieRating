@@ -37,7 +37,7 @@
                     </tr>
                     <c:forEach var="movie" items="${requestScope.movies}" varStatus="counter">
                         <tr data-movie-page="<c:url value="controller?command=moviePage&movieId=${movie.id}"/>">
-                            <td>${counter.count}</td>
+                            <td>${counter.count + requestScope.itemsPerPage * (requestScope.page - 1)}</td>
                             <td>${movie.title}</td>
                             <td>${movie.director}</td>
                             <td>${movie.releaseYear}</td>
@@ -46,19 +46,27 @@
                     </c:forEach>
                 </table>
 
-
                 <div class="flex-middle">
                     <div class="pagination">
-                        <a href="#">&laquo;</a>
-                        <a href="#">1</a>
-                        <a class="active" href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">6</a>
-                        <a href="#">&raquo;</a>
+                        <c:if test="${requestScope.page > 1}">
+                            <a href="<c:url value="controller?command=homePage&page=${requestScope.page - 1}"/>">&laquo;</a>
+                        </c:if>
+                        <c:forEach var="i" begin="1" end="${requestScope.numberOfPages}">
+                            <c:choose>
+                                <c:when test="${i == requestScope.page}">
+                                    <a class="pagination-active">${i}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="<c:url value="controller?command=homePage&page=${i}"/>">${i}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <c:if test="${requestScope.page < requestScope.numberOfPages}">
+                            <a href="<c:url value="controller?command=homePage&page=${requestScope.page + 1}"/>">&raquo;</a>
+                        </c:if>
                     </div>
                 </div>
+
             </div>
         </div>
     </main>

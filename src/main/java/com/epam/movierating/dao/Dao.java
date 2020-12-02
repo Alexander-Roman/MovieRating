@@ -14,4 +14,6 @@ public interface Dao<T extends Identifiable> extends AutoCloseable {
     Optional<T> find(long id) throws DaoException;
 
     void delete(long id) throws DaoException;
+
+    long getElementsAmount() throws DaoException;
 }

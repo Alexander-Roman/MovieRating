@@ -40,4 +40,9 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
     public void delete(long id) throws DaoException {
 
     }
+
+    @Override
+    public String getTableName() {
+        return null;
+    }
 }

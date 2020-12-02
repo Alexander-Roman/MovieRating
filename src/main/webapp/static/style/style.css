@@ -526,12 +526,12 @@ body {
     transition: background-color .3s;
 }
 
-.pagination a.active {
+.pagination a.pagination-active {
     background-color: #ff7f50;
     /*color: white;*/
 }
 
-.pagination a:hover:not(.active) {
+.pagination a:hover:not(.pagination-active) {
     background-color: #ddd;
 }
 
