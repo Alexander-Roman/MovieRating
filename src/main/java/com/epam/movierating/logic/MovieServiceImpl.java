@@ -20,21 +20,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> getAll() throws ServiceException {
-        try (DaoConnectionManager manager = factory.create()) {
-            MovieDao movieDao = manager.createMovieDao();
-            return movieDao.findAll();
-        } catch (Exception e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
     public List<Movie> getPage(int page, int itemsPerPage) throws ServiceException {
         int firstItem = (page - 1) * itemsPerPage + 1;
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
-            return movieDao.findSetSorted(itemsPerPage, firstItem);
+            return movieDao.findBatch(itemsPerPage, firstItem);
         } catch (Exception e) {
             throw new ServiceException(e);
         }
@@ -44,7 +34,7 @@ public class MovieServiceImpl implements MovieService {
     public int getNumberOfPages(int itemsPerPage) throws ServiceException {
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
-            long numberOfItems = movieDao.getElementsAmount();
+            long numberOfItems = movieDao.getMoviesAmount();
             return (int) Math.ceil( numberOfItems / (double) itemsPerPage);
         } catch (Exception e) {
             throw new ServiceException(e);

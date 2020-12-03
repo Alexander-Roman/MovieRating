@@ -2,30 +2,25 @@ package com.epam.movierating.command;
 
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.logic.LocalizationService;
-import com.epam.movierating.logic.LocalizationServiceImpl;
-import com.epam.movierating.view.localization.LocalizationManager;
+import com.epam.movierating.logic.validator.LocalizationParameterValidator;
+import com.epam.movierating.view.localization.Localization;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class LocaleCommand implements Command {
+public class LanguageCommand implements Command {
 
     private static final String REFERER_HEADER = "Referer";
-    private final LocalizationService localizationService;
+    private final LocalizationParameterValidator validator;
 
-    public LocaleCommand() {
-        localizationService = new LocalizationServiceImpl();
-    }
-
-    public LocaleCommand(LocalizationService localizationService) {
-        this.localizationService = localizationService;
+    public LanguageCommand(LocalizationParameterValidator validator) {
+        this.validator = validator;
     }
 
     @Override
     public CommandResult execute(HttpServletRequest request) {
         String language = request.getParameter(Parameter.LANGUAGE);
-        LocalizationManager localization = localizationService.getLocalizationManager(language);
+        Localization localization = validator.validate(language);
         HttpSession session = request.getSession();
         session.setAttribute(Attribute.LOCALIZATION, localization);
         String page = request.getHeader(REFERER_HEADER);

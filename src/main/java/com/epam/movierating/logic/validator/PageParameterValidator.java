@@ -1,14 +1,14 @@
 package com.epam.movierating.logic.validator;
 
-public class PageValidatorImpl implements PageValidator {
+public class PageParameterValidator implements ParameterValidator<Integer> {
 
     private static final int DEFAULT_PAGE_NUMBER = 1;
 
     @Override
-    public int validate(String page) {
+    public Integer validate(String parameter) {
         int pageNumber;
         try {
-            pageNumber = Integer.parseInt(page);
+            pageNumber = Integer.parseInt(parameter);
         } catch (NumberFormatException e) {
             return DEFAULT_PAGE_NUMBER;
         }

@@ -1,6 +1,6 @@
 package com.epam.movierating.dao;
 
-import com.epam.movierating.dao.mapper.AccountRowMapper;
+import com.epam.movierating.dao.mapper.RowMapper;
 import com.epam.movierating.entity.Account;
 
 import java.sql.Connection;
@@ -12,37 +12,32 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
     private static final String SQL_SELECT_BY_USERNAME_AND_PASSWORD = "SELECT account_id, user_name, password, role, blocked " +
             "FROM accounts WHERE user_name=? and password=SHA1(?);";
 
-    public AccountDaoImpl(Connection connection) {
-        super(connection);
+    public AccountDaoImpl(Connection connection, RowMapper<Account> rowMapper) {
+        super(connection, rowMapper);
     }
 
     @Override
     public Optional<Account> findAccountByUsernameAndPassword(String username, String password) throws DaoException {
-        return executeForFirstResult(SQL_SELECT_BY_USERNAME_AND_PASSWORD, new AccountRowMapper(), username, password);
+        return selectSingle(SQL_SELECT_BY_USERNAME_AND_PASSWORD, username, password);
     }
 
     @Override
-    public long save(Account object) throws DaoException {
+    public long save(Account object) {
         return 0;
     }
 
     @Override
-    public List<Account> findAll() throws DaoException {
+    public List<Account> findAll() {
         return null;
     }
 
     @Override
-    public Optional<Account> find(long id) throws DaoException {
+    public Optional<Account> find(long id) {
         return Optional.empty();
     }
 
     @Override
-    public void delete(long id) throws DaoException {
+    public void delete(long id) {
 
-    }
-
-    @Override
-    public String getTableName() {
-        return null;
     }
 }

@@ -5,7 +5,6 @@ import com.epam.movierating.connection.ConnectionPoolException;
 import com.epam.movierating.dao.DaoException;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public class DaoConnectionManagerFactory {
 

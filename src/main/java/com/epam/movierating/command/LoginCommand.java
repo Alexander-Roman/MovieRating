@@ -5,9 +5,7 @@ import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.entity.Account;
 import com.epam.movierating.logic.LoginService;
-import com.epam.movierating.logic.LoginServiceImpl;
 import com.epam.movierating.logic.ServiceException;
-import com.epam.movierating.view.localization.LocalizationManager;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,10 +16,6 @@ public class LoginCommand implements Command {
     private static final String MESSAGE_KEY = "command.login.error.message";
     private final LoginService loginService;
 
-    public LoginCommand() {
-        loginService = new LoginServiceImpl();
-    }
-
     public LoginCommand(LoginService loginService) {
         this.loginService = loginService;
     }
@@ -30,15 +24,14 @@ public class LoginCommand implements Command {
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
         String username = request.getParameter(Parameter.USERNAME);
         String password = request.getParameter(Parameter.PASSWORD);
-        Optional<Account> account = loginService.authenticate(username, password);
+
         HttpSession session = request.getSession();
+        Optional<Account> account = loginService.authenticate(username, password);
         if (account.isPresent()) {
             session.setAttribute(Attribute.ACCOUNT, account.get());
             return CommandResult.redirect(Page.INDEX);
         } else {
-            LocalizationManager localization = (LocalizationManager) session.getAttribute(Attribute.LOCALIZATION);
-            String message = localization.getMessage(MESSAGE_KEY);
-            request.setAttribute(Attribute.MESSAGE, message);
+            request.setAttribute(Attribute.MESSAGE, MESSAGE_KEY);
             return CommandResult.forward(Page.LOGIN);
         }
     }

@@ -4,7 +4,7 @@ import com.epam.movierating.constant.Page;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class MoviePageCommand implements Command {
+public class MovieCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) {

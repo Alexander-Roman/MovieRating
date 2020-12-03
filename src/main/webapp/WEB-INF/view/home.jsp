@@ -36,7 +36,7 @@
                         <th>Rating</th>
                     </tr>
                     <c:forEach var="movie" items="${requestScope.movies}" varStatus="counter">
-                        <tr data-movie-page="<c:url value="controller?command=moviePage&movieId=${movie.id}"/>">
+                        <tr data-movie-page="<c:url value="controller?command=movie&movieId=${movie.id}"/>">
                             <td>${counter.count + requestScope.itemsPerPage * (requestScope.page - 1)}</td>
                             <td>${movie.title}</td>
                             <td>${movie.director}</td>
@@ -49,7 +49,7 @@
                 <div class="flex-middle">
                     <div class="pagination">
                         <c:if test="${requestScope.page > 1}">
-                            <a href="<c:url value="controller?command=homePage&page=${requestScope.page - 1}"/>">&laquo;</a>
+                            <a href="<c:url value="controller?command=home&page=${requestScope.page - 1}"/>">&laquo;</a>
                         </c:if>
                         <c:forEach var="i" begin="1" end="${requestScope.numberOfPages}">
                             <c:choose>
@@ -57,12 +57,12 @@
                                     <a class="pagination-active">${i}</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="<c:url value="controller?command=homePage&page=${i}"/>">${i}</a>
+                                    <a href="<c:url value="controller?command=home&page=${i}"/>">${i}</a>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
                         <c:if test="${requestScope.page < requestScope.numberOfPages}">
-                            <a href="<c:url value="controller?command=homePage&page=${requestScope.page + 1}"/>">&raquo;</a>
+                            <a href="<c:url value="controller?command=home&page=${requestScope.page + 1}"/>">&raquo;</a>
                         </c:if>
                     </div>
                 </div>

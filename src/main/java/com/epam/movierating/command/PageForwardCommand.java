@@ -1,12 +1,14 @@
 package com.epam.movierating.command;
 
+import com.epam.movierating.logic.ServiceException;
+
 import javax.servlet.http.HttpServletRequest;
 
-public class GoToPageCommand implements Command {
+public class PageForwardCommand implements Command {
 
     private final String page;
 
-    public GoToPageCommand(String page) {
+    public PageForwardCommand(String page) {
         this.page = page;
     }
 

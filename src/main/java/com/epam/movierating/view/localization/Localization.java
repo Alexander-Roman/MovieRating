@@ -3,7 +3,7 @@ package com.epam.movierating.view.localization;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public enum LocalizationManager {
+public enum Localization {
 
     EN(ResourceBundle.getBundle("property.localization", Locale.ENGLISH)),
     BE(ResourceBundle.getBundle("property.localization", new Locale("be", "BY"))),
@@ -11,16 +11,8 @@ public enum LocalizationManager {
 
     private final ResourceBundle bundle;
 
-    LocalizationManager(ResourceBundle bundle) {
+    Localization(ResourceBundle bundle) {
         this.bundle = bundle;
-    }
-
-    public ResourceBundle getBundle() {
-        return bundle;
-    }
-
-    public String getMessage(String key) {
-        return bundle.getString(key);
     }
 
     public Locale getLocale() {

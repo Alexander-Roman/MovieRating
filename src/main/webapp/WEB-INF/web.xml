@@ -16,12 +16,12 @@
   </servlet-mapping>
 
   <filter>
-    <filter-name>LocaleFilter</filter-name>
-    <filter-class>com.epam.movierating.filter.LocaleFilter</filter-class>
+    <filter-name>LocalizationFilter</filter-name>
+    <filter-class>com.epam.movierating.filter.LocalizationFilter</filter-class>
   </filter>
 
   <filter-mapping>
-    <filter-name>LocaleFilter</filter-name>
+    <filter-name>LocalizationFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 

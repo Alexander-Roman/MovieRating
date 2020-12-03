@@ -20,7 +20,6 @@ public final class ConnectionPool {
     private static boolean isReady = false;
 
     private final BlockingQueue<ProxyConnection> connections = new ArrayBlockingQueue<>(POOL_SIZE);
-    private final ProxyConnectionFactory proxyConnectionFactory = ProxyConnectionFactory.getInstance();
 
     private ConnectionPool() throws ConnectionPoolException {
         if (instance != null) {
@@ -32,6 +31,7 @@ public final class ConnectionPool {
             throw new ConnectionPoolException(e);
         }
         for (int i = 0; i < POOL_SIZE; i++) {
+            ProxyConnectionFactory proxyConnectionFactory = new ProxyConnectionFactory();
             ProxyConnection proxyConnection = proxyConnectionFactory.create();
             connections.offer(proxyConnection);
         }

@@ -1,33 +1,28 @@
 package com.epam.movierating.command;
 
 import com.epam.movierating.constant.Page;
+import com.epam.movierating.logic.LoginServiceImpl;
+import com.epam.movierating.logic.MovieServiceImpl;
+import com.epam.movierating.logic.validator.LocalizationParameterValidator;
+import com.epam.movierating.logic.validator.PageParameterValidator;
 
 public class CommandFactory {
 
-    private static final String LOGIN_COMMAND = "login";
-    private static final String LOGIN_PAGE_COMMAND = "loginPage";
-    private static final String HOME_PAGE_COMMAND = "homePage";
-    private static final String MOVIE_PAGE_COMMAND = "moviePage";
-    private static final String LOCALE_COMMAND = "locale";
-
     public static Command create(String command) {
         if (command == null) {
-            return new HomePageCommand();
+            return new HomeCommand(new MovieServiceImpl(), new PageParameterValidator());
         }
         switch (command) {
-            case LOGIN_COMMAND:
-                return new LoginCommand();
-            case HOME_PAGE_COMMAND:
-                return new HomePageCommand();
-            case LOGIN_PAGE_COMMAND:
-                return new GoToPageCommand(Page.LOGIN);
-            case MOVIE_PAGE_COMMAND:
-                return new MoviePageCommand();
-            case LOCALE_COMMAND:
-                return new LocaleCommand();
+            case Command.LOGIN:
+                return new LoginCommand(new LoginServiceImpl());
+            case Command.MOVIE:
+                return new MovieCommand();
+            case Command.LANGUAGE:
+                return new LanguageCommand(new LocalizationParameterValidator());
+            case Command.LOGIN_PAGE:
+                return new PageForwardCommand(Page.LOGIN);
             default:
-                //todo error page
-                throw new IllegalArgumentException(command + " is unknown Command implementation!");
+                return new HomeCommand(new MovieServiceImpl(), new PageParameterValidator());
         }
     }
 }

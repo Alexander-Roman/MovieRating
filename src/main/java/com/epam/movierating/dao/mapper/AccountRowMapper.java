@@ -6,6 +6,8 @@ import com.epam.movierating.entity.Role;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AccountRowMapper implements RowMapper<Account> {
 
@@ -28,5 +30,22 @@ public class AccountRowMapper implements RowMapper<Account> {
         } catch (SQLException e) {
             throw new DaoException(e);
         }
+    }
+
+    @Override
+    public Map<String, String> unmap(Account object) {
+        Long id = object.getId();
+        String userName = object.getUserName();
+        String password = object.getPassword();
+        Role role = object.getRole();
+        boolean blocked = object.isBlocked();
+
+        Map<String, String> values = new HashMap<>();
+        values.put(ACCOUNT_ID_LABEL, id.toString());
+        values.put(USER_NAME_LABEL, userName);
+        values.put(PASSWORD_LABEL, password);
+        values.put(ROLE_LABEL, role.name());
+        values.put(BLOCKED_LABEL, String.valueOf(blocked));
+        return values;
     }
 }

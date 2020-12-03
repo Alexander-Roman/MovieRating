@@ -12,20 +12,20 @@
     </div>
 
     <div class="navbar">
-        <a class="navbar-item" href="<c:url value="/controller?command=homePage"/>">
+        <a class="navbar-item" href="<c:url value="/controller?command=home"/>">
             <fmt:message key="navbar.link.home"/>
         </a>
         <!--<a class="navbar-item">Users</a>-->
         <div class="navbar-dropdown right">
             <a class="navbar-item navbar-drop-item localization"></a>
             <div class="navbar-dropdown-content">
-                <a href="<c:url value="/controller?command=locale&language=EN"/>">
+                <a href="<c:url value="/controller?command=lang&lang=EN"/>">
                     <fmt:message key="navbar.link.locale.en"/>
                 </a>
-                <a href="<c:url value="/controller?command=locale&language=BE"/>">
+                <a href="<c:url value="/controller?command=lang&lang=BE"/>">
                     <fmt:message key="navbar.link.locale.be.by"/>
                 </a>
-                <a href="<c:url value="/controller?command=locale&language=RU"/>">
+                <a href="<c:url value="/controller?command=lang&lang=RU"/>">
                     <fmt:message key="navbar.link.locale.ru.by"/>
                 </a>
             </div>

@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface MovieService {
 
-    List<Movie> getAll() throws ServiceException;
-
     List<Movie> getPage(int page, int itemsPerPage) throws ServiceException;
 
     int getNumberOfPages(int itemsPerPage) throws ServiceException;

@@ -13,19 +13,31 @@ import java.util.Optional;
 
 public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
 
+    private final RowMapper<T> rowMapper;
     private Connection connection;
 
-    public AbstractDao(Connection connection) {
+    public AbstractDao(Connection connection, RowMapper<T> rowMapper) {
         this.connection = connection;
+        this.rowMapper = rowMapper;
     }
 
-
-    protected Optional<T> executeForFirstResult(String sql, RowMapper<T> rowMapper, Object... parameters) throws DaoException {
+    protected Optional<Object> selectScalar(String sql, Object... parameters) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < parameters.length; i++) {
-                preparedStatement.setObject(i + 1, parameters[i]);
+            ResultSet resultSet = getResultSet(preparedStatement, parameters);
+            if (resultSet.next()) {
+                Object result = resultSet.getObject(1);
+                return Optional.of(result);
+            } else {
+                return Optional.empty();
             }
-            ResultSet resultSet = preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    protected Optional<T> selectSingle(String sql, Object... parameters) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = getResultSet(preparedStatement, parameters);
             if (resultSet.next()) {
                 T result = rowMapper.map(resultSet);
                 return Optional.of(result);
@@ -37,13 +49,10 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
         }
     }
 
-    protected List<T> execute(String sql, RowMapper<T> rowMapper, Object... parameters) throws DaoException {
+    protected List<T> selectSeveral(String sql, Object... parameters) throws DaoException {
         List<T> results = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < parameters.length; i++) {
-                preparedStatement.setObject(i + 1, parameters[i]);
-            }
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet resultSet = getResultSet(preparedStatement, parameters);
             while (resultSet.next()) {
                 T result = rowMapper.map(resultSet);
                 results.add(result);
@@ -54,22 +63,16 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
         return results;
     }
 
-    @Override
-    public long getElementsAmount() throws DaoException {
-        String tableName = getTableName();
-        long amount = 0;
-        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM " + tableName + ";")) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                amount = resultSet.getLong(1);
+    private ResultSet getResultSet(PreparedStatement preparedStatement, Object[] parameters) throws DaoException {
+        try {
+            for (int i = 0; i < parameters.length; i++) {
+                preparedStatement.setObject(i + 1, parameters[i]);
             }
+            return preparedStatement.executeQuery();
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-        return amount;
     }
-
-    public abstract String getTableName();
 
     @Override
     public void close() throws DaoException {
@@ -83,6 +86,4 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
             }
         }
     }
-
-
 }

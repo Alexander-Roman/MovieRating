@@ -6,48 +6,26 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class ProxyConnectionFactory {
 
     private static final String DATABASE_PROPERTIES_FILE = "property/database.properties";
     private static final String URL_KEY = "url";
-    private static final Lock INSTANCE_LOCK = new ReentrantLock();
-
-    private static ProxyConnectionFactory instance = null;
-    private static boolean isReady = false;
 
     private final Properties properties;
     private final String databaseUrl;
 
-    private ProxyConnectionFactory() throws ConnectionPoolException {
+    //package-private
+    ProxyConnectionFactory() throws ConnectionPoolException {
         properties = new Properties();
         Class<ProxyConnectionFactory> clazz = ProxyConnectionFactory.class;
         ClassLoader classLoader = clazz.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(DATABASE_PROPERTIES_FILE);
-        try {
+        try (InputStream inputStream = classLoader.getResourceAsStream(DATABASE_PROPERTIES_FILE)) {
             properties.load(inputStream);
         } catch (IOException e) {
             throw new ConnectionPoolException(e);
         }
         databaseUrl = properties.getProperty(URL_KEY);
-    }
-
-    //package-private
-    static ProxyConnectionFactory getInstance() throws ConnectionPoolException {
-        if (!isReady) {
-            INSTANCE_LOCK.lock();
-            try {
-                if (!isReady) {
-                    instance = new ProxyConnectionFactory();
-                    isReady = true;
-                }
-            } finally {
-                INSTANCE_LOCK.unlock();
-            }
-        }
-        return instance;
     }
 
     //package-private

@@ -1,5 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${sessionScope.localization.locale}"/>
+<fmt:setBundle basename="${sessionScope.localization.baseBundleName}"/>
 <!DOCTYPE html>
 <html lang="en">
 <jsp:include page="../template/metadata.jsp" />
@@ -24,7 +28,7 @@
                 <c:if test="${requestScope.message != null}">
                     <div class="alert">
                         <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                        <strong>Error!</strong> ${requestScope.message}
+                        <strong>Error!</strong> <fmt:message key="${requestScope.message}"/>
                     </div>
                 </c:if>
 
