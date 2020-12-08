@@ -8,12 +8,15 @@
 
     <jsp:include page="../template/header.jsp"/>
 
-    <main class="page-main flex-middle">
+    <main class="page-main">
         <div class="row">
             <div class="main">
                 <h2>Hitchhiker’s Guide to the Galaxy</h2>
                 <div class="flex flex-wrap">
-                    <img class="poster" src="<c:url value="/static/img/Poster.jpg"/>" alt="">
+                    <div class="poster-container">
+                        <img class="poster" src="<c:url value="/static/img/Poster.jpg"/>" alt="">
+                    </div>
+
                     <div class="movie-description">
                         <p><b>Director:</b> Garth Jennings</p>
                         <p><b>Release year:</b> 2005</p>
@@ -25,7 +28,7 @@
                 </div>
 
                 <h3>Your rating:</h3>
-                <form class="custom-radio" action="${pageContext.request.contextPath}/action" method="post">
+                <form class="custom-radio" action="" method="post">
                 <label class="radio-container">1
                     <input type="radio" name="rating"  value="1" required>
                     <span class="radio-checkmark"></span>

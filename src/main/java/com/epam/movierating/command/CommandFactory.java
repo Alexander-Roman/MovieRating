@@ -1,5 +1,6 @@
 package com.epam.movierating.command;
 
+import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.logic.LoginServiceImpl;
 import com.epam.movierating.logic.MovieServiceImpl;
@@ -13,14 +14,18 @@ public class CommandFactory {
             return new HomeCommand(new MovieServiceImpl(), new PageParameterValidator());
         }
         switch (command) {
-            case Command.LOGIN:
+            case CommandName.LOGIN:
                 return new LoginCommand(new LoginServiceImpl());
-            case Command.MOVIE:
-                return new MovieCommand();
-            case Command.LANGUAGE:
+            case CommandName.MOVIE:
+                return new MovieCommand(new MovieServiceImpl());
+            case CommandName.LANGUAGE:
                 return new LanguageCommand(new LocalizationParameterValidator());
-            case Command.LOGIN_PAGE:
+            case CommandName.LOGIN_PAGE:
                 return new PageForwardCommand(Page.LOGIN);
+            case CommandName.CREATE_MOVIE:
+                return new CreateMovieCommand();
+            case CommandName.SAVE_MOVIE:
+                return new SaveMovieCommand(new MovieServiceImpl());
             default:
                 return new HomeCommand(new MovieServiceImpl(), new PageParameterValidator());
         }

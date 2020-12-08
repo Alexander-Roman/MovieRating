@@ -108,6 +108,17 @@ body {
     }
 }
 
+/* Main container */
+
+.page-main {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-justify-content: center;
+    justify-content: center;
+}
+
 /* Column container */
 .row {
     display: -ms-flexbox; /* IE10 */
@@ -531,11 +542,24 @@ body {
     /*color: white;*/
 }
 
-.pagination a:hover:not(.pagination-active) {
+.pagination a.pagination-available:hover {
     background-color: #ddd;
 }
 
-/* Main buttons */
+.pagination a.pagination-disabled {
+    opacity: 0.5;
+}
+
+/* Add button */
+
+.add-button-container {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-justify-content: flex-end;
+    -ms-justify-content: flex-end;
+    justify-content: flex-end;
+}
 
 .add-button {
     padding: 6px 10px;
@@ -624,6 +648,15 @@ body {
 }
 
 /* Movie */
+
+.movie-info {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
 
 .poster {
     max-width: 300px;
@@ -793,4 +826,89 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+}
+
+/* Movie edit form */
+
+#edit-title {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 24px;
+}
+
+.edit-description-container input, .edit-description-container textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.edit-description-container textarea {
+    height: 200px;
+}
+
+.edit-description-container label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.edit-description-container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.movie-edit-col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.movie-edit-col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.movie-edit-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.movie-edit-form button {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    color: white;
+    cursor: pointer;
+    opacity: 0.8;
+    float: right;
+    margin: 10px 0 10px 10px;
+}
+
+.movie-edit-form button.save {
+    background-color: #4CAF50;
+}
+
+.movie-edit-form button.cancel {
+    background-color: red;
+}
+
+.movie-edit-form button:hover {
+    opacity: 1;
+}
+
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .movie-edit-col-25, .movie-edit-col-75 {
+        width: 100%;
+        margin-top: 0;
+    }
 }

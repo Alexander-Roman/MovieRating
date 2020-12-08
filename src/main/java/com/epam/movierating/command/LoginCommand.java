@@ -1,5 +1,6 @@
 package com.epam.movierating.command;
 
+import com.epam.movierating.command.context.CommandResult;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
@@ -13,7 +14,8 @@ import java.util.Optional;
 
 public class LoginCommand implements Command {
 
-    private static final String MESSAGE_KEY = "command.login.error.message";
+    private static final String MESSAGE_KEY_WRONG = "command.login.error.wrong";
+    private static final String MESSAGE_KEY_BLOCKED = "command.login.error.blocked";
     private final LoginService loginService;
 
     public LoginCommand(LoginService loginService) {
@@ -27,12 +29,16 @@ public class LoginCommand implements Command {
 
         HttpSession session = request.getSession();
         Optional<Account> account = loginService.authenticate(username, password);
-        if (account.isPresent()) {
-            session.setAttribute(Attribute.ACCOUNT, account.get());
-            return CommandResult.redirect(Page.INDEX);
-        } else {
-            request.setAttribute(Attribute.MESSAGE, MESSAGE_KEY);
+        if (!account.isPresent()) {
+            request.setAttribute(Attribute.MESSAGE, MESSAGE_KEY_WRONG);
             return CommandResult.forward(Page.LOGIN);
         }
+        Account found = account.get();
+        if (found.isBlocked()) {
+            request.setAttribute(Attribute.MESSAGE, MESSAGE_KEY_BLOCKED);
+            return CommandResult.forward(Page.LOGIN);
+        }
+        session.setAttribute(Attribute.ACCOUNT, found);
+        return CommandResult.redirect(Page.INDEX);
     }
 }

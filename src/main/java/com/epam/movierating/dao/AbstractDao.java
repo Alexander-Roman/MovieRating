@@ -3,10 +3,7 @@ package com.epam.movierating.dao;
 import com.epam.movierating.dao.mapper.RowMapper;
 import com.epam.movierating.entity.Identifiable;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +16,24 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
     public AbstractDao(Connection connection, RowMapper<T> rowMapper) {
         this.connection = connection;
         this.rowMapper = rowMapper;
+    }
+
+    protected Optional<Long> saveSingle(String sql, Object... parameters) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            for (int i = 0; i < parameters.length; i++) {
+                preparedStatement.setObject(i + 1, parameters[i]);
+            }
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeysResultSet = preparedStatement.getGeneratedKeys();
+            if (generatedKeysResultSet.next()) {
+                Long id = generatedKeysResultSet.getLong(1);
+                return Optional.of(id);
+            } else {
+                return Optional.empty();
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 
     protected Optional<Object> selectScalar(String sql, Object... parameters) throws DaoException {

@@ -13,6 +13,14 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
     private static final String SQL_SELECT_ALL = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating FROM movies;";
     private static final String SQL_SELECT_PAGE = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating " +
             "FROM movies ORDER BY rating DESC LIMIT ? OFFSET ?;";
+    private static final String SQL_SELECT_BY_ID = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating " +
+            "FROM movies WHERE movie_id = ?;";
+    private static final String SQL_INSERT_NEW_MOVIE = "INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating) " +
+            "VALUES (?, ?, ?, ?, ?, null);";
+    private static final String SQL_UPDATE_MOVIE = "UPDATE movies " +
+            "SET title = ?, director = ?, release_year = ?, synopsis = ?, poster_path = ?, rating = " +
+            "(SELECT AVG(assessment) FROM user_ratings WHERE user_ratings.movie_id = movies.movie_id HAVING COUNT(movie_id) > 3) " +
+            "WHERE movie_id = ?;";
 
     public MovieDaoImpl(Connection connection, RowMapper<Movie> rowMapper) {
         super(connection, rowMapper);
@@ -31,8 +39,23 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
     }
 
     @Override
-    public long save(Movie object) {
-        return 0;
+    public long save(Movie movie) throws DaoException {
+        Long id = movie.getId();
+        String title = movie.getTitle();
+        String director = movie.getDirector();
+        Integer releaseYear = movie.getReleaseYear();
+        String synopsis = movie.getSynopsis();
+        String posterPath = movie.getPosterPath();
+        if (id == null) {
+            Optional<Long> result = saveSingle(SQL_INSERT_NEW_MOVIE, title, director, releaseYear, synopsis, posterPath);
+            if (result.isPresent()) {
+                return result.get();
+            }
+        } else {
+            saveSingle(SQL_UPDATE_MOVIE, title, director, releaseYear, synopsis, posterPath, id);
+            return id;
+        }
+        throw new DaoException("Unacceptable query result!");
     }
 
     @Override
@@ -41,8 +64,8 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
     }
 
     @Override
-    public Optional<Movie> find(long id) {
-        return Optional.empty();
+    public Optional<Movie> find(long id) throws DaoException {
+        return selectSingle(SQL_SELECT_BY_ID, id);
     }
 
     @Override

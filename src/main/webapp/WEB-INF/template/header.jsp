@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="custom-tags" %>
 
 <fmt:setLocale value="${sessionScope.localization.locale}"/>
 <fmt:setBundle basename="${sessionScope.localization.baseBundleName}"/>
@@ -15,7 +16,11 @@
         <a class="navbar-item" href="<c:url value="/controller?command=home"/>">
             <fmt:message key="navbar.link.home"/>
         </a>
-        <!--<a class="navbar-item">Users</a>-->
+        <ctg:access accessName="USERS_OVERVIEW">
+            <a class="navbar-item" href="<c:url value="/controller?command=users"/>">
+                <fmt:message key="navbar.link.users"/>
+            </a>
+        </ctg:access>
         <div class="navbar-dropdown right">
             <a class="navbar-item navbar-drop-item localization"></a>
             <div class="navbar-dropdown-content">
@@ -30,8 +35,17 @@
                 </a>
             </div>
         </div>
-        <a class="navbar-item" href="<c:url value="/controller?command=loginPage"/>">
-            <fmt:message key="navbar.link.login"/>
-        </a>
+        <c:choose>
+            <c:when test="${sessionScope.account == null}">
+                <a class="navbar-item" href="<c:url value="/controller?command=loginPage"/>">
+                    <fmt:message key="navbar.link.login"/>
+                </a>
+            </c:when>
+            <c:otherwise>
+                <a class="navbar-item" href="<c:url value="/controller?command=logout"/>">
+                    <fmt:message key="navbar.link.logout"/>
+                </a>
+            </c:otherwise>
+        </c:choose>
     </div>
 </header>

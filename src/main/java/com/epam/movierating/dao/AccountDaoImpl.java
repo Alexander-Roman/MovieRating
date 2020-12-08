@@ -23,7 +23,7 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
 
     @Override
     public long save(Account object) {
-        return 0;
+        return 0L;
     }
 
     @Override

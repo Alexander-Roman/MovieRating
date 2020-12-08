@@ -7,11 +7,11 @@
     <short-name>ctg</short-name>
     <uri>custom-tags</uri>
     <tag>
-        <name>movie-list</name>
-        <tag-class>com.epam.movierating.view.tag.MovieListTag</tag-class>
-        <body-content>empty</body-content>
+        <name>access</name>
+        <tag-class>com.epam.movierating.view.tag.AccessControlTag</tag-class>
+        <body-content>scriptless</body-content>
         <attribute>
-            <name>movies</name>
+            <name>accessName</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

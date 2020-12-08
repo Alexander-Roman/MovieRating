@@ -1,11 +1,14 @@
 package com.epam.movierating.logic;
 
+import com.epam.movierating.command.context.RequestContext;
+import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.dao.MovieDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.entity.Movie;
 
 import java.util.List;
+import java.util.Optional;
 
 public class MovieServiceImpl implements MovieService {
 
@@ -17,6 +20,17 @@ public class MovieServiceImpl implements MovieService {
 
     public MovieServiceImpl(DaoConnectionManagerFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public Optional<Movie> getById(String id) throws ServiceException {
+        long movieId = Long.parseLong(id);
+        try (DaoConnectionManager manager = factory.create()) {
+            MovieDao movieDao = manager.createMovieDao();
+            return movieDao.find(movieId);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override
@@ -35,7 +49,17 @@ public class MovieServiceImpl implements MovieService {
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
             long numberOfItems = movieDao.getMoviesAmount();
-            return (int) Math.ceil( numberOfItems / (double) itemsPerPage);
+            return (int) Math.ceil(numberOfItems / (double) itemsPerPage);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public long save(Movie movie) throws ServiceException {
+        try (DaoConnectionManager manager = factory.create()) {
+            MovieDao movieDao = manager.createMovieDao();
+            return movieDao.save(movie);
         } catch (Exception e) {
             throw new ServiceException(e);
         }

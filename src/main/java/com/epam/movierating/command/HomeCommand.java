@@ -1,5 +1,6 @@
 package com.epam.movierating.command;
 
+import com.epam.movierating.command.context.CommandResult;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
@@ -27,10 +28,13 @@ public class HomeCommand implements Command {
         String pageValue = request.getParameter(Parameter.PAGE);
 
         int page = validator.validate(pageValue);
+        int numberOfPages = movieService.getNumberOfPages(ITEMS_PER_PAGE_DEFAULT);
+        if  (page > numberOfPages) {
+            page = numberOfPages;
+        }
+
         request.setAttribute(Attribute.PAGE, page);
         request.setAttribute(Attribute.ITEMS_PER_PAGE, ITEMS_PER_PAGE_DEFAULT);
-
-        int numberOfPages = movieService.getNumberOfPages(ITEMS_PER_PAGE_DEFAULT);
         request.setAttribute(Attribute.NUMBER_OF_PAGES, numberOfPages);
 
         List<Movie> movies = movieService.getPage(page, ITEMS_PER_PAGE_DEFAULT);

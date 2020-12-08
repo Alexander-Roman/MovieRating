@@ -7,7 +7,7 @@
 <fmt:setBundle basename="${sessionScope.localization.baseBundleName}"/>
 
 <!DOCTYPE html>
-<html lang="<fmt:message key="html.lang" />">
+<html lang="<fmt:message key="html.lang"/>">
 <head>
     <title><fmt:message key="page.home.title"/></title>
     <jsp:include page="../template/metadata.jsp"/>
@@ -18,25 +18,27 @@
 
     <jsp:include page="../template/header.jsp"/>
 
-    <main class="page-main flex-middle">
+    <main class="page-main">
         <div class="row">
             <div class="main">
-                <h2>MOVIES RATING</h2>
-                <div class="flex flex-right">
-                    <button class="add-button" type="submit">+ Add</button>
-                </div>
+                <h2><fmt:message key="movies.header"/></h2>
 
+                <ctg:access accessName="CREATE_MOVIE">
+                    <div class="add-button-container">
+                        <a class="add-button" href="<c:url value="controller?command=newMovie"/>"><fmt:message key="movies.button.add"/></a>
+                    </div>
+                </ctg:access>
 
                 <table class="table" id="movies">
                     <tr>
-                        <th>No.</th>
-                        <th>Movie</th>
-                        <th>Director</th>
-                        <th>Year</th>
-                        <th>Rating</th>
+                        <th><fmt:message key="movies.table.header.number"/></th>
+                        <th><fmt:message key="movies.table.header.title"/></th>
+                        <th><fmt:message key="movies.table.header.director"/></th>
+                        <th><fmt:message key="movies.table.header.year"/></th>
+                        <th><fmt:message key="movies.table.header.rating"/></th>
                     </tr>
                     <c:forEach var="movie" items="${requestScope.movies}" varStatus="counter">
-                        <tr data-movie-page="<c:url value="controller?command=movie&movieId=${movie.id}"/>">
+                        <tr data-movie-page="<c:url value="controller?command=movie&movie=${movie.id}"/>">
                             <td>${counter.count + requestScope.itemsPerPage * (requestScope.page - 1)}</td>
                             <td>${movie.title}</td>
                             <td>${movie.director}</td>
@@ -48,22 +50,37 @@
 
                 <div class="flex-middle">
                     <div class="pagination">
-                        <c:if test="${requestScope.page > 1}">
-                            <a href="<c:url value="controller?command=home&page=${requestScope.page - 1}"/>">&laquo;</a>
-                        </c:if>
+                        <c:choose>
+                            <c:when test="${requestScope.page > 1}">
+                                <a class="pagination-available"
+                                   href="<c:url value="controller?command=home&page=${requestScope.page - 1}"/>">&laquo;</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="pagination-disabled">&laquo;</a>
+                            </c:otherwise>
+                        </c:choose>
+
                         <c:forEach var="i" begin="1" end="${requestScope.numberOfPages}">
                             <c:choose>
                                 <c:when test="${i == requestScope.page}">
                                     <a class="pagination-active">${i}</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="<c:url value="controller?command=home&page=${i}"/>">${i}</a>
+                                    <a class="pagination-available"
+                                       href="<c:url value="controller?command=home&page=${i}"/>">${i}</a>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
-                        <c:if test="${requestScope.page < requestScope.numberOfPages}">
-                            <a href="<c:url value="controller?command=home&page=${requestScope.page + 1}"/>">&raquo;</a>
-                        </c:if>
+
+                        <c:choose>
+                            <c:when test="${requestScope.page < requestScope.numberOfPages}">
+                                <a class="pagination-available"
+                                   href="<c:url value="controller?command=home&page=${requestScope.page + 1}"/>">&raquo;</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="pagination-disabled">&raquo;</a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
 
@@ -72,7 +89,7 @@
     </main>
 
     <jsp:include page="../template/footer.jsp"/>
-    <script src="<c:url value="/static/js/movie-table-row-link.js"/>"></script>
 </div>
+<script src="<c:url value="/static/js/movie-table-row-link.js"/>"></script>
 </body>
 </html>

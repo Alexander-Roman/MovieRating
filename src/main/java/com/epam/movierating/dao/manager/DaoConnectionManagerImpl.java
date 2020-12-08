@@ -16,6 +16,28 @@ public class DaoConnectionManagerImpl implements DaoConnectionManager {
     }
 
     @Override
+    public void beginTransaction() throws DaoException {
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public void commitTransaction() throws DaoException {
+        try {
+            connection.commit();
+        } catch (SQLException commitException) {
+            try {
+                connection.rollback();
+            } catch (SQLException rollbackException) {
+                throw new DaoException(rollbackException);
+            }
+        }
+    }
+
+    @Override
     public MovieDao createMovieDao() {
         return new MovieDaoImpl(connection, new MovieRowMapper());
     }

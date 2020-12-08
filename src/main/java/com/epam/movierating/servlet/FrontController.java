@@ -2,17 +2,20 @@ package com.epam.movierating.servlet;
 
 import com.epam.movierating.command.Command;
 import com.epam.movierating.command.CommandFactory;
+import com.epam.movierating.command.context.CommandResult;
 import com.epam.movierating.connection.ConnectionPool;
-import com.epam.movierating.command.CommandResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.Filter;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 5 * 5)
 public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
