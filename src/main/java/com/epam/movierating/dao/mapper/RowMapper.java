@@ -9,5 +9,8 @@ public interface RowMapper<T> {
 
     T map(ResultSet resultSet) throws DaoException;
 
+    /*
     Map<String, String> unmap(T object);
+
+     */
 }

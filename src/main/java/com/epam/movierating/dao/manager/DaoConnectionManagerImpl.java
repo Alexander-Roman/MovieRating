@@ -2,7 +2,10 @@ package com.epam.movierating.dao.manager;
 
 import com.epam.movierating.dao.*;
 import com.epam.movierating.dao.mapper.AccountRowMapper;
+import com.epam.movierating.dao.mapper.CommentToRowMapper;
 import com.epam.movierating.dao.mapper.MovieRowMapper;
+import com.epam.movierating.dao.mapper.UserRatingToRowMapper;
+import com.epam.movierating.entity.CommentTo;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -45,6 +48,16 @@ public class DaoConnectionManagerImpl implements DaoConnectionManager {
     @Override
     public AccountDao createAccountDao() {
         return new AccountDaoImpl(connection, new AccountRowMapper());
+    }
+
+    @Override
+    public UserRatingToDao createUserRatingToDao() {
+        return new UserRatingToDaoImpl(connection, new UserRatingToRowMapper());
+    }
+
+    @Override
+    public CommentToDao createCommentToDao() {
+        return new CommentToDaoImpl(connection, new CommentToRowMapper(new AccountRowMapper()));
     }
 
     @Override

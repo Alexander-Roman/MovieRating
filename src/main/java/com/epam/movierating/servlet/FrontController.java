@@ -2,7 +2,7 @@ package com.epam.movierating.servlet;
 
 import com.epam.movierating.command.Command;
 import com.epam.movierating.command.CommandFactory;
-import com.epam.movierating.command.context.CommandResult;
+import com.epam.movierating.command.CommandResult;
 import com.epam.movierating.connection.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

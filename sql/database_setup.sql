@@ -8,7 +8,7 @@ CREATE TABLE movies
     title        VARCHAR(255) NOT NULL,
     director     VARCHAR(45),
     release_year YEAR,
-    synopsis     TEXT,
+    synopsis     VARCHAR(1000),
     poster_path  VARCHAR(255) UNIQUE,
     rating       DOUBLE(4, 2),
     PRIMARY KEY (movie_id)

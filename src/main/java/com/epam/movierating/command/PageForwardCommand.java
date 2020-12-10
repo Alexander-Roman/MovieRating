@@ -1,7 +1,5 @@
 package com.epam.movierating.command;
 
-import com.epam.movierating.command.context.CommandResult;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class PageForwardCommand implements Command {

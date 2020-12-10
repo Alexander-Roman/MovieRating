@@ -4,19 +4,19 @@ import java.util.Objects;
 
 public final class UserRating extends Identifiable {
 
-    private final Movie assessedMovie;
+    private final Movie assessed;
     private final Account assessor;
     private final int assessment;
 
-    public UserRating(Long id, Movie assessedMovie, Account assessor, int assessment) {
+    public UserRating(Long id, Movie assessed, Account assessor, int assessment) {
         super(id);
-        this.assessedMovie = assessedMovie;
+        this.assessed = assessed;
         this.assessor = assessor;
         this.assessment = assessment;
     }
 
-    public Movie getAssessedMovie() {
-        return assessedMovie;
+    public Movie getAssessed() {
+        return assessed;
     }
 
     public Account getAssessor() {
@@ -40,14 +40,14 @@ public final class UserRating extends Identifiable {
         }
         UserRating that = (UserRating) o;
         return assessment == that.assessment &&
-                Objects.equals(assessedMovie, that.assessedMovie) &&
+                Objects.equals(assessed, that.assessed) &&
                 Objects.equals(assessor, that.assessor);
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (assessedMovie != null ? assessedMovie.hashCode() : 0);
+        result = 31 * result + (assessed != null ? assessed.hashCode() : 0);
         result = 31 * result + (assessor != null ? assessor.hashCode() : 0);
         result = 31 * result + assessment;
         return result;
@@ -57,7 +57,7 @@ public final class UserRating extends Identifiable {
     public String toString() {
         return getClass().getSimpleName() + "{" +
                 "id=" + getId() +
-                ", assessedMovie=" + assessedMovie +
+                ", assessedMovie=" + assessed +
                 ", assessor=" + assessor +
                 ", assessment=" + assessment +
                 '}';

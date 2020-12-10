@@ -1,7 +1,5 @@
 package com.epam.movierating.logic;
 
-import com.epam.movierating.command.context.RequestContext;
-import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.dao.MovieDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
@@ -13,10 +11,6 @@ import java.util.Optional;
 public class MovieServiceImpl implements MovieService {
 
     private final DaoConnectionManagerFactory factory;
-
-    public MovieServiceImpl() {
-        factory = new DaoConnectionManagerFactory();
-    }
 
     public MovieServiceImpl(DaoConnectionManagerFactory factory) {
         this.factory = factory;

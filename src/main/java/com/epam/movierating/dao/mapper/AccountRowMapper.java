@@ -22,16 +22,17 @@ public class AccountRowMapper implements RowMapper<Account> {
         try {
             long id = resultSet.getLong(ACCOUNT_ID_LABEL);
             String userName = resultSet.getString(USER_NAME_LABEL);
-            String password = resultSet.getString(PASSWORD_LABEL);
+            //String password = resultSet.getString(PASSWORD_LABEL);
             String roleValue = resultSet.getString(ROLE_LABEL);
             Role role = Role.valueOf(roleValue);
             boolean blocked = resultSet.getBoolean(BLOCKED_LABEL);
-            return new Account(id, userName, password, role, blocked);
+            return new Account(id, userName, null, role, blocked);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
 
+    /*
     @Override
     public Map<String, String> unmap(Account object) {
         Long id = object.getId();
@@ -48,4 +49,6 @@ public class AccountRowMapper implements RowMapper<Account> {
         values.put(BLOCKED_LABEL, String.valueOf(blocked));
         return values;
     }
+
+     */
 }

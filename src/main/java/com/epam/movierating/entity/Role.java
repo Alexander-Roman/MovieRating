@@ -1,38 +1,44 @@
 package com.epam.movierating.entity;
 
-import java.util.EnumSet;
+import com.epam.movierating.constant.CommandName;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public enum Role {
     USER(
-            EnumSet.of(
-                    Access.CREATE_COMMENT,
-                    Access.USERS_OVERVIEW
-            )
+            Stream.of(
+                    CommandName.USER_LIST
+            ).collect(Collectors.toSet())
     ),
     EDITOR(
-            EnumSet.of(
-                    Access.CREATE_MOVIE,
-                    Access.UPDATE_MOVIE,
-                    Access.DELETE_MOVIE,
-                    Access.BLOCK_USER,
-                    Access.CREATE_COMMENT,
-                    Access.DELETE_COMMENT,
-                    Access.USERS_OVERVIEW
-            )
+            Stream.of(
+                    CommandName.CREATE_MOVIE,
+                    CommandName.EDIT_MOVIE,
+                    CommandName.SAVE_MOVIE,
+                    CommandName.DELETE_COMMENT,
+                    CommandName.USER_LIST
+            ).collect(Collectors.toSet())
     ),
     ADMIN(
-            EnumSet.allOf(
-                    Access.class
-            )
+            Stream.of(
+                    CommandName.CREATE_MOVIE,
+                    CommandName.EDIT_MOVIE,
+                    CommandName.SAVE_MOVIE,
+                    CommandName.DELETE_MOVIE,
+                    CommandName.DELETE_COMMENT,
+                    CommandName.USER_LIST
+            ).collect(Collectors.toSet())
     );
 
-    private final EnumSet<Access> permissions;
+    private final Set<String> permissions;
 
-    Role(EnumSet<Access> permissions) {
+    Role(Set<String> permissions) {
         this.permissions = permissions;
     }
 
-    public boolean hasAccess(Access access) {
-        return permissions.contains(access);
+    public boolean hasAccess(String name) {
+        return permissions.contains(name);
     }
 }

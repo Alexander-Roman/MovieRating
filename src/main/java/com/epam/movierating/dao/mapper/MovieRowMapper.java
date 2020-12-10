@@ -27,13 +27,14 @@ public class MovieRowMapper implements RowMapper<Movie> {
             int releaseYear = resultSet.getInt(RELEASE_YEAR_LABEL);
             String synopsis = resultSet.getString(SYNOPSIS_LABEL);
             String posterPath = resultSet.getString(POSTER_PATH_LABEL);
-            double rating = resultSet.getDouble(RATING_LABEL);
+            Double rating = (Double) resultSet.getObject(RATING_LABEL);
             return new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
 
+    /*
     @Override
     public Map<String, String> unmap(Movie object) {
         Long id = object.getId();
@@ -54,4 +55,6 @@ public class MovieRowMapper implements RowMapper<Movie> {
         values.put(RATING_LABEL, rating.toString());
         return values;
     }
+
+     */
 }

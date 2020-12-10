@@ -1,17 +1,17 @@
 package com.epam.movierating.dao.manager;
 
-import com.epam.movierating.dao.AccountDao;
-import com.epam.movierating.dao.DaoException;
-import com.epam.movierating.dao.MovieDao;
-import com.epam.movierating.dao.UserRatingDao;
-import com.epam.movierating.entity.Account;
-import com.epam.movierating.entity.UserRating;
+import com.epam.movierating.dao.*;
+import com.epam.movierating.entity.CommentTo;
 
 public interface DaoConnectionManager extends AutoCloseable {
 
     MovieDao createMovieDao();
 
     AccountDao createAccountDao();
+
+    UserRatingToDao createUserRatingToDao();
+
+    CommentToDao createCommentToDao();
 
     void beginTransaction() throws DaoException;
 

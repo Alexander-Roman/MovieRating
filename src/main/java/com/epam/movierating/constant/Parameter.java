@@ -14,5 +14,4 @@ public class Parameter {
     public static final String SYNOPSIS = "synopsis";
     public static final String RATING = "rating";
     public static final String POSTER_PATH = "posterPath";
-    public static final String MOVIE = "movie";
 }

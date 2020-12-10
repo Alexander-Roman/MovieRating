@@ -3,10 +3,8 @@ package com.epam.movierating.view.tag;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.entity.Account;
 import com.epam.movierating.entity.Role;
-import com.epam.movierating.entity.Access;
 
 import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 public class AccessControlTag extends TagSupport {
@@ -26,9 +24,9 @@ public class AccessControlTag extends TagSupport {
         }
 
         Role role = account.getRole();
-        Access access = Access.valueOf(accessName);
+        //Access access = Access.valueOf(accessName);
 
-        if (role.hasAccess(access)) {
+        if (role.hasAccess(accessName)) {
             return EVAL_BODY_INCLUDE;
         } else {
             return SKIP_BODY;

@@ -6,4 +6,5 @@ public class Page {
     public final static String LOGIN = "WEB-INF/view/login.jsp";
     public final static String MOVIE = "WEB-INF/view/movie.jsp";
     public final static String MOVIE_EDITOR = "WEB-INF/view/movie-editor.jsp";
+    public final static String USERS = "WEB-INF/view/users.jsp";
 }

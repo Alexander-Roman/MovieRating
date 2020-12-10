@@ -1,6 +1,5 @@
 package com.epam.movierating.command;
 
-import com.epam.movierating.command.context.CommandResult;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.entity.Movie;
 import com.epam.movierating.logic.MovieService;
@@ -47,19 +46,16 @@ public class SaveMovieCommand implements Command {
         }
         String synopsis = request.getParameter(Parameter.SYNOPSIS);
         String posterPath = request.getParameter(Parameter.POSTER_PATH);
-        if (posterPath == null || posterPath.isEmpty()) {
-            UUID uuid = UUID.randomUUID();
-            posterPath = POSTERS_DIRECTORY + uuid;
+
+        if (posterPath.isEmpty()) {
+            posterPath = null;
         }
+
         String ratingParameter = request.getParameter(Parameter.RATING);
         Double rating = null;
         if (ratingParameter != null && !ratingParameter.isEmpty()) {
             rating = Double.parseDouble(ratingParameter);
         }
-
-        Movie movie = new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
-        long confirmedId = movieService.save(movie);
-
 
         Part poster;
         try {
@@ -68,7 +64,12 @@ public class SaveMovieCommand implements Command {
             throw new ServiceException(e);
         }
 
+        //в сервис?
         if (poster != null && poster.getSize() > 0) {
+            if (posterPath == null) {
+                UUID uuid = UUID.randomUUID();
+                posterPath = POSTERS_DIRECTORY + uuid;
+            }
             Path path = Paths.get(applicationPath, posterPath);
             try (InputStream inputStream = poster.getInputStream()) {
                 Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
@@ -77,7 +78,10 @@ public class SaveMovieCommand implements Command {
             }
         }
 
+        Movie movie = new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
+        long confirmedId = movieService.save(movie);
+
         String contextPath = servletContext.getContextPath();
-        return CommandResult.redirect(contextPath + "/controller?command=movie&movie=" + confirmedId);
+        return CommandResult.redirect(contextPath + "/controller?command=movie&id=" + confirmedId);
     }
 }

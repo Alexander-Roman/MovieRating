@@ -16,7 +16,7 @@
         <a class="navbar-item" href="<c:url value="/controller?command=home"/>">
             <fmt:message key="navbar.link.home"/>
         </a>
-        <ctg:access accessName="USERS_OVERVIEW">
+        <ctg:access accessName="users">
             <a class="navbar-item" href="<c:url value="/controller?command=users"/>">
                 <fmt:message key="navbar.link.users"/>
             </a>

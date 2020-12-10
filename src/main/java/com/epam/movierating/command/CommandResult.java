@@ -1,4 +1,4 @@
-package com.epam.movierating.command.context;
+package com.epam.movierating.command;
 
 import java.util.Objects;
 

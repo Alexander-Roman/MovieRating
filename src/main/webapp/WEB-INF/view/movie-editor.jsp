@@ -16,7 +16,8 @@
     <main class="page-main">
         <div class="row">
             <div class="main">
-                <form class="movie-edit-form" enctype='multipart/form-data' action="<c:url value="/controller"/>" method="post">
+                <form class="movie-edit-form" enctype='multipart/form-data' action="<c:url value="/controller"/>"
+                      method="post">
                     <input type="hidden" name="command" value="saveMovie">
                     <input type="hidden" name="id" value="${requestScope.movie.id}">
                     <input type="hidden" name="posterPath" value="${requestScope.movie.posterPath}">
@@ -31,13 +32,10 @@
                             <c:choose>
                                 <c:when test="${requestScope.movie == null || requestScope.movie.posterPath == null}">
                                     <img class="poster"
-                                         src="<c:url value="/static/img/posters/DEFAULT/NO_POSTER_AVAILABLE.jpg"/>"
-                                         alt="">
+                                         src="<c:url value="/static/img/posters/NO_POSTER_AVAILABLE.jpg"/>" alt="">
                                 </c:when>
                                 <c:otherwise>
-                                    <img class="poster"
-                                         src="<c:url value="${requestScope.movie.posterPath}"/>"
-                                         alt="">
+                                    <img class="poster" src="<c:url value="${requestScope.movie.posterPath}"/>" alt="">
                                 </c:otherwise>
                             </c:choose>
                             <div>
@@ -52,7 +50,8 @@
                                                 key="editor.form.label.director"/></label>
                                     </div>
                                     <div class="movie-edit-col-75">
-                                        <input type="text" id="edit-director" name="director" value="${requestScope.movie.director}"
+                                        <input type="text" id="edit-director" name="director"
+                                               value="${requestScope.movie.director}"
                                                placeholder="<fmt:message key="editor.form.input.director.placeholder"/>"
                                                maxlength="45">
                                     </div>
@@ -62,7 +61,8 @@
                                         <label for="edit-year"><fmt:message key="editor.form.label.year"/></label>
                                     </div>
                                     <div class="movie-edit-col-75">
-                                        <input type="number" name="releaseYear" min="1895" max="2036" step="1" id="edit-year"
+                                        <input type="number" name="releaseYear" min="1895" max="2036" step="1"
+                                               id="edit-year"
                                                value="${requestScope.movie.releaseYear}"
                                                placeholder="<fmt:message key="editor.form.input.year.placeholder"/>">
                                     </div>
@@ -73,7 +73,7 @@
                                                 key="editor.form.label.synopsis"/></label>
                                     </div>
                                     <div class="movie-edit-col-75">
-                                        <textarea id="edit-synopsis" name="synopsis"
+                                        <textarea id="edit-synopsis" name="synopsis" maxlength="1000"
                                                   placeholder="<fmt:message key="editor.form.input.synopsis.placeholder"/>">${requestScope.movie.synopsis}</textarea>
                                     </div>
                                 </div>

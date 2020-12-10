@@ -1,6 +1,5 @@
 package com.epam.movierating.command;
 
-import com.epam.movierating.command.context.CommandResult;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.logic.validator.LocalizationParameterValidator;

@@ -40,7 +40,7 @@
                 </form>
 
                 <c:if test="${requestScope.message != null}">
-                    <div class="alert">
+                    <div class="alert alert-error">
                         <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                         <strong><fmt:message key="alert.header.error"/></strong>
                         <fmt:message key="${requestScope.message}"/>

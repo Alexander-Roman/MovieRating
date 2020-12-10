@@ -23,9 +23,11 @@
             <div class="main">
                 <h2><fmt:message key="movies.header"/></h2>
 
-                <ctg:access accessName="CREATE_MOVIE">
+                <ctg:access accessName="newMovie">
                     <div class="add-button-container">
-                        <a class="add-button" href="<c:url value="controller?command=newMovie"/>"><fmt:message key="movies.button.add"/></a>
+                        <a class="add-button" href="<c:url value="controller?command=newMovie"/>">
+                            <fmt:message key="movies.button.add"/>
+                        </a>
                     </div>
                 </ctg:access>
 
@@ -38,7 +40,7 @@
                         <th><fmt:message key="movies.table.header.rating"/></th>
                     </tr>
                     <c:forEach var="movie" items="${requestScope.movies}" varStatus="counter">
-                        <tr data-movie-page="<c:url value="controller?command=movie&movie=${movie.id}"/>">
+                        <tr data-movie-page="<c:url value="controller?command=movie&id=${movie.id}"/>">
                             <td>${counter.count + requestScope.itemsPerPage * (requestScope.page - 1)}</td>
                             <td>${movie.title}</td>
                             <td>${movie.director}</td>
