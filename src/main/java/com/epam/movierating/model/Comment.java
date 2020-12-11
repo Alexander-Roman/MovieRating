@@ -1,4 +1,4 @@
-package com.epam.movierating.entity;
+package com.epam.movierating.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

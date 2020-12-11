@@ -5,7 +5,6 @@ import com.epam.movierating.dao.mapper.AccountRowMapper;
 import com.epam.movierating.dao.mapper.CommentToRowMapper;
 import com.epam.movierating.dao.mapper.MovieRowMapper;
 import com.epam.movierating.dao.mapper.UserRatingToRowMapper;
-import com.epam.movierating.entity.CommentTo;
 
 import java.sql.Connection;
 import java.sql.SQLException;

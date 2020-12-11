@@ -4,8 +4,6 @@ import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.logic.*;
-import com.epam.movierating.logic.validator.LocalizationParameterValidator;
-import com.epam.movierating.logic.validator.PageParameterValidator;
 
 public class CommandFactory {
 
@@ -17,22 +15,50 @@ public class CommandFactory {
         }
 
         switch (command) {
-            case CommandName.LOGIN:
-                return new LoginCommand(new AccountServiceImpl(new DaoConnectionManagerFactory()));
-            case CommandName.MOVIE:
-                return new MovieCommand(new MovieServiceImpl(new DaoConnectionManagerFactory()), new UserRatingServiceImpl(new DaoConnectionManagerFactory()), new CommentServiceImpl(new DaoConnectionManagerFactory()));
-            case CommandName.LANGUAGE:
-                return new LanguageCommand(new LocalizationParameterValidator());
-            case CommandName.LOGIN_PAGE:
+            case CommandName.HOME: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                MovieService movieService = new MovieServiceImpl(factory);
+                return new HomeCommand(movieService);
+            }
+            case CommandName.MOVIE: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                MovieService movieService = new MovieServiceImpl(factory);
+                UserRatingService userRatingService = new UserRatingServiceImpl(factory);
+                CommentService commentService = new CommentServiceImpl(factory);
+                return new MovieCommand(movieService, userRatingService, commentService);
+            }
+            case CommandName.EDIT_MOVIE: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                MovieService movieService = new MovieServiceImpl(factory);
+                return new EditMovieCommand(movieService);
+            }
+            case CommandName.CREATE_MOVIE: {
+                return new PageForwardCommand(Page.MOVIE_EDITOR);
+            }
+            case CommandName.SAVE_MOVIE: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                MovieService movieService = new MovieServiceImpl(factory);
+                return new SaveMovieCommand(movieService);
+            }
+            case CommandName.LOGIN_PAGE: {
                 return new PageForwardCommand(Page.LOGIN);
-            case CommandName.CREATE_MOVIE:
-                return new CreateMovieCommand(new MovieServiceImpl(new DaoConnectionManagerFactory()));
-            case CommandName.SAVE_MOVIE:
-                return new SaveMovieCommand(new MovieServiceImpl(new DaoConnectionManagerFactory()));
-            case CommandName.USER_LIST:
-                return new UserListCommand(new AccountServiceImpl(new DaoConnectionManagerFactory()));
-            default:
-                return new HomeCommand(new MovieServiceImpl(new DaoConnectionManagerFactory()));
+            }
+            case CommandName.LOGIN: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                AccountService accountService = new AccountServiceImpl(factory);
+                return new LoginCommand(accountService);
+            }
+            case CommandName.LOCALIZATION: {
+                return new LocalizationCommand();
+            }
+            case CommandName.USER_LIST: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                AccountService accountService = new AccountServiceImpl(factory);
+                return new UserListCommand(accountService);
+            }
+            default: {
+                throw new IllegalArgumentException("Command unknown!");
+            }
         }
     }
 }

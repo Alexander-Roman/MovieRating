@@ -1,13 +1,11 @@
 package com.epam.movierating.dao.mapper;
 
 import com.epam.movierating.dao.DaoException;
-import com.epam.movierating.entity.Account;
-import com.epam.movierating.entity.Role;
+import com.epam.movierating.model.Account;
+import com.epam.movierating.model.Role;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AccountRowMapper implements RowMapper<Account> {
 

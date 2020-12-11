@@ -1,6 +1,6 @@
 package com.epam.movierating.dao;
 
-import com.epam.movierating.entity.CommentTo;
+import com.epam.movierating.model.CommentTo;
 
 import java.util.List;
 

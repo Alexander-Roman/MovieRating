@@ -1,10 +1,9 @@
 package com.epam.movierating.logic;
 
 import com.epam.movierating.dao.AccountDao;
-import com.epam.movierating.dao.MovieDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
-import com.epam.movierating.entity.Account;
+import com.epam.movierating.model.Account;
 
 import java.util.List;
 import java.util.Optional;

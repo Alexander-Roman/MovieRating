@@ -1,7 +1,7 @@
 package com.epam.movierating.command;
 
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.entity.Movie;
+import com.epam.movierating.model.Movie;
 import com.epam.movierating.logic.MovieService;
 import com.epam.movierating.logic.ServiceException;
 
@@ -21,6 +21,7 @@ public class SaveMovieCommand implements Command {
 
     private static final String POSTER_PART = "poster";
     private static final String POSTERS_DIRECTORY = "/static/img/posters/";
+    private static final String COMMAND_MOVIE = "/controller?command=movie&id=";
     private final MovieService movieService;
 
     public SaveMovieCommand(MovieService movieService) {
@@ -29,9 +30,6 @@ public class SaveMovieCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
-        ServletContext servletContext = request.getServletContext();
-        String applicationPath = servletContext.getRealPath("");
-
         String idParameter = request.getParameter(Parameter.ID);
         Long id = null;
         if (idParameter != null && !idParameter.isEmpty()) {
@@ -64,12 +62,14 @@ public class SaveMovieCommand implements Command {
             throw new ServiceException(e);
         }
 
-        //в сервис?
+        ServletContext servletContext = request.getServletContext();
+
         if (poster != null && poster.getSize() > 0) {
             if (posterPath == null) {
                 UUID uuid = UUID.randomUUID();
                 posterPath = POSTERS_DIRECTORY + uuid;
             }
+            String applicationPath = servletContext.getRealPath("");
             Path path = Paths.get(applicationPath, posterPath);
             try (InputStream inputStream = poster.getInputStream()) {
                 Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
@@ -82,6 +82,6 @@ public class SaveMovieCommand implements Command {
         long confirmedId = movieService.save(movie);
 
         String contextPath = servletContext.getContextPath();
-        return CommandResult.redirect(contextPath + "/controller?command=movie&id=" + confirmedId);
+        return CommandResult.redirect(contextPath + COMMAND_MOVIE + confirmedId);
     }
 }

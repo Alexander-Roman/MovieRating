@@ -3,8 +3,8 @@ package com.epam.movierating.logic;
 import com.epam.movierating.dao.CommentToDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
-import com.epam.movierating.entity.CommentTo;
-import com.epam.movierating.entity.Movie;
+import com.epam.movierating.model.CommentTo;
+import com.epam.movierating.model.Movie;
 
 import java.util.List;
 

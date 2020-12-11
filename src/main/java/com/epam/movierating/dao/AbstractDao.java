@@ -1,7 +1,7 @@
 package com.epam.movierating.dao;
 
 import com.epam.movierating.dao.mapper.RowMapper;
-import com.epam.movierating.entity.Identifiable;
+import com.epam.movierating.model.Identifiable;
 
 import java.sql.*;
 import java.util.ArrayList;

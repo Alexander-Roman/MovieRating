@@ -1,12 +1,10 @@
 package com.epam.movierating.dao.mapper;
 
 import com.epam.movierating.dao.DaoException;
-import com.epam.movierating.entity.Movie;
+import com.epam.movierating.model.Movie;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MovieRowMapper implements RowMapper<Movie> {
 

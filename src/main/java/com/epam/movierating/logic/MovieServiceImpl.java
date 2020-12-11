@@ -3,7 +3,7 @@ package com.epam.movierating.logic;
 import com.epam.movierating.dao.MovieDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
-import com.epam.movierating.entity.Movie;
+import com.epam.movierating.model.Movie;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,11 +17,10 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Optional<Movie> getById(String id) throws ServiceException {
-        long movieId = Long.parseLong(id);
+    public Optional<Movie> getById(long id) throws ServiceException {
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
-            return movieDao.find(movieId);
+            return movieDao.find(id);
         } catch (Exception e) {
             throw new ServiceException(e);
         }

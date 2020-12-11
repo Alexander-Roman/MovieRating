@@ -1,6 +1,6 @@
 package com.epam.movierating.logic;
 
-import com.epam.movierating.entity.Account;
+import com.epam.movierating.model.Account;
 
 import java.util.List;
 import java.util.Optional;

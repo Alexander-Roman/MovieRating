@@ -1,6 +1,6 @@
 package com.epam.movierating.dao;
 
-import com.epam.movierating.entity.Identifiable;
+import com.epam.movierating.model.Identifiable;
 
 import java.util.List;
 import java.util.Optional;

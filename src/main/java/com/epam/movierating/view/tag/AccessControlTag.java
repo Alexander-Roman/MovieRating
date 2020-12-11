@@ -1,8 +1,8 @@
 package com.epam.movierating.view.tag;
 
 import com.epam.movierating.constant.Attribute;
-import com.epam.movierating.entity.Account;
-import com.epam.movierating.entity.Role;
+import com.epam.movierating.model.Account;
+import com.epam.movierating.model.Role;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.tagext.TagSupport;

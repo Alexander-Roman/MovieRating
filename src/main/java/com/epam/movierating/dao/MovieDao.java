@@ -1,6 +1,6 @@
 package com.epam.movierating.dao;
 
-import com.epam.movierating.entity.Movie;
+import com.epam.movierating.model.Movie;
 
 import java.util.List;
 

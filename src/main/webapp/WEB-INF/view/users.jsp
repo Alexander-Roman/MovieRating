@@ -128,6 +128,11 @@
                                         </td>
                                     </ctg:access>
                                 </c:when>
+                                <c:otherwise>
+                                    <ctg:access accessName="promoteUser">
+                                        <td></td>
+                                    </ctg:access>
+                                </c:otherwise>
                             </c:choose>
                         </tr>
                     </c:forEach>

@@ -1,7 +1,7 @@
 package com.epam.movierating.dao.mapper;
 
 import com.epam.movierating.dao.DaoException;
-import com.epam.movierating.entity.UserRatingTo;
+import com.epam.movierating.model.UserRatingTo;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

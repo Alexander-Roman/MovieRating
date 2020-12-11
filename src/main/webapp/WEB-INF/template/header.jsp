@@ -24,13 +24,13 @@
         <div class="navbar-dropdown right">
             <a class="navbar-item navbar-drop-item localization"></a>
             <div class="navbar-dropdown-content">
-                <a href="<c:url value="/controller?command=lang&lang=EN"/>">
+                <a href="<c:url value="/controller?command=locale&lang=EN"/>">
                     <fmt:message key="navbar.link.locale.en"/>
                 </a>
-                <a href="<c:url value="/controller?command=lang&lang=BE"/>">
+                <a href="<c:url value="/controller?command=locale&lang=BE"/>">
                     <fmt:message key="navbar.link.locale.be.by"/>
                 </a>
-                <a href="<c:url value="/controller?command=lang&lang=RU"/>">
+                <a href="<c:url value="/controller?command=locale&lang=RU"/>">
                     <fmt:message key="navbar.link.locale.ru.by"/>
                 </a>
             </div>

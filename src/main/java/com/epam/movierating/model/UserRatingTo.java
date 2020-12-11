@@ -1,4 +1,4 @@
-package com.epam.movierating.entity;
+package com.epam.movierating.model;
 
 public class UserRatingTo extends Identifiable {
 

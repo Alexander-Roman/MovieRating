@@ -3,7 +3,7 @@ package com.epam.movierating.command;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.entity.Account;
+import com.epam.movierating.model.Account;
 import com.epam.movierating.logic.AccountService;
 import com.epam.movierating.logic.ServiceException;
 
@@ -27,17 +27,17 @@ public class LoginCommand implements Command {
         String password = request.getParameter(Parameter.PASSWORD);
 
         HttpSession session = request.getSession();
-        Optional<Account> account = accountService.authenticate(username, password);
-        if (!account.isPresent()) {
+        Optional<Account> found = accountService.authenticate(username, password);
+        if (!found.isPresent()) {
             request.setAttribute(Attribute.MESSAGE, MESSAGE_KEY_WRONG);
             return CommandResult.forward(Page.LOGIN);
         }
-        Account found = account.get();
-        if (found.isBlocked()) {
+        Account account = found.get();
+        if (account.isBlocked()) {
             request.setAttribute(Attribute.MESSAGE, MESSAGE_KEY_BLOCKED);
             return CommandResult.forward(Page.LOGIN);
         }
-        session.setAttribute(Attribute.ACCOUNT, found);
+        session.setAttribute(Attribute.ACCOUNT, account);
         return CommandResult.redirect(Page.INDEX);
     }
 }
