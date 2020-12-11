@@ -20,6 +20,9 @@
 
     <main class="page-main">
         <div class="row">
+
+            <!-- Sidebar here -->
+
             <div class="main">
                 <h2><fmt:message key="movies.header"/></h2>
 
@@ -93,5 +96,6 @@
     <jsp:include page="../template/footer.jsp"/>
 </div>
 <script src="<c:url value="/static/js/movie-table-row-link.js"/>"></script>
+<!-- Sidebar script -->
 </body>
 </html>

@@ -295,7 +295,7 @@ body {
 
 /* Round Range Slider */
 
-.slidercontainer {
+.slider-container {
     width: 100%;
     position: relative;
     height: 2em;
