@@ -9,4 +9,6 @@ public interface CommentService {
 
     List<CommentDto> getMovieComments(Movie movie) throws ServiceException;
 
+    void deleteCommentById(long id) throws ServiceException;
+
 }

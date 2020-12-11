@@ -57,4 +57,14 @@ public class MovieServiceImpl implements MovieService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public void deleteMovieById(long id) throws ServiceException {
+        try (DaoConnectionManager manager = factory.create()) {
+            MovieDao movieDao = manager.createMovieDao();
+            movieDao.delete(id);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
 }

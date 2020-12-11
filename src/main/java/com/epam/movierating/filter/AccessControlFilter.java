@@ -27,11 +27,10 @@ public class AccessControlFilter implements Filter {
         }
 
         String command = request.getParameter(Parameter.COMMAND);
-        if (role.hasAccess(command)) {
+        if (command == null || role.hasAccess(command)) {
             chain.doFilter(request, response);
         } else {
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher(Page.LOGIN);
-            requestDispatcher.forward(request, response);
+
         }
     }
 }

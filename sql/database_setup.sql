@@ -38,11 +38,11 @@ CREATE TABLE comments
 
 CREATE TABLE user_ratings
 (
-    rate_id    BIGINT AUTO_INCREMENT,
+    rate_id    BIGINT NOT NULL UNIQUE AUTO_INCREMENT,
     movie_id   BIGINT,
     account_id BIGINT,
     assessment TINYINT(2) UNSIGNED NOT NULL,
-    PRIMARY KEY (rate_id),
+    CONSTRAINT rate_pk PRIMARY KEY (movie_id, account_id),
     FOREIGN KEY (movie_id) REFERENCES movies (movie_id) ON DELETE CASCADE,
     FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 );

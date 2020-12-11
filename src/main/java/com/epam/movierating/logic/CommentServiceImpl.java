@@ -26,4 +26,14 @@ public class CommentServiceImpl implements CommentService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public void deleteCommentById(long id) throws ServiceException {
+        try (DaoConnectionManager manager = factory.create()) {
+            CommentDtoDao commentDtoDao = manager.createCommentDtoDao();
+            commentDtoDao.delete(id);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
 }

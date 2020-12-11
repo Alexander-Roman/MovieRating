@@ -1,5 +1,6 @@
 package com.epam.movierating.logic;
 
+import com.epam.movierating.dao.MovieDao;
 import com.epam.movierating.dao.UserRatingDtoDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
@@ -34,5 +35,21 @@ public class UserRatingServiceImpl implements UserRatingService {
             return Optional.of(assessment);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public void includeUserRating(UserRatingDto userRatingDto) throws ServiceException {
+        Long movieId = userRatingDto.getAssessedId();
+        try (DaoConnectionManager manager = factory.create()) {
+            UserRatingDtoDao userRatingDtoDao = manager.createUserRatingDtoDao();
+            MovieDao movieDao = manager.createMovieDao();
+
+            manager.beginTransaction();
+            userRatingDtoDao.save(userRatingDto);
+            movieDao.updateMovieRatingById(movieId);
+            manager.commitTransaction();
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
     }
 }

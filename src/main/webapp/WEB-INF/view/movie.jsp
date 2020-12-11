@@ -30,10 +30,13 @@
                         </a>
                     </ctg:access>
                     <ctg:access accessName="deleteMovie">
-                        <a class="edit-button"
-                           href="<c:url value="controller?command=deleteMovie&id=${requestScope.movie.id}"/>">
-                            <fmt:message key="movie.button.delete"/>
-                        </a>
+                        <form class="movie-delete-form" action="<c:url value="/controller"/>">
+                            <input type="hidden" name="command" value="deleteMovie">
+                            <input type="hidden" name="id" value="${requestScope.movie.id}">
+                            <button class="edit-button movie-delete-button" type="submit">
+                                <fmt:message key="movie.button.delete"/>
+                            </button>
+                        </form>
                     </ctg:access>
                 </div>
 
@@ -84,43 +87,43 @@
                             <input type="hidden" name="command" value="rateMovie">
                             <input type="hidden" name="id" value="${requestScope.movie.id}">
                             <label class="radio-container">1
-                                <input type="radio" name="rating" value="1" required>
+                                <input type="radio" name="rate" value="1" required>
                                 <span class="radio-checkmark"></span>
                             </label>
                             <label class="radio-container">2
-                                <input type="radio" name="rating" value="2" required>
+                                <input type="radio" name="rate" value="2" required>
                                 <span class="radio-checkmark"></span>
                             </label>
                             <label class="radio-container">3
-                                <input type="radio" name="rating" value="3" required>
+                                <input type="radio" name="rate" value="3" required>
                                 <span class="radio-checkmark"></span>
                             </label>
                             <label class="radio-container">4
-                                <input type="radio" name="rating" value="4" required>
+                                <input type="radio" name="rate" value="4" required>
                                 <span class="radio-checkmark"></span>
                             </label>
                             <label class="radio-container">5
-                                <input type="radio" name="rating" value="5" required>
+                                <input type="radio" name="rate" value="5" required>
                                 <span class="radio-checkmark"></span>
                             </label>
                             <label class="radio-container">6
-                                <input type="radio" name="rating" value="6" required>
+                                <input type="radio" name="rate" value="6" required>
                                 <span class="radio-checkmark"></span>
                             </label>
                             <label class="radio-container">7
-                                <input type="radio" name="rating" value="7" required>
+                                <input type="radio" name="rate" value="7" required>
                                 <span class="radio-checkmark"></span>
                             </label>
                             <label class="radio-container">8
-                                <input type="radio" name="rating" value="8" required>
+                                <input type="radio" name="rate" value="8" required>
                                 <span class="radio-checkmark"></span>
                             </label>
                             <label class="radio-container">9
-                                <input type="radio" name="rating" value="9" required>
+                                <input type="radio" name="rate" value="9" required>
                                 <span class="radio-checkmark"></span>
                             </label>
                             <label class="radio-container">10
-                                <input type="radio" name="rating" value="10" required>
+                                <input type="radio" name="rate" value="10" required>
                                 <span class="radio-checkmark"></span>
                             </label>
                             <input type="submit" value="<fmt:message key="movie.account.rating.form.submit"/>">
@@ -135,6 +138,7 @@
                         <ctg:access accessName="deleteComment">
                             <form class="comment-remove-form" action="<c:url value="/controller"/>">
                                 <input type="hidden" name="command" value="deleteComment">
+                                <input type="hidden" name="id" value="${comment.id}">
                                 <button class="comment-remove-button" type="submit">
                                     <span class="comment-remove-button-img"></span>
                                 </button>

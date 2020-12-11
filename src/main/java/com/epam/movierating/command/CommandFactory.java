@@ -40,6 +40,14 @@ public class CommandFactory {
                 MovieService movieService = new MovieServiceImpl(factory);
                 return new SaveMovieCommand(movieService);
             }
+            case CommandName.DELETE_MOVIE: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                MovieService movieService = new MovieServiceImpl(factory);
+                return new DeleteMovieCommand(movieService);
+            }
+            case CommandName.LOCALIZATION: {
+                return new LocalizationCommand();
+            }
             case CommandName.LOGIN_PAGE: {
                 return new PageForwardCommand(Page.LOGIN);
             }
@@ -48,13 +56,23 @@ public class CommandFactory {
                 AccountService accountService = new AccountServiceImpl(factory);
                 return new LoginCommand(accountService);
             }
-            case CommandName.LOCALIZATION: {
-                return new LocalizationCommand();
+            case CommandName.LOGOUT: {
+                return new LogoutCommand();
             }
             case CommandName.USER_LIST: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
                 AccountService accountService = new AccountServiceImpl(factory);
                 return new UserListCommand(accountService);
+            }
+            case CommandName.RATE_MOVIE: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                UserRatingService userRatingService = new UserRatingServiceImpl(factory);
+                return new RateMovieCommand(userRatingService);
+            }
+            case CommandName.DELETE_COMMENT: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                CommentService commentService = new CommentServiceImpl(factory);
+                return new DeleteCommentCommand(commentService);
             }
             default: {
                 throw new IllegalArgumentException("Command unknown!");

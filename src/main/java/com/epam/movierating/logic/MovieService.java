@@ -15,4 +15,6 @@ public interface MovieService {
 
     long save(Movie movie) throws ServiceException;
 
+    void deleteMovieById(long id) throws ServiceException;
+
 }

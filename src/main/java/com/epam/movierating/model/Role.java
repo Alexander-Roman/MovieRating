@@ -20,39 +20,39 @@ public enum Role {
             Stream.of(
                     CommandName.HOME,
                     CommandName.LOCALIZATION,
-                    CommandName.LOGIN,
-                    CommandName.LOGIN_PAGE,
+                    CommandName.LOGOUT,
                     CommandName.USER_LIST,
-                    CommandName.MOVIE
+                    CommandName.MOVIE,
+                    CommandName.RATE_MOVIE
             ).collect(Collectors.toSet())
     ),
     EDITOR(
             Stream.of(
                     CommandName.HOME,
                     CommandName.LOCALIZATION,
-                    CommandName.LOGIN,
-                    CommandName.LOGIN_PAGE,
+                    CommandName.LOGOUT,
                     CommandName.USER_LIST,
                     CommandName.MOVIE,
                     CommandName.CREATE_MOVIE,
                     CommandName.EDIT_MOVIE,
                     CommandName.SAVE_MOVIE,
-                    CommandName.DELETE_COMMENT
+                    CommandName.DELETE_COMMENT,
+                    CommandName.RATE_MOVIE
             ).collect(Collectors.toSet())
     ),
     ADMIN(
             Stream.of(
                     CommandName.HOME,
                     CommandName.LOCALIZATION,
-                    CommandName.LOGIN,
-                    CommandName.LOGIN_PAGE,
+                    CommandName.LOGOUT,
                     CommandName.USER_LIST,
                     CommandName.MOVIE,
                     CommandName.CREATE_MOVIE,
                     CommandName.EDIT_MOVIE,
                     CommandName.SAVE_MOVIE,
                     CommandName.DELETE_MOVIE,
-                    CommandName.DELETE_COMMENT
+                    CommandName.DELETE_COMMENT,
+                    CommandName.RATE_MOVIE
             ).collect(Collectors.toSet())
     );
 

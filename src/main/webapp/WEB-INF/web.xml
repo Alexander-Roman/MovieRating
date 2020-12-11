@@ -20,12 +20,32 @@
   </servlet-mapping>
 
   <filter>
+    <filter-name>EncodingFilter</filter-name>
+    <filter-class>com.epam.movierating.filter.EncodingFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>EncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
     <filter-name>LocalizationFilter</filter-name>
     <filter-class>com.epam.movierating.filter.LocalizationFilter</filter-class>
   </filter>
 
   <filter-mapping>
     <filter-name>LocalizationFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>AccessControlFilter</filter-name>
+    <filter-class>com.epam.movierating.filter.AccessControlFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>AccessControlFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 

@@ -1,9 +1,9 @@
 package com.epam.movierating.command;
 
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.model.entity.Movie;
 import com.epam.movierating.logic.MovieService;
 import com.epam.movierating.logic.ServiceException;
+import com.epam.movierating.model.entity.Movie;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -49,11 +49,13 @@ public class SaveMovieCommand implements Command {
             posterPath = null;
         }
 
-        String ratingParameter = request.getParameter(Parameter.RATING);
+        String ratingParameter = request.getParameter(Parameter.RATE);
         Double rating = null;
         if (ratingParameter != null && !ratingParameter.isEmpty()) {
             rating = Double.parseDouble(ratingParameter);
         }
+
+        ServletContext servletContext = request.getServletContext();
 
         Part poster;
         try {
@@ -62,15 +64,15 @@ public class SaveMovieCommand implements Command {
             throw new ServiceException(e);
         }
 
-        ServletContext servletContext = request.getServletContext();
-
         if (poster != null && poster.getSize() > 0) {
             if (posterPath == null) {
                 UUID uuid = UUID.randomUUID();
                 posterPath = POSTERS_DIRECTORY + uuid;
             }
+
             String applicationPath = servletContext.getRealPath("");
             Path path = Paths.get(applicationPath, posterPath);
+
             try (InputStream inputStream = poster.getInputStream()) {
                 Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {

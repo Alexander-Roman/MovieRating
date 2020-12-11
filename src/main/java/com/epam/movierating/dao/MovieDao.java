@@ -10,4 +10,5 @@ public interface MovieDao extends Dao<Movie> {
 
     long getMoviesAmount() throws DaoException;
 
+    void updateMovieRatingById(long movieId) throws DaoException;
 }
