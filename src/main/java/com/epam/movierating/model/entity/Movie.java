@@ -1,9 +1,14 @@
-package com.epam.movierating.model;
+package com.epam.movierating.model.entity;
+
+import com.epam.movierating.model.Identifiable;
 
 import java.util.Objects;
 
-public final class Movie extends Identifiable {
+public final class Movie implements Identifiable {
 
+    private static final long serialVersionUID = 1L;
+
+    private final Long id;
     private final String title;
     private final String director;
     private final Integer releaseYear;
@@ -12,13 +17,18 @@ public final class Movie extends Identifiable {
     private final Double rating;
 
     public Movie(Long id, String title, String director, Integer releaseYear, String synopsis, String posterPath, Double rating) {
-        super(id);
+        this.id = id;
         this.title = title;
         this.director = director;
         this.releaseYear = releaseYear;
         this.synopsis = synopsis;
         this.posterPath = posterPath;
         this.rating = rating;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -53,11 +63,9 @@ public final class Movie extends Identifiable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
         Movie movie = (Movie) o;
-        return Objects.equals(title, movie.title) &&
+        return Objects.equals(id, movie.id) &&
+                Objects.equals(title, movie.title) &&
                 Objects.equals(director, movie.director) &&
                 Objects.equals(releaseYear, movie.releaseYear) &&
                 Objects.equals(synopsis, movie.synopsis) &&
@@ -67,7 +75,7 @@ public final class Movie extends Identifiable {
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (director != null ? director.hashCode() : 0);
         result = 31 * result + (releaseYear != null ? releaseYear.hashCode() : 0);
@@ -80,7 +88,7 @@ public final class Movie extends Identifiable {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "id=" + getId() +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", director='" + director + '\'' +
                 ", releaseYear=" + releaseYear +

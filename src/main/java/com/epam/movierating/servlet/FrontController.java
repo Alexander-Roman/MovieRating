@@ -4,6 +4,7 @@ import com.epam.movierating.command.Command;
 import com.epam.movierating.command.CommandFactory;
 import com.epam.movierating.command.CommandResult;
 import com.epam.movierating.connection.ConnectionPool;
+import com.epam.movierating.constant.Parameter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,8 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final String COMMAND_PARAM = "command";
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -34,7 +33,7 @@ public class FrontController extends HttpServlet {
 
     private void process(HttpServletRequest request, HttpServletResponse response) {
         try {
-            String commandRequest = request.getParameter(COMMAND_PARAM);
+            String commandRequest = request.getParameter(Parameter.COMMAND);
             Command command = CommandFactory.create(commandRequest);
             CommandResult commandResult = command.execute(request);
             String page = commandResult.getPage();

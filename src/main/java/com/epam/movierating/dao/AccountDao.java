@@ -1,6 +1,6 @@
 package com.epam.movierating.dao;
 
-import com.epam.movierating.model.Account;
+import com.epam.movierating.model.entity.Account;
 
 import java.util.List;
 import java.util.Optional;

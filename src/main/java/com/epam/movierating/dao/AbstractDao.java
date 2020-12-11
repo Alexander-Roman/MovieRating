@@ -6,19 +6,20 @@ import com.epam.movierating.model.Identifiable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
 
     private final RowMapper<T> rowMapper;
-    private Connection connection;
+    private final Connection connection;
 
     public AbstractDao(Connection connection, RowMapper<T> rowMapper) {
         this.connection = connection;
         this.rowMapper = rowMapper;
     }
 
-    protected Optional<Long> saveSingle(String sql, Object... parameters) throws DaoException {
+    protected Optional<Long> updateSingle(String sql, Object... parameters) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             for (int i = 0; i < parameters.length; i++) {
                 preparedStatement.setObject(i + 1, parameters[i]);
@@ -96,9 +97,35 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
                 connection.close();
             } catch (SQLException e) {
                 throw new DaoException(e);
-            } finally {
-                connection = null;
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AbstractDao<?> that = (AbstractDao<?>) o;
+        return Objects.equals(rowMapper, that.rowMapper) &&
+                Objects.equals(connection, that.connection);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = rowMapper != null ? rowMapper.hashCode() : 0;
+        result = 31 * result + (connection != null ? connection.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "rowMapper=" + rowMapper +
+                ", connection=" + connection +
+                '}';
     }
 }

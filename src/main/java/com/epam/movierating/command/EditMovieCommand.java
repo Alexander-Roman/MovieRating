@@ -3,7 +3,7 @@ package com.epam.movierating.command;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.model.Movie;
+import com.epam.movierating.model.entity.Movie;
 import com.epam.movierating.logic.MovieService;
 import com.epam.movierating.logic.ServiceException;
 

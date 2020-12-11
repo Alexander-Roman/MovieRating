@@ -3,7 +3,7 @@ package com.epam.movierating.logic;
 import com.epam.movierating.dao.AccountDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
-import com.epam.movierating.model.Account;
+import com.epam.movierating.model.entity.Account;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +20,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Optional<Account> authenticate(String username, String password) throws ServiceException {
-        if (username == null || password == null) {
-            return Optional.empty();
-        }
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
             return accountDao.findAccountByUsernameAndPassword(username, password);

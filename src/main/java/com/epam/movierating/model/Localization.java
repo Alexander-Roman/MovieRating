@@ -1,4 +1,4 @@
-package com.epam.movierating.view.localization;
+package com.epam.movierating.model;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

@@ -1,17 +1,19 @@
 package com.epam.movierating.dao.manager;
 
 import com.epam.movierating.dao.*;
-import com.epam.movierating.dao.mapper.AccountRowMapper;
-import com.epam.movierating.dao.mapper.CommentToRowMapper;
-import com.epam.movierating.dao.mapper.MovieRowMapper;
-import com.epam.movierating.dao.mapper.UserRatingToRowMapper;
+import com.epam.movierating.dao.mapper.*;
+import com.epam.movierating.model.dto.CommentDto;
+import com.epam.movierating.model.dto.UserRatingDto;
+import com.epam.movierating.model.entity.Account;
+import com.epam.movierating.model.entity.Movie;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class DaoConnectionManagerImpl implements DaoConnectionManager {
 
-    private Connection connection;
+    private final Connection connection;
 
     public DaoConnectionManagerImpl(Connection connection) {
         this.connection = connection;
@@ -41,22 +43,27 @@ public class DaoConnectionManagerImpl implements DaoConnectionManager {
 
     @Override
     public MovieDao createMovieDao() {
-        return new MovieDaoImpl(connection, new MovieRowMapper());
+        RowMapper<Movie> rowMapper = new MovieRowMapper();
+        return new MovieDaoImpl(connection, rowMapper);
     }
 
     @Override
     public AccountDao createAccountDao() {
-        return new AccountDaoImpl(connection, new AccountRowMapper());
+        RowMapper<Account> rowMapper = new AccountRowMapper();
+        return new AccountDaoImpl(connection, rowMapper);
     }
 
     @Override
-    public UserRatingToDao createUserRatingToDao() {
-        return new UserRatingToDaoImpl(connection, new UserRatingToRowMapper());
+    public UserRatingDtoDao createUserRatingDtoDao() {
+        RowMapper<UserRatingDto> rowMapper = new UserRatingDtoRowMapper();
+        return new UserRatingDtoDaoImpl(connection, rowMapper);
     }
 
     @Override
-    public CommentToDao createCommentToDao() {
-        return new CommentToDaoImpl(connection, new CommentToRowMapper(new AccountRowMapper()));
+    public CommentDtoDao createCommentDtoDao() {
+        RowMapper<Account> accountRowMapper = new AccountRowMapper();
+        RowMapper<CommentDto> commentDtoRowMapper = new CommentDtoRowMapper(accountRowMapper);
+        return new CommentDtoDaoImpl(connection, commentDtoRowMapper);
     }
 
     @Override
@@ -66,9 +73,31 @@ public class DaoConnectionManagerImpl implements DaoConnectionManager {
                 connection.close();
             } catch (SQLException e) {
                 throw new DaoException(e);
-            } finally {
-                connection = null;
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DaoConnectionManagerImpl that = (DaoConnectionManagerImpl) o;
+        return Objects.equals(connection, that.connection);
+    }
+
+    @Override
+    public int hashCode() {
+        return connection != null ? connection.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "connection=" + connection +
+                '}';
     }
 }

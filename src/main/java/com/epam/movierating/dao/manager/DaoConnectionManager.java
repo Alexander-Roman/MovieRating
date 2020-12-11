@@ -8,9 +8,9 @@ public interface DaoConnectionManager extends AutoCloseable {
 
     AccountDao createAccountDao();
 
-    UserRatingToDao createUserRatingToDao();
+    UserRatingDtoDao createUserRatingDtoDao();
 
-    CommentToDao createCommentToDao();
+    CommentDtoDao createCommentDtoDao();
 
     void beginTransaction() throws DaoException;
 

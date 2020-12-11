@@ -1,8 +1,8 @@
 package com.epam.movierating.dao.mapper;
 
 import com.epam.movierating.dao.DaoException;
-import com.epam.movierating.model.Account;
 import com.epam.movierating.model.Role;
+import com.epam.movierating.model.entity.Account;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ public class AccountRowMapper implements RowMapper<Account> {
         try {
             long id = resultSet.getLong(ACCOUNT_ID_LABEL);
             String userName = resultSet.getString(USER_NAME_LABEL);
-            //String password = resultSet.getString(PASSWORD_LABEL);
+            String password = null;
             String roleValue = resultSet.getString(ROLE_LABEL);
             Role role = Role.valueOf(roleValue);
             boolean blocked = resultSet.getBoolean(BLOCKED_LABEL);
@@ -29,24 +29,4 @@ public class AccountRowMapper implements RowMapper<Account> {
             throw new DaoException(e);
         }
     }
-
-    /*
-    @Override
-    public Map<String, String> unmap(Account object) {
-        Long id = object.getId();
-        String userName = object.getUserName();
-        String password = object.getPassword();
-        Role role = object.getRole();
-        boolean blocked = object.isBlocked();
-
-        Map<String, String> values = new HashMap<>();
-        values.put(ACCOUNT_ID_LABEL, id.toString());
-        values.put(USER_NAME_LABEL, userName);
-        values.put(PASSWORD_LABEL, password);
-        values.put(ROLE_LABEL, role.name());
-        values.put(BLOCKED_LABEL, String.valueOf(blocked));
-        return values;
-    }
-
-     */
 }

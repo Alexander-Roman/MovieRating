@@ -28,13 +28,13 @@
                     </label>
                     <input type="text" id="username"
                            placeholder="<fmt:message key="login.form.placeholder.username"/>"
-                           name="username">
+                           name="username" required>
 
                     <label for="password">
                         <fmt:message key="login.form.label.password"/>
                     </label>
                     <input type="password" id="password"
-                           placeholder="<fmt:message key="login.form.placeholder.password"/>" name="password">
+                           placeholder="<fmt:message key="login.form.placeholder.password"/>" name="password" required>
 
                     <button type="submit"><fmt:message key="login.form.button.submit"/></button>
                 </form>

@@ -1,7 +1,7 @@
 package com.epam.movierating.filter;
 
 import com.epam.movierating.constant.Attribute;
-import com.epam.movierating.view.localization.Localization;
+import com.epam.movierating.model.Localization;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

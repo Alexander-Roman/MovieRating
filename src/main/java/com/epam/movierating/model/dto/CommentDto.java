@@ -1,25 +1,36 @@
-package com.epam.movierating.model;
+package com.epam.movierating.model.dto;
+
+import com.epam.movierating.model.Identifiable;
+import com.epam.movierating.model.entity.Account;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public final class Comment extends Identifiable {
+public class CommentDto implements Identifiable {
 
-    private final Movie targetMovie;
+    private static final long serialVersionUID = 1L;
+
+    private final Long id;
+    private final Long movieId;
     private final Account author;
     private final LocalDateTime dateTime;
     private final String text;
 
-    public Comment(Long id, Movie targetMovie, Account author, LocalDateTime dateTime, String text) {
-        super(id);
-        this.targetMovie = targetMovie;
+    public CommentDto(Long id, Long movieId, Account author, LocalDateTime dateTime, String text) {
+        this.id = id;
+        this.movieId = movieId;
         this.author = author;
         this.dateTime = dateTime;
         this.text = text;
     }
 
-    public Movie getTargetMovie() {
-        return targetMovie;
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public Long getMovieId() {
+        return movieId;
     }
 
     public Account getAuthor() {
@@ -42,20 +53,18 @@ public final class Comment extends Identifiable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
-        Comment comment = (Comment) o;
-        return Objects.equals(targetMovie, comment.targetMovie) &&
-                Objects.equals(author, comment.author) &&
-                Objects.equals(dateTime, comment.dateTime) &&
-                Objects.equals(text, comment.text);
+        CommentDto that = (CommentDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(movieId, that.movieId) &&
+                Objects.equals(author, that.author) &&
+                Objects.equals(dateTime, that.dateTime) &&
+                Objects.equals(text, that.text);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (targetMovie != null ? targetMovie.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (movieId != null ? movieId.hashCode() : 0);
         result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
         result = 31 * result + (text != null ? text.hashCode() : 0);
@@ -65,8 +74,8 @@ public final class Comment extends Identifiable {
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-                "id=" + getId() +
-                ", targetMovie=" + targetMovie +
+                "id=" + id +
+                ", movieId=" + movieId +
                 ", author=" + author +
                 ", dateTime=" + dateTime +
                 ", text='" + text + '\'' +

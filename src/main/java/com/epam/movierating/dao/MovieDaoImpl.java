@@ -1,7 +1,7 @@
 package com.epam.movierating.dao;
 
 import com.epam.movierating.dao.mapper.RowMapper;
-import com.epam.movierating.model.Movie;
+import com.epam.movierating.model.entity.Movie;
 
 import java.sql.Connection;
 import java.util.List;
@@ -9,18 +9,20 @@ import java.util.Optional;
 
 public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
 
-    private static final String SQL_COUNT = "SELECT COUNT(*) FROM movies";
-    private static final String SQL_SELECT_ALL = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating FROM movies;";
+    private static final Long NO_ITEMS_RESULT = 0L;
     private static final String SQL_SELECT_PAGE = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating " +
             "FROM movies ORDER BY rating DESC LIMIT ? OFFSET ?;";
-    private static final String SQL_SELECT_BY_ID = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating " +
-            "FROM movies WHERE movie_id = ?;";
-    private static final String SQL_INSERT_NEW_MOVIE = "INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating) " +
+    private static final String SQL_COUNT = "SELECT COUNT(*) FROM movies";
+    private static final String SQL_INSERT_MOVIE = "INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating) " +
             "VALUES (?, ?, ?, ?, ?, null);";
     private static final String SQL_UPDATE_MOVIE = "UPDATE movies " +
             "SET title = ?, director = ?, release_year = ?, synopsis = ?, poster_path = ?, rating = " +
             "(SELECT AVG(assessment) FROM user_ratings WHERE user_ratings.movie_id = movies.movie_id HAVING COUNT(movie_id) > 3) " +
             "WHERE movie_id = ?;";
+    private static final String SQL_SELECT_ALL = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating FROM movies;";
+    private static final String SQL_SELECT_BY_ID = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating " +
+            "FROM movies WHERE movie_id = ?;";
+    private static final String SQL_DELETE_BY_ID = "DELETE FROM movies WHERE movie_id = ?;";
 
     public MovieDaoImpl(Connection connection, RowMapper<Movie> rowMapper) {
         super(connection, rowMapper);
@@ -35,7 +37,7 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
     @Override
     public long getMoviesAmount() throws DaoException {
         Optional<Object> result = selectScalar(SQL_COUNT);
-        return (long) result.orElse(0L);
+        return (long) result.orElse(NO_ITEMS_RESULT);
     }
 
     @Override
@@ -47,12 +49,12 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
         String synopsis = movie.getSynopsis();
         String posterPath = movie.getPosterPath();
         if (id == null) {
-            Optional<Long> result = saveSingle(SQL_INSERT_NEW_MOVIE, title, director, releaseYear, synopsis, posterPath);
+            Optional<Long> result = updateSingle(SQL_INSERT_MOVIE, title, director, releaseYear, synopsis, posterPath);
             if (result.isPresent()) {
                 return result.get();
             }
         } else {
-            saveSingle(SQL_UPDATE_MOVIE, title, director, releaseYear, synopsis, posterPath, id);
+            updateSingle(SQL_UPDATE_MOVIE, title, director, releaseYear, synopsis, posterPath, id);
             return id;
         }
         throw new DaoException("Unacceptable query result!");
@@ -69,7 +71,22 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws DaoException {
+        updateSingle(SQL_DELETE_BY_ID, id);
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

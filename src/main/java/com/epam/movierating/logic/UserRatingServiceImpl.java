@@ -1,37 +1,36 @@
 package com.epam.movierating.logic;
 
-import com.epam.movierating.dao.UserRatingToDao;
+import com.epam.movierating.dao.UserRatingDtoDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
-import com.epam.movierating.model.Account;
-import com.epam.movierating.model.Movie;
-import com.epam.movierating.model.UserRatingTo;
+import com.epam.movierating.model.dto.UserRatingDto;
+import com.epam.movierating.model.entity.Account;
+import com.epam.movierating.model.entity.Movie;
 
 import java.util.Optional;
 
-public class UserRatingServiceImpl extends AbstractService implements UserRatingService {
+public class UserRatingServiceImpl implements UserRatingService {
+
+    private final DaoConnectionManagerFactory factory;
 
     public UserRatingServiceImpl(DaoConnectionManagerFactory factory) {
-        super(factory);
+        this.factory = factory;
     }
 
     @Override
     public Optional<Integer> getPersonalAssessment(Movie assessed, Account assessor) throws ServiceException {
-        if (assessed == null || assessor == null) {
-            return Optional.empty();
-        }
         Long movieId = assessed.getId();
         Long accountId = assessor.getId();
-        Optional<UserRatingTo> result;
-        try (DaoConnectionManager manager = createDaoConnectionManager()) {
-            UserRatingToDao userRatingToDao = manager.createUserRatingToDao();
-            result = userRatingToDao.getByAssessorAndAssessed(movieId, accountId);
+        Optional<UserRatingDto> result;
+        try (DaoConnectionManager manager = factory.create()) {
+            UserRatingDtoDao userRatingDtoDao = manager.createUserRatingDtoDao();
+            result = userRatingDtoDao.getByAssessorAndAssessed(movieId, accountId);
         } catch (Exception e) {
             throw new ServiceException(e);
         }
         if (result.isPresent()) {
-            UserRatingTo userRatingTo = result.get();
-            Integer assessment = userRatingTo.getAssessment();
+            UserRatingDto userRatingDto = result.get();
+            Integer assessment = userRatingDto.getAssessment();
             return Optional.of(assessment);
         }
         return Optional.empty();

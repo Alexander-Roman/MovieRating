@@ -2,7 +2,7 @@ package com.epam.movierating.command;
 
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.view.localization.Localization;
+import com.epam.movierating.model.Localization;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

@@ -1,25 +1,27 @@
 package com.epam.movierating.logic;
 
-import com.epam.movierating.dao.CommentToDao;
+import com.epam.movierating.dao.CommentDtoDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
-import com.epam.movierating.model.CommentTo;
-import com.epam.movierating.model.Movie;
+import com.epam.movierating.model.dto.CommentDto;
+import com.epam.movierating.model.entity.Movie;
 
 import java.util.List;
 
-public class CommentServiceImpl extends AbstractService implements CommentService {
+public class CommentServiceImpl implements CommentService {
+
+    private final DaoConnectionManagerFactory factory;
 
     public CommentServiceImpl(DaoConnectionManagerFactory factory) {
-        super(factory);
+        this.factory = factory;
     }
 
     @Override
-    public List<CommentTo> getMovieComments(Movie movie) throws ServiceException {
+    public List<CommentDto> getMovieComments(Movie movie) throws ServiceException {
         Long movieId = movie.getId();
-        try (DaoConnectionManager manager = createDaoConnectionManager()) {
-            CommentToDao commentToDao = manager.createCommentToDao();
-            return commentToDao.getByMovieId(movieId);
+        try (DaoConnectionManager manager = factory.create()) {
+            CommentDtoDao commentDtoDao = manager.createCommentDtoDao();
+            return commentDtoDao.getByMovieId(movieId);
         } catch (Exception e) {
             throw new ServiceException(e);
         }

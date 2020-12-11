@@ -1,7 +1,7 @@
 package com.epam.movierating.dao.mapper;
 
 import com.epam.movierating.dao.DaoException;
-import com.epam.movierating.model.Movie;
+import com.epam.movierating.model.entity.Movie;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,28 +31,4 @@ public class MovieRowMapper implements RowMapper<Movie> {
             throw new DaoException(e);
         }
     }
-
-    /*
-    @Override
-    public Map<String, String> unmap(Movie object) {
-        Long id = object.getId();
-        String title = object.getTitle();
-        String director = object.getDirector();
-        Integer releaseYear = object.getReleaseYear();
-        String synopsis = object.getSynopsis();
-        String posterPath = object.getPosterPath();
-        Double rating = object.getRating();
-
-        Map<String, String> values = new HashMap<>();
-        values.put(MOVIE_ID_LABEL, id.toString());
-        values.put(TITLE_LABEL, title);
-        values.put(DIRECTOR_LABEL, director);
-        values.put(RELEASE_YEAR_LABEL, releaseYear.toString());
-        values.put(SYNOPSIS_LABEL, synopsis);
-        values.put(POSTER_PATH_LABEL, posterPath);
-        values.put(RATING_LABEL, rating.toString());
-        return values;
-    }
-
-     */
 }

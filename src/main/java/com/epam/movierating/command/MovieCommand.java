@@ -3,9 +3,9 @@ package com.epam.movierating.command;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.model.Account;
-import com.epam.movierating.model.CommentTo;
-import com.epam.movierating.model.Movie;
+import com.epam.movierating.model.entity.Account;
+import com.epam.movierating.model.dto.CommentDto;
+import com.epam.movierating.model.entity.Movie;
 import com.epam.movierating.logic.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +51,7 @@ public class MovieCommand implements Command {
             request.setAttribute(Attribute.PERSONAL_RATE, personalRate);
         }
 
-        List<CommentTo> comments = commentService.getMovieComments(movie);
+        List<CommentDto> comments = commentService.getMovieComments(movie);
         request.setAttribute(Attribute.COMMENTS, comments);
 
         return CommandResult.forward(Page.MOVIE);

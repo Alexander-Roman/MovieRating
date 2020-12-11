@@ -7,28 +7,52 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum Role {
+    GUEST(
+            Stream.of(
+                    CommandName.HOME,
+                    CommandName.LOCALIZATION,
+                    CommandName.LOGIN,
+                    CommandName.LOGIN_PAGE,
+                    CommandName.MOVIE
+            ).collect(Collectors.toSet())
+    ),
     USER(
             Stream.of(
-                    CommandName.USER_LIST
+                    CommandName.HOME,
+                    CommandName.LOCALIZATION,
+                    CommandName.LOGIN,
+                    CommandName.LOGIN_PAGE,
+                    CommandName.USER_LIST,
+                    CommandName.MOVIE
             ).collect(Collectors.toSet())
     ),
     EDITOR(
             Stream.of(
+                    CommandName.HOME,
+                    CommandName.LOCALIZATION,
+                    CommandName.LOGIN,
+                    CommandName.LOGIN_PAGE,
+                    CommandName.USER_LIST,
+                    CommandName.MOVIE,
                     CommandName.CREATE_MOVIE,
                     CommandName.EDIT_MOVIE,
                     CommandName.SAVE_MOVIE,
-                    CommandName.DELETE_COMMENT,
-                    CommandName.USER_LIST
+                    CommandName.DELETE_COMMENT
             ).collect(Collectors.toSet())
     ),
     ADMIN(
             Stream.of(
+                    CommandName.HOME,
+                    CommandName.LOCALIZATION,
+                    CommandName.LOGIN,
+                    CommandName.LOGIN_PAGE,
+                    CommandName.USER_LIST,
+                    CommandName.MOVIE,
                     CommandName.CREATE_MOVIE,
                     CommandName.EDIT_MOVIE,
                     CommandName.SAVE_MOVIE,
                     CommandName.DELETE_MOVIE,
-                    CommandName.DELETE_COMMENT,
-                    CommandName.USER_LIST
+                    CommandName.DELETE_COMMENT
             ).collect(Collectors.toSet())
     );
 

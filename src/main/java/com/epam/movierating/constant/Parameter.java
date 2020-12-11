@@ -2,6 +2,7 @@ package com.epam.movierating.constant;
 
 public class Parameter {
 
+    public static final String COMMAND = "command";
     public static final String LANGUAGE = "lang";
     public static final String PAGE = "page";
     public static final String ID = "id";

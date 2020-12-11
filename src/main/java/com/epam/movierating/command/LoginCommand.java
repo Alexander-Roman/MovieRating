@@ -3,9 +3,9 @@ package com.epam.movierating.command;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.model.Account;
 import com.epam.movierating.logic.AccountService;
 import com.epam.movierating.logic.ServiceException;
+import com.epam.movierating.model.entity.Account;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,17 +26,24 @@ public class LoginCommand implements Command {
         String username = request.getParameter(Parameter.USERNAME);
         String password = request.getParameter(Parameter.PASSWORD);
 
-        HttpSession session = request.getSession();
+        if (username == null || password == null) {
+            throw new ServiceException("Incoming parameters are not correct!");
+        }
+
+
         Optional<Account> found = accountService.authenticate(username, password);
         if (!found.isPresent()) {
             request.setAttribute(Attribute.MESSAGE, MESSAGE_KEY_WRONG);
             return CommandResult.forward(Page.LOGIN);
         }
         Account account = found.get();
-        if (account.isBlocked()) {
+
+        if (account.getBlocked()) {
             request.setAttribute(Attribute.MESSAGE, MESSAGE_KEY_BLOCKED);
             return CommandResult.forward(Page.LOGIN);
         }
+
+        HttpSession session = request.getSession();
         session.setAttribute(Attribute.ACCOUNT, account);
         return CommandResult.redirect(Page.INDEX);
     }

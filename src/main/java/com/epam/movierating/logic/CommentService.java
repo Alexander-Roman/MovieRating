@@ -1,11 +1,12 @@
 package com.epam.movierating.logic;
 
-import com.epam.movierating.model.CommentTo;
-import com.epam.movierating.model.Movie;
+import com.epam.movierating.model.dto.CommentDto;
+import com.epam.movierating.model.entity.Movie;
 
 import java.util.List;
 
 public interface CommentService {
 
-    List<CommentTo> getMovieComments(Movie movie) throws ServiceException;
+    List<CommentDto> getMovieComments(Movie movie) throws ServiceException;
+
 }
