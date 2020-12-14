@@ -483,6 +483,10 @@ body {
     cursor: pointer;
 }
 
+#users tr {
+    height: 47px;
+}
+
 /* Clickable Dropdown */
 
 .clickable-dropbtn {

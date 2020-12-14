@@ -2,67 +2,84 @@ package com.epam.movierating.model;
 
 import com.epam.movierating.constant.CommandName;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.List;
 
 public enum Role {
     GUEST(
-            Stream.of(
+            Arrays.asList(
                     CommandName.HOME,
                     CommandName.LOCALIZATION,
                     CommandName.LOGIN,
                     CommandName.LOGIN_PAGE,
                     CommandName.MOVIE
-            ).collect(Collectors.toSet())
+            )
     ),
     USER(
-            Stream.of(
+            Arrays.asList(
                     CommandName.HOME,
                     CommandName.LOCALIZATION,
                     CommandName.LOGOUT,
                     CommandName.USER_LIST,
                     CommandName.MOVIE,
+                    CommandName.CREATE_COMMENT,
                     CommandName.RATE_MOVIE
-            ).collect(Collectors.toSet())
+            )
     ),
     EDITOR(
-            Stream.of(
+            Arrays.asList(
                     CommandName.HOME,
                     CommandName.LOCALIZATION,
                     CommandName.LOGOUT,
                     CommandName.USER_LIST,
+                    CommandName.BLOCK_USER,
+                    CommandName.UNBLOCK_USER,
                     CommandName.MOVIE,
                     CommandName.CREATE_MOVIE,
                     CommandName.EDIT_MOVIE,
                     CommandName.SAVE_MOVIE,
+                    CommandName.CREATE_COMMENT,
                     CommandName.DELETE_COMMENT,
                     CommandName.RATE_MOVIE
-            ).collect(Collectors.toSet())
+            )
     ),
     ADMIN(
-            Stream.of(
+            Arrays.asList(
                     CommandName.HOME,
                     CommandName.LOCALIZATION,
                     CommandName.LOGOUT,
                     CommandName.USER_LIST,
+                    CommandName.BLOCK_USER,
+                    CommandName.UNBLOCK_USER,
+                    CommandName.BLOCK_EDITOR,
+                    CommandName.UNBLOCK_EDITOR,
+                    CommandName.PROMOTE_USER,
+                    CommandName.DEMOTE_EDITOR,
                     CommandName.MOVIE,
                     CommandName.CREATE_MOVIE,
                     CommandName.EDIT_MOVIE,
                     CommandName.SAVE_MOVIE,
                     CommandName.DELETE_MOVIE,
+                    CommandName.CREATE_COMMENT,
                     CommandName.DELETE_COMMENT,
                     CommandName.RATE_MOVIE
-            ).collect(Collectors.toSet())
+            )
     );
 
-    private final Set<String> permissions;
+    private final List<String> permissions;
 
-    Role(Set<String> permissions) {
+    Role(List<String> permissions) {
         this.permissions = permissions;
     }
 
     public boolean hasAccess(String name) {
         return permissions.contains(name);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "permissions=" + permissions +
+                '}';
     }
 }

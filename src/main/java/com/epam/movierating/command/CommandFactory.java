@@ -64,10 +64,45 @@ public class CommandFactory {
                 AccountService accountService = new AccountServiceImpl(factory);
                 return new UserListCommand(accountService);
             }
+            case CommandName.BLOCK_USER: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                AccountService accountService = new AccountServiceImpl(factory);
+                return new BlockUserCommand(accountService);
+            }
+            case CommandName.UNBLOCK_USER: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                AccountService accountService = new AccountServiceImpl(factory);
+                return new UnblockUserCommand(accountService);
+            }
+            case CommandName.BLOCK_EDITOR: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                AccountService accountService = new AccountServiceImpl(factory);
+                return new BlockEditorCommand(accountService);
+            }
+            case CommandName.UNBLOCK_EDITOR: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                AccountService accountService = new AccountServiceImpl(factory);
+                return new UnblockEditorCommand(accountService);
+            }
+            case CommandName.PROMOTE_USER: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                AccountService accountService = new AccountServiceImpl(factory);
+                return new PromoteUserCommand(accountService);
+            }
+            case CommandName.DEMOTE_EDITOR: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                AccountService accountService = new AccountServiceImpl(factory);
+                return new DemoteEditorCommand(accountService);
+            }
             case CommandName.RATE_MOVIE: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
                 UserRatingService userRatingService = new UserRatingServiceImpl(factory);
                 return new RateMovieCommand(userRatingService);
+            }
+            case CommandName.CREATE_COMMENT: {
+                DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
+                CommentService commentService = new CommentServiceImpl(factory);
+                return new CreateCommentCommand(commentService);
             }
             case CommandName.DELETE_COMMENT: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();

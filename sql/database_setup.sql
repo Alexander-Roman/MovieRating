@@ -47,5 +47,7 @@ CREATE TABLE user_ratings
     FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 );
 
+/*
 CREATE UNIQUE INDEX rate_index
     ON user_ratings (movie_id, account_id);
+*/

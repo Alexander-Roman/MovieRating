@@ -29,6 +29,9 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getPage(int page, int itemsPerPage) throws ServiceException {
+        if (page < 1) {
+            throw new ServiceException("Invalid page parameter!");
+        }
         int firstItem = (page - 1) * itemsPerPage + 1;
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();

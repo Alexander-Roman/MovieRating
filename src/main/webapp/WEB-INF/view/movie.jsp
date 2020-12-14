@@ -164,7 +164,8 @@
                     <c:otherwise>
                         <div class="comment-form-container">
                             <form action="<c:url value="/controller"/>" method="post">
-                                <input type="hidden" name="command" value="leaveComment">
+                                <input type="hidden" name="command" value="addComment">
+                                <input type="hidden" name="id" value="${requestScope.movie.id}">
                                 <div class="comment-form-row">
                                     <h3><label for="text"><fmt:message key="movie.comments.form.header"/></label></h3>
                                 </div>

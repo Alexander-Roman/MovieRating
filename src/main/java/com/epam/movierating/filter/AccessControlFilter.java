@@ -1,19 +1,24 @@
 package com.epam.movierating.filter;
 
 import com.epam.movierating.constant.Attribute;
-import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.model.Role;
 import com.epam.movierating.model.entity.Account;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class AccessControlFilter implements Filter {
 
     private static final Role DEFAULT_ROLE = Role.GUEST;
+
+    @Override
+    public void init(FilterConfig filterConfig) {
+
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -30,7 +35,7 @@ public class AccessControlFilter implements Filter {
         if (command == null || role.hasAccess(command)) {
             chain.doFilter(request, response);
         } else {
-
+            ((HttpServletResponse) response).sendError(403);
         }
     }
 }

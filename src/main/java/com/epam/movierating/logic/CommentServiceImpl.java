@@ -36,4 +36,18 @@ public class CommentServiceImpl implements CommentService {
             throw new ServiceException(e);
         }
     }
+
+    @Override
+    public long createNewComment(CommentDto commentDto) throws ServiceException {
+        Long id = commentDto.getId();
+        if (id != null) {
+            throw new ServiceException("New comment should not contain id!");
+        }
+        try (DaoConnectionManager manager = factory.create()) {
+            CommentDtoDao commentDtoDao = manager.createCommentDtoDao();
+            return commentDtoDao.save(commentDto);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
 }

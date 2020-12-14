@@ -13,4 +13,15 @@ public interface AccountService {
 
     List<Account> getPage(int page, int itemsPerPage) throws ServiceException;
 
+    void blockUserById(long id) throws ServiceException;
+
+    void unblockUserById(long id) throws ServiceException;
+
+    void blockEditorById(long id) throws ServiceException;
+
+    void unblockEditorById(long id) throws ServiceException;
+
+    void promoteUserToEditor(long id) throws ServiceException;
+
+    void demoteEditorToUser(long id) throws ServiceException;
 }

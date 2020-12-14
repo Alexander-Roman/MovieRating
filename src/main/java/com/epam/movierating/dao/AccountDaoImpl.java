@@ -18,7 +18,10 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
             "FROM accounts ORDER BY user_name LIMIT ? OFFSET ?;";
     private static final String SQL_INSERT_ACCOUNT = "INSERT INTO accounts (user_name, password, role, blocked) " +
             "VALUES (?, SHA1(?), ?, ?);";
-    private static final String SQL_UPDATE_ACCOUNT = "UPDATE accounts " +
+    private static final String SQL_UPDATE_ACCOUNT_WITHOUT_PASSWORD = "UPDATE accounts " +
+            "SET user_name = ?, role = ?, blocked = ? " +
+            "WHERE account_id = ?;";
+    private static final String SQL_UPDATE_ACCOUNT_WITH_PASSWORD = "UPDATE accounts " +
             "SET user_name = ?, password = SHA1(?), role = ?, blocked = ? " +
             "WHERE account_id = ?;";
     private static final String SQL_SELECT_ALL = "SELECT account_id, user_name, password, role, blocked FROM accounts;";
@@ -53,14 +56,18 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
         String userName = account.getUserName();
         String password = account.getPassword();
         Role role = account.getRole();
+        String roleName = role.name();
         Boolean blocked = account.getBlocked();
         if (id == null) {
-            Optional<Long> result = updateSingle(SQL_INSERT_ACCOUNT, userName, password, role, blocked);
+            Optional<Long> result = updateSingle(SQL_INSERT_ACCOUNT, userName, password, roleName, blocked);
             if (result.isPresent()) {
                 return result.get();
             }
+        } else if (password == null) {
+            updateSingle(SQL_UPDATE_ACCOUNT_WITHOUT_PASSWORD, userName, roleName, blocked, id);
+            return id;
         } else {
-            updateSingle(SQL_UPDATE_ACCOUNT, userName, password, role, blocked, id);
+            updateSingle(SQL_UPDATE_ACCOUNT_WITH_PASSWORD, userName, password, roleName, blocked, id);
             return id;
         }
         throw new DaoException("Unacceptable query result!");

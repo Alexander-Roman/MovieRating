@@ -38,23 +38,14 @@
                         <tr>
                             <td>${user.userName}</td>
                             <td>${user.role}</td>
+
+
                             <c:choose>
                                 <c:when test="${user.role == 'USER'}">
-                                    <ctg:access accessName="blockUser">
-                                        <c:choose>
-                                            <c:when test="${user.blocked}">
-                                                <td>
-                                                    <form action="<c:url value="/controller"/>">
-                                                        <input type="hidden" name="command" value="blockUser">
-                                                        <input type="hidden" name="id" value="${user.id}">
-                                                        <button class="table-button" type="submit">
-                                                            <fmt:message key="users.table.button.block"/>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <td>
+                                    <td>
+                                        <ctg:access accessName="blockUser">
+                                            <c:choose>
+                                                <c:when test="${user.blocked}">
                                                     <form action="<c:url value="/controller"/>">
                                                         <input type="hidden" name="command" value="unblockUser">
                                                         <input type="hidden" name="id" value="${user.id}">
@@ -62,27 +53,25 @@
                                                             <fmt:message key="users.table.button.unblock"/>
                                                         </button>
                                                     </form>
-                                                </td>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </ctg:access>
-                                </c:when>
-                                <c:when test="${user.role == 'EDITOR'}">
-                                    <ctg:access accessName="blockEditor">
-                                        <c:choose>
-                                            <c:when test="${user.blocked}">
-                                                <td>
+                                                </c:when>
+                                                <c:otherwise>
                                                     <form action="<c:url value="/controller"/>">
-                                                        <input type="hidden" name="command" value="blockEditor">
+                                                        <input type="hidden" name="command" value="blockUser">
                                                         <input type="hidden" name="id" value="${user.id}">
                                                         <button class="table-button" type="submit">
                                                             <fmt:message key="users.table.button.block"/>
                                                         </button>
                                                     </form>
-                                                </td>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <td>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </ctg:access>
+                                    </td>
+                                </c:when>
+                                <c:when test="${user.role == 'EDITOR'}">
+                                    <td>
+                                        <ctg:access accessName="blockEditor">
+                                            <c:choose>
+                                                <c:when test="${user.blocked}">
                                                     <form action="<c:url value="/controller"/>">
                                                         <input type="hidden" name="command" value="unblockEditor">
                                                         <input type="hidden" name="id" value="${user.id}">
@@ -90,10 +79,19 @@
                                                             <fmt:message key="users.table.button.unblock"/>
                                                         </button>
                                                     </form>
-                                                </td>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </ctg:access>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <form action="<c:url value="/controller"/>">
+                                                        <input type="hidden" name="command" value="blockEditor">
+                                                        <input type="hidden" name="id" value="${user.id}">
+                                                        <button class="table-button" type="submit">
+                                                            <fmt:message key="users.table.button.block"/>
+                                                        </button>
+                                                    </form>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </ctg:access>
+                                    </td>
                                 </c:when>
                                 <c:otherwise>
                                     <ctg:access accessName="blockUser">
@@ -101,6 +99,8 @@
                                     </ctg:access>
                                 </c:otherwise>
                             </c:choose>
+
+
                             <c:choose>
                                 <c:when test="${user.role == 'USER'}">
                                     <ctg:access accessName="promoteUser">

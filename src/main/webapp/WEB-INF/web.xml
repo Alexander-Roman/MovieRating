@@ -55,4 +55,24 @@
       <taglib-location>/WEB-INF/tld/custom.tld</taglib-location>
     </taglib>
   </jsp-config>
+
+  <error-page>
+    <error-code>403</error-code>
+    <location>/WEB-INF/error/error403.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/error/error404.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/error/error500.jsp</location>
+  </error-page>
+
+  <error-page>
+    <exception-type>com.epam.movierating.logic.PageNotFoundException</exception-type>
+    <location>/WEB-INF/error/error404.jsp</location>
+  </error-page>
 </web-app>

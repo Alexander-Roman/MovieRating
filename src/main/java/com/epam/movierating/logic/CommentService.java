@@ -11,4 +11,6 @@ public interface CommentService {
 
     void deleteCommentById(long id) throws ServiceException;
 
+    long createNewComment(CommentDto commentDto) throws ServiceException;
+
 }

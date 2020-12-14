@@ -3,6 +3,7 @@ package com.epam.movierating.logic;
 import com.epam.movierating.dao.AccountDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
+import com.epam.movierating.model.Role;
 import com.epam.movierating.model.entity.Account;
 
 import java.util.List;
@@ -51,6 +52,92 @@ public class AccountServiceImpl implements AccountService {
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
             return accountDao.findBatch(itemsPerPage, firstItemNumber);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void blockUserById(long id) throws ServiceException {
+        setBlockedByRoleAndId(Role.USER, id, true);
+    }
+
+    @Override
+    public void unblockUserById(long id) throws ServiceException {
+        setBlockedByRoleAndId(Role.USER, id, false);
+    }
+
+    @Override
+    public void blockEditorById(long id) throws ServiceException {
+        setBlockedByRoleAndId(Role.EDITOR, id, true);
+    }
+
+    @Override
+    public void unblockEditorById(long id) throws ServiceException {
+        setBlockedByRoleAndId(Role.EDITOR, id, false);
+    }
+
+    private void setBlockedByRoleAndId(Role role, long id, boolean blocked) throws ServiceException {
+        try (DaoConnectionManager manager = factory.create()) {
+            AccountDao accountDao = manager.createAccountDao();
+            Optional<Account> found = accountDao.find(id);
+            if (!found.isPresent()) {
+                throw new ServiceException("No account to set blocked!");
+            }
+            Account account = found.get();
+            boolean blockedActual = account.getBlocked();
+            if (blockedActual == blocked) {
+                throw new ServiceException("Blocked value already set!");
+            }
+            Role roleActual = account.getRole();
+            if (role != roleActual) {
+                throw new ServiceException("Unexpected account role in change blocked operation!");
+            }
+            String userName = account.getUserName();
+            String password = account.getPassword();
+            Account changed = new Account(id, userName, password, roleActual, blocked);
+            accountDao.save(changed);
+        } catch (Exception e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public void promoteUserToEditor(long id) throws ServiceException {
+        if (id < 1L) {
+            throw new ServiceException("Invalid id value!");
+        }
+        switchRoleByAccountId(Role.USER, Role.EDITOR, id);
+    }
+
+    @Override
+    public void demoteEditorToUser(long id) throws ServiceException {
+        if (id < 1L) {
+            throw new ServiceException("Invalid id value!");
+        }
+        switchRoleByAccountId(Role.EDITOR, Role.USER, id);
+    }
+
+    private void switchRoleByAccountId(Role fromRole, Role toRole, long id) throws ServiceException {
+        try (DaoConnectionManager manager = factory.create()) {
+            if (fromRole == toRole) {
+                throw new ServiceException("Nothing to change in account Role!");
+            }
+            AccountDao accountDao = manager.createAccountDao();
+            Optional<Account> found = accountDao.find(id);
+            if (!found.isPresent()) {
+                throw new ServiceException("No account to set Role!");
+            }
+            Account account = found.get();
+            Role roleActual = account.getRole();
+            if (fromRole != roleActual) {
+                throw new ServiceException("Unexpected Role to switch!");
+            }
+            String userName = account.getUserName();
+            String password = account.getPassword();
+            Boolean blocked = account.getBlocked();
+            Account changed = new Account(id, userName, password, toRole, blocked);
+            accountDao.save(changed);
         } catch (Exception e) {
             throw new ServiceException(e);
         }

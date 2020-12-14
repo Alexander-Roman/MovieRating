@@ -74,33 +74,32 @@ VALUES ('Scarface', 'Brian De Palma', 1983,
         '/static/img/posters/18', 8.5);
 
 
-
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account1', SHA1('password1'), 'ADMIN', 0);
+VALUES ('admin1', SHA1('pass1'), 'ADMIN', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account2', SHA1('password2'), 'EDITOR', 0);
+VALUES ('editor2', SHA1('pass2'), 'EDITOR', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account3', SHA1('password3'), 'EDITOR', 0);
+VALUES ('editor3', SHA1('pass3'), 'EDITOR', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account4', SHA1('password4'), 'USER', 0);
+VALUES ('user4', SHA1('pass4'), 'USER', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account5', SHA1('password5'), 'USER', 0);
+VALUES ('user5', SHA1('pass5'), 'USER', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account6', SHA1('password6'), 'USER', 0);
+VALUES ('user6', SHA1('pass6'), 'USER', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account7', SHA1('password7'), 'USER', 0);
+VALUES ('user7', SHA1('pass7'), 'USER', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account8', SHA1('password8'), 'USER', 0);
+VALUES ('user8', SHA1('pass8'), 'USER', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account9', SHA1('password9'), 'USER', 0);
+VALUES ('user9', SHA1('pass9'), 'USER', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account10', SHA1('password10'), 'USER', 0);
+VALUES ('user10', SHA1('pass10'), 'USER', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account11', SHA1('password11'), 'USER', 0);
+VALUES ('user11', SHA1('pass11'), 'USER', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account12', SHA1('password12'), 'USER', 0);
+VALUES ('user12', SHA1('pass12'), 'USER', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
-VALUES ('account13', SHA1('password13'), 'USER', 0);
+VALUES ('user13', SHA1('pass13'), 'USER', 0);
 
 
 INSERT INTO comments (movie_id, account_id, date_time, text)

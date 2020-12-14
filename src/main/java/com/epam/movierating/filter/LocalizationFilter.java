@@ -11,6 +11,11 @@ import java.io.IOException;
 public class LocalizationFilter implements Filter {
 
     @Override
+    public void init(FilterConfig filterConfig) {
+
+    }
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession();
         Localization currentLocalization = (Localization) session.getAttribute(Attribute.LOCALIZATION);
