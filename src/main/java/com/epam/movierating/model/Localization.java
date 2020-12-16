@@ -22,4 +22,11 @@ public enum Localization {
     public String getBaseBundleName() {
         return bundle.getBaseBundleName();
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "bundle=" + bundle +
+                '}';
+    }
 }

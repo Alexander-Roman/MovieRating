@@ -1,5 +1,6 @@
 package com.epam.movierating.command;
 
+import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.logic.AccountService;
 import com.epam.movierating.logic.ServiceException;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class PromoteUserCommand implements Command {
 
-    private static final String CONTROLLER_COMMAND_USERS = "/controller?command=users";
+    private static final String USER_LIST_COMMAND_PATH = "/controller" + "?" + Parameter.COMMAND + "=" + CommandName.USER_LIST;
     private final AccountService accountService;
 
     public PromoteUserCommand(AccountService accountService) {
@@ -25,6 +26,13 @@ public class PromoteUserCommand implements Command {
 
         ServletContext servletContext = request.getServletContext();
         String contextPath = servletContext.getContextPath();
-        return CommandResult.redirect(contextPath + CONTROLLER_COMMAND_USERS);
+        return CommandResult.redirect(contextPath + USER_LIST_COMMAND_PATH);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "accountService=" + accountService +
+                '}';
     }
 }

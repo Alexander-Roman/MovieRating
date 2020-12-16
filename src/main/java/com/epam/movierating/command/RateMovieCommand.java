@@ -1,6 +1,7 @@
 package com.epam.movierating.command;
 
 import com.epam.movierating.constant.Attribute;
+import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.logic.ServiceException;
 import com.epam.movierating.logic.UserRatingService;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 public class RateMovieCommand implements Command {
 
-    private static final String COMMAND_MOVIE = "/controller?command=movie&id=";
+    private static final String MOVIE_COMMAND_PATH = "/controller" + "?" + Parameter.COMMAND + "=" + CommandName.MOVIE;
     private final UserRatingService userRatingService;
 
     public RateMovieCommand(UserRatingService userRatingService) {
@@ -32,15 +33,18 @@ public class RateMovieCommand implements Command {
         String rateParameter = request.getParameter(Parameter.RATE);
         int rate = Integer.parseInt(rateParameter);
 
-        if (rate < 1 || 10 < rate) {
-            throw new ServiceException("Invalid rate parameter!");
-        }
-
         UserRatingDto userRatingDto = new UserRatingDto(null, movieId, accountId, rate);
         userRatingService.includeUserRating(userRatingDto);
 
         ServletContext servletContext = request.getServletContext();
         String contextPath = servletContext.getContextPath();
-        return CommandResult.redirect(contextPath + COMMAND_MOVIE + movieId);
+        return CommandResult.redirect(contextPath + MOVIE_COMMAND_PATH + "&" + Parameter.ID + "=" + movieId);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "userRatingService=" + userRatingService +
+                '}';
     }
 }

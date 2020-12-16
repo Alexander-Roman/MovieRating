@@ -9,10 +9,12 @@ import java.util.concurrent.Executor;
 public class ProxyConnection implements Connection {
 
     private final Connection connection;
+    private final ConnectionPool connectionPool;
 
     //package-private
-    ProxyConnection(Connection connection) {
+    ProxyConnection(Connection connection, ConnectionPool connectionPool) {
         this.connection = connection;
+        this.connectionPool = connectionPool;
     }
 
     //package-private
@@ -25,7 +27,6 @@ public class ProxyConnection implements Connection {
         if (!connection.getAutoCommit()) {
             connection.setAutoCommit(true);
         }
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
         connectionPool.releaseConnection(this);
     }
 
@@ -303,18 +304,22 @@ public class ProxyConnection implements Connection {
             return false;
         }
         ProxyConnection that = (ProxyConnection) o;
-        return Objects.equals(connection, that.connection);
+        return Objects.equals(connection, that.connection) &&
+                Objects.equals(connectionPool, that.connectionPool);
     }
 
     @Override
     public int hashCode() {
-        return connection != null ? connection.hashCode() : 0;
+        int result = connection != null ? connection.hashCode() : 0;
+        result = 31 * result + (connectionPool != null ? connectionPool.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
                 "connection=" + connection +
+                ", connectionPool=" + connectionPool +
                 '}';
     }
 }

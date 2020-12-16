@@ -47,4 +47,11 @@ public class LoginCommand implements Command {
         session.setAttribute(Attribute.ACCOUNT, account);
         return CommandResult.redirect(Page.INDEX);
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "accountService=" + accountService +
+                '}';
+    }
 }

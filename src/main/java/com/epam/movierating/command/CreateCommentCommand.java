@@ -1,6 +1,7 @@
 package com.epam.movierating.command;
 
 import com.epam.movierating.constant.Attribute;
+import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.logic.CommentService;
 import com.epam.movierating.logic.ServiceException;
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 
 public class CreateCommentCommand implements Command {
 
-    private static final String COMMAND_MOVIE = "/controller?command=movie&id=";
+    private static final String MOVIE_COMMAND_PATH = "/controller" + "?" + Parameter.COMMAND + "=" + CommandName.MOVIE;
     private final CommentService commentService;
 
     public CreateCommentCommand(CommentService commentService) {
@@ -26,14 +27,14 @@ public class CreateCommentCommand implements Command {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute(Attribute.ACCOUNT);
         if (account == null) {
-            throw new ServiceException("Comment author account undefined!");
+            throw new ServiceException("Comment author undefined!");
         }
 
         String movieIdParameter = request.getParameter(Parameter.ID);
         long movieId = Long.parseLong(movieIdParameter);
 
         String text = request.getParameter(Parameter.TEXT);
-        if (text == null || text.isEmpty()) {
+        if (text == null) {
             throw new ServiceException("No comment text included!");
         }
 
@@ -44,6 +45,13 @@ public class CreateCommentCommand implements Command {
 
         ServletContext servletContext = request.getServletContext();
         String contextPath = servletContext.getContextPath();
-        return CommandResult.redirect(contextPath + COMMAND_MOVIE + movieId);
+        return CommandResult.redirect(contextPath + MOVIE_COMMAND_PATH + "&" + Parameter.ID + "=" + movieId);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "commentService=" + commentService +
+                '}';
     }
 }

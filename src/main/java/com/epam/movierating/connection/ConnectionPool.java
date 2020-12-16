@@ -31,7 +31,7 @@ public final class ConnectionPool {
             throw new ConnectionPoolException(e);
         }
         for (int i = 0; i < POOL_SIZE; i++) {
-            ProxyConnectionFactory proxyConnectionFactory = new ProxyConnectionFactory();
+            ProxyConnectionFactory proxyConnectionFactory = new ProxyConnectionFactory(this);
             ProxyConnection proxyConnection = proxyConnectionFactory.create();
             connections.offer(proxyConnection);
         }

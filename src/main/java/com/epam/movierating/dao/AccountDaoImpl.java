@@ -87,19 +87,4 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
     public void delete(long id) throws DaoException {
         updateSingle(SQL_DELETE_BY_ID, id);
     }
-
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
 }

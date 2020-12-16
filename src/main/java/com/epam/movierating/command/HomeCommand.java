@@ -3,10 +3,10 @@ package com.epam.movierating.command;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.model.entity.Movie;
 import com.epam.movierating.logic.MovieService;
 import com.epam.movierating.logic.PageNotFoundException;
 import com.epam.movierating.logic.ServiceException;
+import com.epam.movierating.model.entity.Movie;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -33,7 +33,7 @@ public class HomeCommand implements Command {
 
         int numberOfPages = movieService.getNumberOfPages(DEFAULT_ITEMS_PER_PAGE);
         if (page > numberOfPages) {
-            throw new PageNotFoundException();
+            throw new PageNotFoundException("Page not found!");
         }
 
         List<Movie> movies = movieService.getPage(page, DEFAULT_ITEMS_PER_PAGE);
@@ -44,5 +44,12 @@ public class HomeCommand implements Command {
         request.setAttribute(Attribute.MOVIES, movies);
 
         return CommandResult.forward(Page.HOME);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "movieService=" + movieService +
+                '}';
     }
 }

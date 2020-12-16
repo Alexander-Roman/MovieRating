@@ -3,10 +3,10 @@ package com.epam.movierating.command;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.model.entity.Account;
-import com.epam.movierating.model.dto.CommentDto;
-import com.epam.movierating.model.entity.Movie;
 import com.epam.movierating.logic.*;
+import com.epam.movierating.model.dto.CommentDto;
+import com.epam.movierating.model.entity.Account;
+import com.epam.movierating.model.entity.Movie;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,30 +30,41 @@ public class MovieCommand implements Command {
         String idParameter = request.getParameter(Parameter.ID);
         long id = Long.parseLong(idParameter);
 
+
         Optional<Movie> movieFound = movieService.getById(id);
-        Movie movie;
-        if (movieFound.isPresent()) {
-            movie = movieFound.get();
-            request.setAttribute(Attribute.MOVIE, movie);
-        } else {
+        if (!movieFound.isPresent()) {
             throw new PageNotFoundException("Movie not found!");
         }
+        Movie movie = movieFound.get();
+        request.setAttribute(Attribute.MOVIE, movie);
+
+
+        long movieId = movie.getId();
+        List<CommentDto> comments = commentService.getMovieComments(movieId);
+        request.setAttribute(Attribute.COMMENTS, comments);
+
 
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute(Attribute.ACCOUNT);
         Optional<Integer> personalRateFound = Optional.empty();
         if (account != null) {
-            personalRateFound = userRatingService.getPersonalAssessment(movie, account);
+            long accountId = account.getId();
+            personalRateFound = userRatingService.getPersonalAssessment(movieId, accountId);
         }
-
         if (personalRateFound.isPresent()) {
             int personalRate = personalRateFound.get();
             request.setAttribute(Attribute.PERSONAL_RATE, personalRate);
         }
 
-        List<CommentDto> comments = commentService.getMovieComments(movie);
-        request.setAttribute(Attribute.COMMENTS, comments);
-
         return CommandResult.forward(Page.MOVIE);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "movieService=" + movieService +
+                ", userRatingService=" + userRatingService +
+                ", commentService=" + commentService +
+                '}';
     }
 }

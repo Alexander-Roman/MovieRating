@@ -11,8 +11,10 @@ import java.util.Optional;
 
 public class AccountServiceImpl implements AccountService {
 
+    private static final long MIN_ID_VALUE = 1L;
     private static final int MIN_PAGE_VALUE = 1;
     private static final int MIN_ITEMS_PER_PAGE = 1;
+    private static final int MAX_USERNAME_LENGTH = 45;
     private final DaoConnectionManagerFactory factory;
 
     public AccountServiceImpl(DaoConnectionManagerFactory factory) {
@@ -21,6 +23,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Optional<Account> authenticate(String username, String password) throws ServiceException {
+        if (username == null || username.isEmpty() || username.length() > MAX_USERNAME_LENGTH) {
+            throw new ServiceException("Invalid username value: " + username);
+        }
+        if (password == null || password.isEmpty()) {
+            throw new ServiceException("Invalid password value: " + password);
+        }
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
             return accountDao.findAccountByUsernameAndPassword(username, password);
@@ -78,6 +86,9 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private void setBlockedByRoleAndId(Role role, long id, boolean blocked) throws ServiceException {
+        if (id < MIN_ID_VALUE) {
+            throw new ServiceException("Invalid id value: " + id);
+        }
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
             Optional<Account> found = accountDao.find(id);
@@ -104,25 +115,22 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void promoteUserToEditor(long id) throws ServiceException {
-        if (id < 1L) {
-            throw new ServiceException("Invalid id value!");
-        }
         switchRoleByAccountId(Role.USER, Role.EDITOR, id);
     }
 
     @Override
     public void demoteEditorToUser(long id) throws ServiceException {
-        if (id < 1L) {
-            throw new ServiceException("Invalid id value!");
-        }
         switchRoleByAccountId(Role.EDITOR, Role.USER, id);
     }
 
     private void switchRoleByAccountId(Role fromRole, Role toRole, long id) throws ServiceException {
+        if (id < MIN_ID_VALUE) {
+            throw new ServiceException("Invalid id value: " + id);
+        }
+        if (fromRole == toRole) {
+            throw new ServiceException("Nothing to change in account Role!");
+        }
         try (DaoConnectionManager manager = factory.create()) {
-            if (fromRole == toRole) {
-                throw new ServiceException("Nothing to change in account Role!");
-            }
             AccountDao accountDao = manager.createAccountDao();
             Optional<Account> found = accountDao.find(id);
             if (!found.isPresent()) {
@@ -141,5 +149,12 @@ public class AccountServiceImpl implements AccountService {
         } catch (Exception e) {
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "factory=" + factory +
+                '}';
     }
 }

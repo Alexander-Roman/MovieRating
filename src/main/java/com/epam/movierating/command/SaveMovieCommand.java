@@ -1,5 +1,6 @@
 package com.epam.movierating.command;
 
+import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.logic.MovieService;
 import com.epam.movierating.logic.ServiceException;
@@ -21,7 +22,7 @@ public class SaveMovieCommand implements Command {
 
     private static final String POSTER_PART = "poster";
     private static final String POSTERS_DIRECTORY = "/static/img/posters/";
-    private static final String COMMAND_MOVIE = "/controller?command=movie&id=";
+    private static final String MOVIE_COMMAND_PATH = "/controller" + "?" + Parameter.COMMAND + "=" + CommandName.MOVIE;
     private final MovieService movieService;
 
     public SaveMovieCommand(MovieService movieService) {
@@ -84,6 +85,13 @@ public class SaveMovieCommand implements Command {
         long confirmedId = movieService.save(movie);
 
         String contextPath = servletContext.getContextPath();
-        return CommandResult.redirect(contextPath + COMMAND_MOVIE + confirmedId);
+        return CommandResult.redirect(contextPath + MOVIE_COMMAND_PATH + "&" + Parameter.ID + "=" + confirmedId);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "movieService=" + movieService +
+                '}';
     }
 }

@@ -3,10 +3,10 @@ package com.epam.movierating.command;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.model.entity.Account;
 import com.epam.movierating.logic.AccountService;
 import com.epam.movierating.logic.PageNotFoundException;
 import com.epam.movierating.logic.ServiceException;
+import com.epam.movierating.model.entity.Account;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -44,5 +44,12 @@ public class UserListCommand implements Command {
         request.setAttribute(Attribute.USERS, users);
 
         return CommandResult.forward(Page.USERS);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "accountService=" + accountService +
+                '}';
     }
 }

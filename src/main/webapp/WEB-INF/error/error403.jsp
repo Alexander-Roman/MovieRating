@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="<fmt:message key="html.lang"/>">
 <head>
-    <title>404</title>
+    <title>403</title>
     <jsp:include page="../template/metadata.jsp"/>
 </head>
 

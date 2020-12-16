@@ -4,32 +4,45 @@ import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.logic.*;
+import com.epam.movierating.logic.validator.CommentDtoValidator;
+import com.epam.movierating.logic.validator.MovieValidator;
+import com.epam.movierating.logic.validator.UserRatingDtoValidator;
+import com.epam.movierating.logic.validator.Validator;
+import com.epam.movierating.model.dto.CommentDto;
+import com.epam.movierating.model.dto.UserRatingDto;
+import com.epam.movierating.model.entity.Movie;
 
 public class CommandFactory {
 
     public static Command create(String command) {
         if (command == null) {
             DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
-            MovieService movieService = new MovieServiceImpl(factory);
+            Validator<Movie> movieValidator = new MovieValidator();
+            MovieService movieService = new MovieServiceImpl(factory, movieValidator);
             return new HomeCommand(movieService);
         }
 
         switch (command) {
             case CommandName.HOME: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
-                MovieService movieService = new MovieServiceImpl(factory);
+                Validator<Movie> movieValidator = new MovieValidator();
+                MovieService movieService = new MovieServiceImpl(factory, movieValidator);
                 return new HomeCommand(movieService);
             }
             case CommandName.MOVIE: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
-                MovieService movieService = new MovieServiceImpl(factory);
-                UserRatingService userRatingService = new UserRatingServiceImpl(factory);
-                CommentService commentService = new CommentServiceImpl(factory);
+                Validator<Movie> movieValidator = new MovieValidator();
+                MovieService movieService = new MovieServiceImpl(factory, movieValidator);
+                Validator<UserRatingDto> userRatingDtoValidator = new UserRatingDtoValidator();
+                UserRatingService userRatingService = new UserRatingServiceImpl(factory, userRatingDtoValidator);
+                Validator<CommentDto> commentDtoValidator = new CommentDtoValidator();
+                CommentService commentService = new CommentServiceImpl(factory, commentDtoValidator);
                 return new MovieCommand(movieService, userRatingService, commentService);
             }
             case CommandName.EDIT_MOVIE: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
-                MovieService movieService = new MovieServiceImpl(factory);
+                Validator<Movie> movieValidator = new MovieValidator();
+                MovieService movieService = new MovieServiceImpl(factory, movieValidator);
                 return new EditMovieCommand(movieService);
             }
             case CommandName.CREATE_MOVIE: {
@@ -37,12 +50,14 @@ public class CommandFactory {
             }
             case CommandName.SAVE_MOVIE: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
-                MovieService movieService = new MovieServiceImpl(factory);
+                Validator<Movie> movieValidator = new MovieValidator();
+                MovieService movieService = new MovieServiceImpl(factory, movieValidator);
                 return new SaveMovieCommand(movieService);
             }
             case CommandName.DELETE_MOVIE: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
-                MovieService movieService = new MovieServiceImpl(factory);
+                Validator<Movie> movieValidator = new MovieValidator();
+                MovieService movieService = new MovieServiceImpl(factory, movieValidator);
                 return new DeleteMovieCommand(movieService);
             }
             case CommandName.LOCALIZATION: {
@@ -96,21 +111,24 @@ public class CommandFactory {
             }
             case CommandName.RATE_MOVIE: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
-                UserRatingService userRatingService = new UserRatingServiceImpl(factory);
+                Validator<UserRatingDto> userRatingDtoValidator = new UserRatingDtoValidator();
+                UserRatingService userRatingService = new UserRatingServiceImpl(factory, userRatingDtoValidator);
                 return new RateMovieCommand(userRatingService);
             }
             case CommandName.CREATE_COMMENT: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
-                CommentService commentService = new CommentServiceImpl(factory);
+                Validator<CommentDto> commentDtoValidator = new CommentDtoValidator();
+                CommentService commentService = new CommentServiceImpl(factory, commentDtoValidator);
                 return new CreateCommentCommand(commentService);
             }
             case CommandName.DELETE_COMMENT: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
-                CommentService commentService = new CommentServiceImpl(factory);
+                Validator<CommentDto> commentDtoValidator = new CommentDtoValidator();
+                CommentService commentService = new CommentServiceImpl(factory, commentDtoValidator);
                 return new DeleteCommentCommand(commentService);
             }
             default: {
-                throw new IllegalArgumentException("Command unknown!");
+                throw new IllegalArgumentException(command + " is unknown command!");
             }
         }
     }

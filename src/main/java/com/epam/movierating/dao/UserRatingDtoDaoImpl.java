@@ -26,7 +26,7 @@ public class UserRatingDtoDaoImpl extends AbstractDao<UserRatingDto> implements 
     }
 
     @Override
-    public Optional<UserRatingDto> getByAssessorAndAssessed(Long movieId, Long accountId) throws DaoException {
+    public Optional<UserRatingDto> getByAssessedAndAssessor(Long movieId, Long accountId) throws DaoException {
         return selectSingle(SQL_SELECT_BY_ACCOUNT_AND_MOVIE, movieId, accountId);
     }
 
@@ -61,20 +61,5 @@ public class UserRatingDtoDaoImpl extends AbstractDao<UserRatingDto> implements 
     @Override
     public void delete(long id) throws DaoException {
         updateSingle(SQL_DELETE_BY_ID, id);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }

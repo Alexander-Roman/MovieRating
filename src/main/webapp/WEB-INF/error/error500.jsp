@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="<fmt:message key="html.lang"/>">
 <head>
-    <title>404</title>
+    <title>500</title>
     <jsp:include page="../template/metadata.jsp"/>
 </head>
 
@@ -23,6 +23,11 @@
             <div class="main">
 
                 <h2>500: Internal Server Error!</h2>
+                <p>Request from ${pageContext.errorData.requestURI} is failed!</p>
+                <p>Servlet name: ${pageContext.errorData.servletName}</p>
+                <p>Status code: ${pageContext.errorData.statusCode}</p>
+                <p>Exception: ${pageContext.exception}</p>
+                <p>Exception message: ${pageContext.exception.message}</p>
 
             </div>
         </div>

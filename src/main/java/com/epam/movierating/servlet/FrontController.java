@@ -6,7 +6,6 @@ import com.epam.movierating.command.CommandResult;
 import com.epam.movierating.connection.ConnectionPool;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.logic.PageNotFoundException;
-import com.epam.movierating.logic.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,16 +25,16 @@ public class FrontController extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         process(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         process(req, resp);
     }
 
-    private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             String commandRequest = request.getParameter(Parameter.COMMAND);
             Command command = CommandFactory.create(commandRequest);
@@ -52,7 +51,7 @@ public class FrontController extends HttpServlet {
             response.sendError(404);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
-            response.sendError(500);
+            throw new ServletException(e);
         }
     }
 

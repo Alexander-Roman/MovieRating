@@ -6,6 +6,6 @@ import java.util.Optional;
 
 public interface UserRatingDtoDao extends Dao<UserRatingDto> {
 
-    Optional<UserRatingDto> getByAssessorAndAssessed(Long movieId, Long accountId) throws DaoException;
+    Optional<UserRatingDto> getByAssessedAndAssessor(Long movieId, Long accountId) throws DaoException;
 
 }

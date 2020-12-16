@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Properties;
 
 public class ProxyConnectionFactory {
@@ -12,11 +13,13 @@ public class ProxyConnectionFactory {
     private static final String DATABASE_PROPERTIES_FILE = "property/database.properties";
     private static final String URL_KEY = "url";
 
+    private final ConnectionPool connectionPool;
     private final Properties properties;
     private final String databaseUrl;
 
     //package-private
-    ProxyConnectionFactory() throws ConnectionPoolException {
+    ProxyConnectionFactory(ConnectionPool connectionPool) throws ConnectionPoolException {
+        this.connectionPool = connectionPool;
         properties = new Properties();
         Class<ProxyConnectionFactory> clazz = ProxyConnectionFactory.class;
         ClassLoader classLoader = clazz.getClassLoader();
@@ -36,6 +39,37 @@ public class ProxyConnectionFactory {
         } catch (SQLException e) {
             throw new ConnectionPoolException(e);
         }
-        return new ProxyConnection(connection);
+        return new ProxyConnection(connection, connectionPool);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ProxyConnectionFactory that = (ProxyConnectionFactory) o;
+        return Objects.equals(connectionPool, that.connectionPool) &&
+                Objects.equals(properties, that.properties) &&
+                Objects.equals(databaseUrl, that.databaseUrl);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = connectionPool != null ? connectionPool.hashCode() : 0;
+        result = 31 * result + (properties != null ? properties.hashCode() : 0);
+        result = 31 * result + (databaseUrl != null ? databaseUrl.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "connectionPool=" + connectionPool +
+                ", properties=" + properties +
+                ", databaseUrl='" + databaseUrl + '\'' +
+                '}';
     }
 }

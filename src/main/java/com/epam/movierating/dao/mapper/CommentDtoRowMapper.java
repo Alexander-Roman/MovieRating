@@ -35,4 +35,11 @@ public class CommentDtoRowMapper implements RowMapper<CommentDto> {
             throw new DaoException(e);
         }
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "accountRowMapper=" + accountRowMapper +
+                '}';
+    }
 }
