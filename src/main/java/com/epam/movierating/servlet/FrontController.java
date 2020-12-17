@@ -51,7 +51,7 @@ public class FrontController extends HttpServlet {
             response.sendError(404);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
-            throw new ServletException(e);
+            throw new RuntimeException(e);
         }
     }
 
