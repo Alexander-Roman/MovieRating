@@ -473,6 +473,8 @@ body {
     color: white;
 }
 
+/* Movies table */
+
 #movies tr:hover {
     background-color: #ddd;
 }
@@ -480,6 +482,28 @@ body {
 #movies tr:not(:first-child) {
     cursor: pointer;
 }
+
+#movies .title-cell {
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+}
+
+#movies .title-cell-img {
+    margin-right: 10px;
+}
+
+#movies .title-cell-img img {
+    width: 60px;
+}
+
+@media screen and (max-width: 400px) {
+    #movies .wide {
+        display: none;
+    }
+}
+
+/* Users table */
 
 #users tr {
     height: 47px;

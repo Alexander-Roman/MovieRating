@@ -36,18 +36,35 @@
 
                 <table class="table" id="movies">
                     <tr>
-                        <th><fmt:message key="movies.table.header.number"/></th>
+                        <th class="wide"><fmt:message key="movies.table.header.number"/></th>
                         <th><fmt:message key="movies.table.header.title"/></th>
-                        <th><fmt:message key="movies.table.header.director"/></th>
-                        <th><fmt:message key="movies.table.header.year"/></th>
+                        <th class="wide"><fmt:message key="movies.table.header.director"/></th>
+                        <th class="wide"><fmt:message key="movies.table.header.year"/></th>
                         <th><fmt:message key="movies.table.header.rating"/></th>
                     </tr>
                     <c:forEach var="movie" items="${requestScope.movies}" varStatus="counter">
                         <tr data-movie-page="<c:url value="controller?command=movie&id=${movie.id}"/>">
-                            <td>${counter.count + requestScope.itemsPerPage * (requestScope.page - 1)}</td>
-                            <td>${movie.title}</td>
-                            <td>${movie.director}</td>
-                            <td>${movie.releaseYear}</td>
+                            <td class="wide">${counter.count + requestScope.itemsPerPage * (requestScope.page - 1)}</td>
+
+                            <td>
+                                <div class="title-cell">
+                                    <div class="title-cell-img">
+                                        <c:choose>
+                                            <c:when test="${movie.posterPath == null}">
+                                                <img src="<c:url value="/static/img/posters/NO_POSTER_AVAILABLE.jpg"/>"
+                                                     alt="">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="<c:url value="${movie.posterPath}"/>" alt="">
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                    <div class="title-cell-text">${movie.title}</div>
+                                </div>
+                            </td>
+
+                            <td class="wide">${movie.director}</td>
+                            <td class="wide">${movie.releaseYear}</td>
                             <td>${movie.rating}</td>
                         </tr>
                     </c:forEach>
