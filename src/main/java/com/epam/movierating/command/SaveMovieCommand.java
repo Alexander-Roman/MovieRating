@@ -65,7 +65,13 @@ public class SaveMovieCommand implements Command {
             throw new ServiceException(e);
         }
 
+
+
         if (poster != null && poster.getSize() > 0) {
+            if  (poster.getSize() > 1024 * 1024 * 2) {
+                throw new ServiceException("Maximum upload file size exceeded!");
+            }
+
             if (posterPath == null) {
                 UUID uuid = UUID.randomUUID();
                 posterPath = POSTERS_DIRECTORY + uuid;

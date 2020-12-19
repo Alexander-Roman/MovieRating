@@ -17,9 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, //2MB
+/*
+(fileSizeThreshold = 1024 * 1024 * 2, //2MB
         maxFileSize = 1024 * 1024 * 4, //4MB
         maxRequestSize = 1024 * 1024 * 8) //8MB
+ */
+
+@MultipartConfig
 public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();

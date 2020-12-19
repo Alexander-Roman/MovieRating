@@ -5,7 +5,6 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Enumeration;
-import java.util.Objects;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.Lock;
@@ -14,12 +13,14 @@ import java.util.concurrent.locks.ReentrantLock;
 public final class ConnectionPool {
 
     private static final int POOL_SIZE = 10;
+    private static final int MAX_TIMEOUT = 1;
     private static final Lock INSTANCE_LOCK = new ReentrantLock();
 
     private static ConnectionPool instance = null;
     private static boolean isReady = false;
 
     private final BlockingQueue<ProxyConnection> connections = new ArrayBlockingQueue<>(POOL_SIZE);
+    private final ProxyConnectionFactory proxyConnectionFactory;
 
     private ConnectionPool() throws ConnectionPoolException {
         if (instance != null) {
@@ -30,8 +31,8 @@ public final class ConnectionPool {
         } catch (SQLException e) {
             throw new ConnectionPoolException(e);
         }
+        proxyConnectionFactory = new ProxyConnectionFactory(this);
         for (int i = 0; i < POOL_SIZE; i++) {
-            ProxyConnectionFactory proxyConnectionFactory = new ProxyConnectionFactory(this);
             ProxyConnection proxyConnection = proxyConnectionFactory.create();
             connections.offer(proxyConnection);
         }
@@ -55,11 +56,16 @@ public final class ConnectionPool {
     }
 
     public Connection getConnection() throws ConnectionPoolException {
+        Connection connection;
         try {
-            return connections.take();
-        } catch (InterruptedException e) {
+            connection = connections.take();
+            if (!connection.isValid(MAX_TIMEOUT)) {
+                connection = proxyConnectionFactory.create();
+            }
+        } catch (InterruptedException | SQLException e) {
             throw new ConnectionPoolException(e);
         }
+        return connection;
     }
 
     //package-private
@@ -98,29 +104,5 @@ public final class ConnectionPool {
     @Override
     public Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException("Cloned copies not allowed for ConnectionPoolImpl class!");
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ConnectionPool that = (ConnectionPool) o;
-        return Objects.equals(connections, that.connections);
-    }
-
-    @Override
-    public int hashCode() {
-        return connections.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "connections=" + connections +
-                '}';
     }
 }

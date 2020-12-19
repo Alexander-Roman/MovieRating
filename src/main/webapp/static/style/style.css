@@ -37,7 +37,7 @@ body {
     /*color: white;*/
 }
 
-@media screen and (max-width: 415px) {
+@media screen and (max-width: 480px) {
     .header {
         display: none;
     }
@@ -95,7 +95,7 @@ body {
 }
 
 /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 480px) {
     .navbar a.navbar-item {
         float: none;
         width: 100%;
@@ -495,9 +495,10 @@ body {
 
 #movies .title-cell-img img {
     width: 60px;
+    max-height: 100px;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 480px) {
     #movies .wide {
         display: none;
     }

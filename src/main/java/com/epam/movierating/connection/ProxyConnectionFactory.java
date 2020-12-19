@@ -1,5 +1,8 @@
 package com.epam.movierating.connection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -10,6 +13,7 @@ import java.util.Properties;
 
 public class ProxyConnectionFactory {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private static final String DATABASE_PROPERTIES_FILE = "property/database.properties";
     private static final String URL_KEY = "url";
 
@@ -39,6 +43,7 @@ public class ProxyConnectionFactory {
         } catch (SQLException e) {
             throw new ConnectionPoolException(e);
         }
+        LOGGER.debug("New connection created: " + connection);
         return new ProxyConnection(connection, connectionPool);
     }
 
