@@ -61,12 +61,4 @@ public class UserRatingServiceImpl implements UserRatingService {
             throw new ServiceException(e);
         }
     }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "factory=" + factory +
-                ", userRatingDtoValidator=" + userRatingDtoValidator +
-                '}';
-    }
 }

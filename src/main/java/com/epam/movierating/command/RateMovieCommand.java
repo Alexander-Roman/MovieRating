@@ -40,11 +40,4 @@ public class RateMovieCommand implements Command {
         String contextPath = servletContext.getContextPath();
         return CommandResult.redirect(contextPath + MOVIE_COMMAND_PATH + "&" + Parameter.ID + "=" + movieId);
     }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "userRatingService=" + userRatingService +
-                '}';
-    }
 }

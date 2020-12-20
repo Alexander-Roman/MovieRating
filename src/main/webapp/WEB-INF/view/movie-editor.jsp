@@ -41,6 +41,7 @@
                             <div>
                                 <input type="file" id="edit-poster" name="poster" accept="image/jpeg,image/png">
                             </div>
+                            <span class="poster-validation-alert"><fmt:message key="editor.form.poster.alert"/></span>
                         </div>
                         <div class="movie-description">
                             <div class="edit-description-container">
@@ -83,7 +84,7 @@
                     <button class="cancel" onclick="history.back();">
                         <fmt:message key="editor.form.button.cancel"/>
                     </button>
-                    <button class="save" type="submit">
+                    <button id="save-movie-button" class="save" type="submit">
                         <fmt:message key="editor.form.button.submit"/>
                     </button>
                 </form>
@@ -94,6 +95,6 @@
     <jsp:include page="../template/footer.jsp"/>
 
 </div>
-<script src="<c:url value="/static/js/poster-preview.js"/>"></script>
+<script src="<c:url value="/static/js/poster-validator.js"/>"></script>
 </body>
 </html>

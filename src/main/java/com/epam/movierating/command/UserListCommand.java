@@ -45,11 +45,4 @@ public class UserListCommand implements Command {
 
         return CommandResult.forward(Page.USERS);
     }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "accountService=" + accountService +
-                '}';
-    }
 }

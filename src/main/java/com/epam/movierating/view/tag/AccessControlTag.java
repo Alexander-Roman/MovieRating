@@ -32,28 +32,4 @@ public class AccessControlTag extends TagSupport {
             return SKIP_BODY;
         }
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        AccessControlTag that = (AccessControlTag) o;
-        return Objects.equals(accessName, that.accessName);
-    }
-
-    @Override
-    public int hashCode() {
-        return accessName != null ? accessName.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "accessName='" + accessName + '\'' +
-                '}';
-    }
 }

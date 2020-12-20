@@ -28,11 +28,4 @@ public class BlockUserCommand implements Command {
         String contextPath = servletContext.getContextPath();
         return CommandResult.redirect(contextPath + USER_LIST_COMMAND_PATH);
     }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "accountService=" + accountService +
-                '}';
-    }
 }

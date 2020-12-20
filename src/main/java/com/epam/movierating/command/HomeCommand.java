@@ -45,11 +45,4 @@ public class HomeCommand implements Command {
 
         return CommandResult.forward(Page.HOME);
     }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "movieService=" + movieService +
-                '}';
-    }
 }

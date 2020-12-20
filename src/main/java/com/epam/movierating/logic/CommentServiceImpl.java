@@ -61,12 +61,4 @@ public class CommentServiceImpl implements CommentService {
             throw new ServiceException(e);
         }
     }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "factory=" + factory +
-                ", commentDtoValidator=" + commentDtoValidator +
-                '}';
-    }
 }

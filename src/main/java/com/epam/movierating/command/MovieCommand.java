@@ -58,13 +58,4 @@ public class MovieCommand implements Command {
 
         return CommandResult.forward(Page.MOVIE);
     }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "movieService=" + movieService +
-                ", userRatingService=" + userRatingService +
-                ", commentService=" + commentService +
-                '}';
-    }
 }

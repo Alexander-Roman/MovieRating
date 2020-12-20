@@ -1,6 +1,7 @@
 package com.epam.movierating.servlet;
 
 import com.epam.movierating.command.Command;
+import com.epam.movierating.command.CommandContext;
 import com.epam.movierating.command.CommandFactory;
 import com.epam.movierating.command.CommandResult;
 import com.epam.movierating.connection.ConnectionPool;
@@ -21,12 +22,13 @@ import java.io.IOException;
 (fileSizeThreshold = 1024 * 1024 * 2, //2MB
         maxFileSize = 1024 * 1024 * 4, //4MB
         maxRequestSize = 1024 * 1024 * 8) //8MB
- */
+*/
 
 @MultipartConfig
 public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
+    private final CommandContext commandContext = new CommandContext();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -41,7 +43,7 @@ public class FrontController extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             String commandRequest = request.getParameter(Parameter.COMMAND);
-            Command command = CommandFactory.create(commandRequest);
+            Command command = commandContext.getByCommandName(commandRequest);
             CommandResult commandResult = command.execute(request);
             String page = commandResult.getPage();
 
@@ -52,6 +54,7 @@ public class FrontController extends HttpServlet {
                 requestDispatcher.forward(request, response);
             }
         } catch (PageNotFoundException e) {
+            LOGGER.debug(e.getMessage(), e);
             response.sendError(404);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);

@@ -5,7 +5,7 @@ import java.util.Objects;
 public final class CommandResult {
 
     private final String page;
-    private final Boolean redirect;
+    private final boolean redirect;
 
     private CommandResult(String page, Boolean redirect) {
         this.page = page;
@@ -24,27 +24,23 @@ public final class CommandResult {
         return page;
     }
 
-    public Boolean isRedirect() {
+    public boolean isRedirect() {
         return redirect;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         CommandResult that = (CommandResult) o;
-        return Objects.equals(page, that.page) &&
-                Objects.equals(redirect, that.redirect);
+        return redirect == that.redirect &&
+                Objects.equals(page, that.page);
     }
 
     @Override
     public int hashCode() {
         int result = page != null ? page.hashCode() : 0;
-        result = 31 * result + (redirect != null ? redirect.hashCode() : 0);
+        result = 31 * result + (redirect ? 1 : 0);
         return result;
     }
 

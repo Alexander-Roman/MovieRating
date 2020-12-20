@@ -20,6 +20,7 @@ import java.util.UUID;
 
 public class SaveMovieCommand implements Command {
 
+    private static final int MAX_POSTER_SIZE = 1024 * 1024; //1MB
     private static final String POSTER_PART = "poster";
     private static final String POSTERS_DIRECTORY = "/static/img/posters/";
     private static final String MOVIE_COMMAND_PATH = "/controller" + "?" + Parameter.COMMAND + "=" + CommandName.MOVIE;
@@ -66,9 +67,8 @@ public class SaveMovieCommand implements Command {
         }
 
 
-
         if (poster != null && poster.getSize() > 0) {
-            if  (poster.getSize() > 1024 * 1024 * 2) {
+            if  (poster.getSize() > MAX_POSTER_SIZE) {
                 throw new ServiceException("Maximum upload file size exceeded!");
             }
 
@@ -92,12 +92,5 @@ public class SaveMovieCommand implements Command {
 
         String contextPath = servletContext.getContextPath();
         return CommandResult.redirect(contextPath + MOVIE_COMMAND_PATH + "&" + Parameter.ID + "=" + confirmedId);
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "movieService=" + movieService +
-                '}';
     }
 }

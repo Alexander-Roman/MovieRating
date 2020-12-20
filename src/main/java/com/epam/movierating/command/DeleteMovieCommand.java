@@ -43,7 +43,7 @@ public class DeleteMovieCommand implements Command {
             String applicationPath = servletContext.getRealPath("");
             Path path = Paths.get(applicationPath, posterPath);
             try {
-                Files.delete(path);
+                Files.deleteIfExists(path);
             } catch (IOException e) {
                 throw new ServiceException(e);
             }
@@ -51,12 +51,5 @@ public class DeleteMovieCommand implements Command {
         }
 
         return CommandResult.redirect(Page.INDEX);
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "movieService=" + movieService +
-                '}';
     }
 }

@@ -29,11 +29,4 @@ public class DeleteCommentCommand implements Command {
         }
         return CommandResult.redirect(page);
     }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "commentService=" + commentService +
-                '}';
-    }
 }

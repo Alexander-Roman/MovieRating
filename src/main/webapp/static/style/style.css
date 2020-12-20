@@ -746,6 +746,10 @@ body {
     flex-wrap: wrap;
 }
 
+.poster-container {
+    max-width: 300px;
+}
+
 .poster {
     max-width: 300px;
     margin-right: 20px;
@@ -754,6 +758,10 @@ body {
 .movie-description {
     flex-basis: 300px;
     flex-grow: 1;
+}
+
+.poster-validation-alert {
+    font-size: 13px;
 }
 
 /* Comments */
@@ -1017,11 +1025,16 @@ body {
     background-color: #4CAF50;
 }
 
+.movie-edit-form button.save:disabled {
+    cursor: auto;
+    background-color: grey;
+}
+
 .movie-edit-form button.cancel {
     background-color: red;
 }
 
-.movie-edit-form button:hover {
+.movie-edit-form button:hover:not(:disabled) {
     opacity: 1;
 }
 
