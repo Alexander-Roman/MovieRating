@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.Properties;
 
 public class ProxyConnectionFactory {
@@ -22,7 +21,7 @@ public class ProxyConnectionFactory {
     private final String databaseUrl;
 
     //package-private
-    ProxyConnectionFactory(ConnectionPool connectionPool) throws ConnectionPoolException {
+    ProxyConnectionFactory(ConnectionPool connectionPool) {
         this.connectionPool = connectionPool;
         properties = new Properties();
         Class<ProxyConnectionFactory> clazz = ProxyConnectionFactory.class;
@@ -36,7 +35,7 @@ public class ProxyConnectionFactory {
     }
 
     //package-private
-    ProxyConnection create() throws ConnectionPoolException {
+    ProxyConnection create() {
         Connection connection;
         try {
             connection = DriverManager.getConnection(databaseUrl, properties);
@@ -45,28 +44,6 @@ public class ProxyConnectionFactory {
         }
         LOGGER.debug("New connection created: " + connection);
         return new ProxyConnection(connection, connectionPool);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ProxyConnectionFactory that = (ProxyConnectionFactory) o;
-        return Objects.equals(connectionPool, that.connectionPool) &&
-                Objects.equals(properties, that.properties) &&
-                Objects.equals(databaseUrl, that.databaseUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = connectionPool != null ? connectionPool.hashCode() : 0;
-        result = 31 * result + (properties != null ? properties.hashCode() : 0);
-        result = 31 * result + (databaseUrl != null ? databaseUrl.hashCode() : 0);
-        return result;
     }
 
     @Override

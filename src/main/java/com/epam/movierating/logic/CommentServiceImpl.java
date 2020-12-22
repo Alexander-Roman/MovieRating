@@ -5,6 +5,7 @@ import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.logic.validator.Validator;
 import com.epam.movierating.model.dto.CommentDto;
+import com.google.common.base.Preconditions;
 
 import java.util.List;
 
@@ -21,9 +22,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentDto> getMovieComments(long movieId) throws ServiceException {
-        if (movieId < MIN_ID_VALUE) {
-            throw new ServiceException("Invalid movie id value: " + movieId);
-        }
+        Preconditions.checkArgument(movieId >= MIN_ID_VALUE, "Invalid movieId value: " + movieId);
+
         try (DaoConnectionManager manager = factory.create()) {
             CommentDtoDao commentDtoDao = manager.createCommentDtoDao();
             return commentDtoDao.getByMovieId(movieId);
@@ -34,9 +34,8 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void deleteCommentById(long id) throws ServiceException {
-        if (id < MIN_ID_VALUE) {
-            throw new ServiceException("Invalid comment id value: " + id);
-        }
+        Preconditions.checkArgument(id >= MIN_ID_VALUE, "Invalid id value: " + id);
+
         try (DaoConnectionManager manager = factory.create()) {
             CommentDtoDao commentDtoDao = manager.createCommentDtoDao();
             commentDtoDao.delete(id);
@@ -48,8 +47,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public long createNewComment(CommentDto commentDto) throws ServiceException {
         if (!commentDtoValidator.isValid(commentDto)) {
-            throw new ServiceException("Invalid CommentDto object!");
+            throw new ServiceException("Invalid CommentDto object: " + commentDto);
         }
+
         Long id = commentDto.getId();
         if (id != null) {
             throw new ServiceException("New comment should not contain id!");

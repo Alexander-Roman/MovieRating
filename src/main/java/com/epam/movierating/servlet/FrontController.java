@@ -2,29 +2,20 @@ package com.epam.movierating.servlet;
 
 import com.epam.movierating.command.Command;
 import com.epam.movierating.command.CommandContext;
-import com.epam.movierating.command.CommandFactory;
 import com.epam.movierating.command.CommandResult;
 import com.epam.movierating.connection.ConnectionPool;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.logic.PageNotFoundException;
+import com.epam.movierating.logic.NotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/*
-(fileSizeThreshold = 1024 * 1024 * 2, //2MB
-        maxFileSize = 1024 * 1024 * 4, //4MB
-        maxRequestSize = 1024 * 1024 * 8) //8MB
-*/
-
-@MultipartConfig
 public class FrontController extends HttpServlet {
 
     private static final Logger LOGGER = LogManager.getLogger();
@@ -53,7 +44,7 @@ public class FrontController extends HttpServlet {
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
                 requestDispatcher.forward(request, response);
             }
-        } catch (PageNotFoundException e) {
+        } catch (NotFoundException e) {
             LOGGER.debug(e.getMessage(), e);
             response.sendError(404);
         } catch (Exception e) {
@@ -73,3 +64,5 @@ public class FrontController extends HttpServlet {
         super.destroy();
     }
 }
+
+

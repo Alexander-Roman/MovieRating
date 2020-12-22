@@ -58,14 +58,11 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
         String posterPath = movie.getPosterPath();
         if (id == null) {
             Optional<Long> result = updateSingle(SQL_INSERT_MOVIE, title, director, releaseYear, synopsis, posterPath);
-            if (result.isPresent()) {
-                return result.get();
-            }
+            return result.orElseThrow(() -> new DaoException("Unacceptable query result!"));
         } else {
             updateSingle(SQL_UPDATE_MOVIE, title, director, releaseYear, synopsis, posterPath, id);
             return id;
         }
-        throw new DaoException("Unacceptable query result!");
     }
 
     @Override

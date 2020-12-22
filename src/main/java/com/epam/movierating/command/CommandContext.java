@@ -48,7 +48,7 @@ public class CommandContext {
 
     public Command getByCommandName(String commandName) {
         if (commandName == null) {
-            return homeCommand;
+            throw new IllegalArgumentException("Command not defined!");
         }
 
         switch (commandName) {
@@ -93,7 +93,7 @@ public class CommandContext {
             case CommandName.DELETE_COMMENT:
                 return deleteCommentCommand;
             default:
-                throw new IllegalArgumentException(commandName + " is unknown command!");
+                throw new IllegalArgumentException("Command unknown: " + commandName);
         }
     }
 }

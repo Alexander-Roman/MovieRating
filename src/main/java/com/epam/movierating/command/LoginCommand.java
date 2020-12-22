@@ -26,11 +26,6 @@ public class LoginCommand implements Command {
         String username = request.getParameter(Parameter.USERNAME);
         String password = request.getParameter(Parameter.PASSWORD);
 
-        if (username == null || password == null) {
-            throw new ServiceException("Incoming parameters are not correct!");
-        }
-
-
         Optional<Account> found = accountService.authenticate(username, password);
         if (!found.isPresent()) {
             request.setAttribute(Attribute.MESSAGE, MESSAGE_KEY_WRONG);

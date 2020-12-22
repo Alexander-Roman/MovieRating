@@ -1,6 +1,5 @@
 package com.epam.movierating.command;
 
-import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.logic.CommentService;
 import com.epam.movierating.logic.ServiceException;
@@ -25,7 +24,8 @@ public class DeleteCommentCommand implements Command {
 
         String page = request.getHeader(REFERER_HEADER);
         if (page == null) {
-            return CommandResult.redirect(Page.INDEX);
+            page = request.getContextPath();
+            return CommandResult.redirect(page);
         }
         return CommandResult.redirect(page);
     }

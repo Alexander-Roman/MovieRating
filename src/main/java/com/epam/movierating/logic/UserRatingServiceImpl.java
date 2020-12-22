@@ -6,6 +6,7 @@ import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.logic.validator.Validator;
 import com.epam.movierating.model.dto.UserRatingDto;
+import com.google.common.base.Preconditions;
 
 import java.util.Optional;
 
@@ -22,12 +23,9 @@ public class UserRatingServiceImpl implements UserRatingService {
 
     @Override
     public Optional<Integer> getPersonalAssessment(long movieId, long accountId) throws ServiceException {
-        if (movieId < MIN_ID_VALUE) {
-            throw new ServiceException("Invalid movie id value: " + movieId);
-        }
-        if (accountId < MIN_ID_VALUE) {
-            throw new ServiceException("Invalid account id value: " + accountId);
-        }
+        Preconditions.checkArgument(movieId >= MIN_ID_VALUE, "Invalid movieId value: " + movieId);
+        Preconditions.checkArgument(accountId >= MIN_ID_VALUE, "Invalid accountId value: " + accountId);
+
         Optional<UserRatingDto> result;
         try (DaoConnectionManager manager = factory.create()) {
             UserRatingDtoDao userRatingDtoDao = manager.createUserRatingDtoDao();
@@ -48,7 +46,8 @@ public class UserRatingServiceImpl implements UserRatingService {
         if (!userRatingDtoValidator.isValid(userRatingDto)) {
             throw new ServiceException("Invalid UserRatingDto object: " + userRatingDto);
         }
-        Long movieId = userRatingDto.getAssessedId();
+
+        long movieId = userRatingDto.getAssessedId();
         try (DaoConnectionManager manager = factory.create()) {
             UserRatingDtoDao userRatingDtoDao = manager.createUserRatingDtoDao();
             MovieDao movieDao = manager.createMovieDao();

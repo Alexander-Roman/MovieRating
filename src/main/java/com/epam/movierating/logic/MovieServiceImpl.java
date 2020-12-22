@@ -5,6 +5,7 @@ import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.logic.validator.Validator;
 import com.epam.movierating.model.entity.Movie;
+import com.google.common.base.Preconditions;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,9 +25,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public int getNumberOfPages(int itemsPerPage) throws ServiceException {
-        if (itemsPerPage < MIN_ITEM_PER_PAGE_VALUE) {
-            throw new ServiceException("Invalid itemsPerPage value: " + itemsPerPage);
-        }
+        Preconditions.checkArgument(itemsPerPage >= MIN_ITEM_PER_PAGE_VALUE, "Invalid itemsPerPage value: " + itemsPerPage);
+
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
             long numberOfItems = movieDao.getMoviesAmount();
@@ -38,12 +38,9 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getPage(int page, int itemsPerPage) throws ServiceException {
-        if (page < MIN_PAGE_VALUE) {
-            throw new ServiceException("Invalid page value: " + page);
-        }
-        if (itemsPerPage < MIN_ITEM_PER_PAGE_VALUE) {
-            throw new ServiceException("Invalid itemsPerPage value: " + itemsPerPage);
-        }
+        Preconditions.checkArgument(page >= MIN_PAGE_VALUE, "Invalid page value: " + page);
+        Preconditions.checkArgument(itemsPerPage >= MIN_ITEM_PER_PAGE_VALUE, "Invalid itemsPerPage value: " + itemsPerPage);
+
         int firstItem = (page - 1) * itemsPerPage + 1;
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
@@ -54,13 +51,13 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Optional<Movie> getById(long id) throws ServiceException {
-        if (id < MIN_ID_VALUE) {
-            throw new ServiceException("Invalid movie id: " + id);
-        }
+    public Movie getById(long id) throws ServiceException {
+        Preconditions.checkArgument(id >= MIN_ID_VALUE, "Invalid id value: " + id);
+
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
-            return movieDao.find(id);
+            Optional<Movie> found = movieDao.find(id);
+            return found.orElseThrow(() -> new NotFoundException("No movie found by id: " + id));
         } catch (Exception e) {
             throw new ServiceException(e);
         }
@@ -71,6 +68,7 @@ public class MovieServiceImpl implements MovieService {
         if (!movieValidator.isValid(movie)) {
             throw new ServiceException("Invalid Movie object: " + movie);
         }
+
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
             return movieDao.save(movie);
@@ -81,9 +79,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void deleteMovieById(long id) throws ServiceException {
-        if (id < MIN_ID_VALUE) {
-            throw new ServiceException("Invalid movie id: " + id);
-        }
+        Preconditions.checkArgument(id >= MIN_ID_VALUE, "Invalid id value: " + id);
+
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
             movieDao.delete(id);

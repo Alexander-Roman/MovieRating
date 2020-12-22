@@ -65,7 +65,8 @@
 
                             <td class="wide">${movie.director}</td>
                             <td class="wide">${movie.releaseYear}</td>
-                            <td>${movie.rating}</td>
+                            <td><fmt:formatNumber type="number" minFractionDigits="1" maxFractionDigits="1"
+                                                  value="${movie.rating}"/></td>
                         </tr>
                     </c:forEach>
                 </table>

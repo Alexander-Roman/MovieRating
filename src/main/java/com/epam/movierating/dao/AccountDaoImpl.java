@@ -60,9 +60,7 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
         Boolean blocked = account.getBlocked();
         if (id == null) {
             Optional<Long> result = updateSingle(SQL_INSERT_ACCOUNT, userName, password, roleName, blocked);
-            if (result.isPresent()) {
-                return result.get();
-            }
+            return result.orElseThrow(() -> new DaoException("Unacceptable query result!"));
         } else if (password == null) {
             updateSingle(SQL_UPDATE_ACCOUNT_WITHOUT_PASSWORD, userName, roleName, blocked, id);
             return id;
@@ -70,7 +68,6 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
             updateSingle(SQL_UPDATE_ACCOUNT_WITH_PASSWORD, userName, password, roleName, blocked, id);
             return id;
         }
-        throw new DaoException("Unacceptable query result!");
     }
 
     @Override

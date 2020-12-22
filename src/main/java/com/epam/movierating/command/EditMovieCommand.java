@@ -8,7 +8,6 @@ import com.epam.movierating.logic.ServiceException;
 import com.epam.movierating.model.entity.Movie;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
 
 public class EditMovieCommand implements Command {
 
@@ -23,13 +22,8 @@ public class EditMovieCommand implements Command {
         String idParameter = request.getParameter(Parameter.ID);
         long id = Long.parseLong(idParameter);
 
-        Optional<Movie> found = movieService.getById(id);
-        if (found.isPresent()) {
-            Movie movie = found.get();
-            request.setAttribute(Attribute.MOVIE, movie);
-        } else {
-            throw new ServiceException("Requested movie is not present!");
-        }
+        Movie movie = movieService.getById(id);
+        request.setAttribute(Attribute.MOVIE, movie);
 
         return CommandResult.forward(Page.MOVIE_EDITOR);
     }

@@ -1,2 +1,2 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<jsp:forward page="/controller"/>
+<jsp:forward page="/controller?command=home"/>

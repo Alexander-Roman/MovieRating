@@ -1,6 +1,5 @@
 package com.epam.movierating.dao.mapper;
 
-import com.epam.movierating.dao.DaoException;
 import com.epam.movierating.model.dto.CommentDto;
 import com.epam.movierating.model.entity.Account;
 
@@ -23,16 +22,12 @@ public class CommentDtoRowMapper implements RowMapper<CommentDto> {
     }
 
     @Override
-    public CommentDto map(ResultSet resultSet) throws DaoException {
-        try {
-            Long id = resultSet.getLong(COMMENT_ID_LABEL);
-            Long movieId = resultSet.getLong(MOVIE_ID_LABEL);
-            Account account = accountRowMapper.map(resultSet);
-            LocalDateTime dateTime = resultSet.getObject(DATE_TIME_LABEL, LocalDateTime.class);
-            String text = resultSet.getString(TEXT_LABEL);
-            return new CommentDto(id, movieId, account, dateTime, text);
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
+    public CommentDto map(ResultSet resultSet) throws SQLException {
+        Long id = resultSet.getLong(COMMENT_ID_LABEL);
+        Long movieId = resultSet.getLong(MOVIE_ID_LABEL);
+        Account account = accountRowMapper.map(resultSet);
+        LocalDateTime dateTime = resultSet.getObject(DATE_TIME_LABEL, LocalDateTime.class);
+        String text = resultSet.getString(TEXT_LABEL);
+        return new CommentDto(id, movieId, account, dateTime, text);
     }
 }

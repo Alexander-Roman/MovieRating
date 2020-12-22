@@ -4,7 +4,7 @@ import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.logic.MovieService;
-import com.epam.movierating.logic.PageNotFoundException;
+import com.epam.movierating.logic.NotFoundException;
 import com.epam.movierating.logic.ServiceException;
 import com.epam.movierating.model.entity.Movie;
 
@@ -24,16 +24,13 @@ public class HomeCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
         String pageParameter = request.getParameter(Parameter.PAGE);
-        int page;
-        if (pageParameter == null) {
-            page = DEFAULT_PAGE;
-        } else {
-            page = Integer.parseInt(pageParameter);
-        }
+        int page = pageParameter == null
+                ? DEFAULT_PAGE
+                : Integer.parseInt(pageParameter);
 
         int numberOfPages = movieService.getNumberOfPages(DEFAULT_ITEMS_PER_PAGE);
         if (page > numberOfPages) {
-            throw new PageNotFoundException("Page not found!");
+            throw new NotFoundException("Movies pagination page not found: " + page);
         }
 
         List<Movie> movies = movieService.getPage(page, DEFAULT_ITEMS_PER_PAGE);

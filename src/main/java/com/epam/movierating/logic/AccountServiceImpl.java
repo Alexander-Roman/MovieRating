@@ -5,6 +5,7 @@ import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.model.Role;
 import com.epam.movierating.model.entity.Account;
+import com.google.common.base.Preconditions;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,9 +40,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public int getNumberOfPages(int itemsPerPage) throws ServiceException {
-        if (itemsPerPage < MIN_ITEMS_PER_PAGE) {
-            throw new ServiceException("Invalid items per page parameter: " + itemsPerPage);
-        }
+        Preconditions.checkArgument(itemsPerPage >= MIN_ITEMS_PER_PAGE, "Invalid items per page parameter: " + itemsPerPage);
+
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
             long numberOfItems = accountDao.getAccountsAmount();
@@ -53,9 +53,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> getPage(int page, int itemsPerPage) throws ServiceException {
-        if (page < MIN_PAGE_VALUE) {
-            throw new ServiceException("Invalid page parameter: " + page);
-        }
+        Preconditions.checkArgument(page >= MIN_PAGE_VALUE, "Invalid page parameter: " + page);
+
         int firstItemNumber = (page - 1) * itemsPerPage + 1;
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
@@ -86,23 +85,21 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private void setBlockedByRoleAndId(Role role, long id, boolean blocked) throws ServiceException {
-        if (id < MIN_ID_VALUE) {
-            throw new ServiceException("Invalid id value: " + id);
-        }
+        Preconditions.checkArgument(id >= MIN_ID_VALUE, "Invalid id value: " + id);
+        Preconditions.checkArgument(role != null, "Invalid role value: " + role);
+
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
             Optional<Account> found = accountDao.find(id);
-            if (!found.isPresent()) {
-                throw new ServiceException("No account to set blocked!");
-            }
-            Account account = found.get();
+            Account account = found.orElseThrow(() -> new NotFoundException("No account found by id: " + id));
+
             boolean blockedActual = account.getBlocked();
             if (blockedActual == blocked) {
-                throw new ServiceException("Blocked value already set!");
+                throw new ServiceException("Nothing to set!");
             }
             Role roleActual = account.getRole();
-            if (role != roleActual) {
-                throw new ServiceException("Unexpected account role in change blocked operation!");
+            if (!role.equals(roleActual)) {
+                throw new ServiceException("Unexpected account role!");
             }
             String userName = account.getUserName();
             String password = account.getPassword();
@@ -124,22 +121,22 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private void switchRoleByAccountId(Role fromRole, Role toRole, long id) throws ServiceException {
-        if (id < MIN_ID_VALUE) {
-            throw new ServiceException("Invalid id value: " + id);
+        Preconditions.checkArgument(id >= MIN_ID_VALUE, "Invalid id value: " + id);
+        Preconditions.checkArgument(fromRole != null, "Invalid fromRole value: " + fromRole);
+        Preconditions.checkArgument(toRole != null, "Invalid toRole value: " + toRole);
+
+        if (fromRole.equals(toRole)) {
+            throw new ServiceException("Nothing to change!");
         }
-        if (fromRole == toRole) {
-            throw new ServiceException("Nothing to change in account Role!");
-        }
+
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
             Optional<Account> found = accountDao.find(id);
-            if (!found.isPresent()) {
-                throw new ServiceException("No account to set Role!");
-            }
-            Account account = found.get();
+            Account account = found.orElseThrow(() -> new NotFoundException("No account found by id: " + id));
+
             Role roleActual = account.getRole();
-            if (fromRole != roleActual) {
-                throw new ServiceException("Unexpected Role to switch!");
+            if (!fromRole.equals(roleActual)) {
+                throw new ServiceException("Unexpected account role!");
             }
             String userName = account.getUserName();
             String password = account.getPassword();

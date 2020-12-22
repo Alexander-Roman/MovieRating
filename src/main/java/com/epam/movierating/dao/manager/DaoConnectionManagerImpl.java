@@ -9,7 +9,6 @@ import com.epam.movierating.model.entity.Movie;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Objects;
 
 public class DaoConnectionManagerImpl implements DaoConnectionManager {
 
@@ -75,23 +74,6 @@ public class DaoConnectionManagerImpl implements DaoConnectionManager {
                 throw new DaoException(e);
             }
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        DaoConnectionManagerImpl that = (DaoConnectionManagerImpl) o;
-        return Objects.equals(connection, that.connection);
-    }
-
-    @Override
-    public int hashCode() {
-        return connection != null ? connection.hashCode() : 0;
     }
 
     @Override

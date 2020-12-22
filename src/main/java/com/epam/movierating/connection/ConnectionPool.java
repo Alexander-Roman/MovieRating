@@ -22,9 +22,9 @@ public final class ConnectionPool {
     private final BlockingQueue<ProxyConnection> connections = new ArrayBlockingQueue<>(POOL_SIZE);
     private final ProxyConnectionFactory proxyConnectionFactory;
 
-    private ConnectionPool() throws ConnectionPoolException {
+    private ConnectionPool() {
         if (instance != null) {
-            throw new RuntimeException("No more than one instance is allowed for ConnectionPool class!");
+            throw new ConnectionPoolException("No more than one instance is allowed for ConnectionPool class!");
         }
         try {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
@@ -46,8 +46,6 @@ public final class ConnectionPool {
                     instance = new ConnectionPool();
                     isReady = true;
                 }
-            } catch (ConnectionPoolException e) {
-                throw new RuntimeException("ConnectionPool instance is not created!", e);
             } finally {
                 INSTANCE_LOCK.unlock();
             }
@@ -55,7 +53,7 @@ public final class ConnectionPool {
         return instance;
     }
 
-    public Connection getConnection() throws ConnectionPoolException {
+    public Connection getConnection() {
         Connection connection;
         try {
             connection = connections.take();
@@ -73,12 +71,12 @@ public final class ConnectionPool {
         connections.offer(proxyConnection);
     }
 
-    public void destroy() throws ConnectionPoolException {
+    public void destroy() {
         closeConnections();
         deregisterDrivers();
     }
 
-    private void closeConnections() throws ConnectionPoolException {
+    private void closeConnections() {
         try {
             for (int i = 0; i < POOL_SIZE; i++) {
                 ProxyConnection proxyConnection = connections.take();
@@ -89,7 +87,7 @@ public final class ConnectionPool {
         }
     }
 
-    private void deregisterDrivers() throws ConnectionPoolException {
+    private void deregisterDrivers() {
         Enumeration<Driver> drivers = DriverManager.getDrivers();
         try {
             while (drivers.hasMoreElements()) {

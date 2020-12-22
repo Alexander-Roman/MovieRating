@@ -24,12 +24,9 @@ public class AccessControlFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest) request).getSession();
         Account account = (Account) session.getAttribute(Attribute.ACCOUNT);
-        Role role;
-        if (account == null) {
-            role = DEFAULT_ROLE;
-        } else {
-            role = account.getRole();
-        }
+        Role role = account == null
+                ? DEFAULT_ROLE
+                : account.getRole();
 
         String command = request.getParameter(Parameter.COMMAND);
         if (command == null || role.hasAccess(command)) {

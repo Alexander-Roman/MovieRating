@@ -38,14 +38,11 @@ public class UserRatingDtoDaoImpl extends AbstractDao<UserRatingDto> implements 
         Integer assessment = userRatingDto.getAssessment();
         if (id == null) {
             Optional<Long> result = updateSingle(SQL_INSERT_USER_RATING, movieId, accountId, assessment);
-            if (result.isPresent()) {
-                return result.get();
-            }
+            return result.orElseThrow(() -> new DaoException("Unacceptable query result!"));
         } else {
             updateSingle(SQL_UPDATE_USER_RATING, movieId, accountId, assessment, id);
             return id;
         }
-        throw new DaoException("Unacceptable query result!");
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.epam.movierating.dao.mapper;
 
-import com.epam.movierating.dao.DaoException;
 import com.epam.movierating.model.dto.UserRatingDto;
 
 import java.sql.ResultSet;
@@ -15,15 +14,11 @@ public class UserRatingDtoRowMapper implements RowMapper<UserRatingDto> {
 
 
     @Override
-    public UserRatingDto map(ResultSet resultSet) throws DaoException {
-        try {
-            Long id = resultSet.getLong(RATE_ID_LABEL);
-            Long assessedId = resultSet.getLong(MOVIE_ID_LABEL);
-            Long assessorId = resultSet.getLong(ACCOUNT_ID_LABEL);
-            int assessment = resultSet.getInt(ASSESSMENT_LABEL);
-            return new UserRatingDto(id, assessedId, assessorId, assessment);
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
+    public UserRatingDto map(ResultSet resultSet) throws SQLException {
+        Long id = resultSet.getLong(RATE_ID_LABEL);
+        Long assessedId = resultSet.getLong(MOVIE_ID_LABEL);
+        Long assessorId = resultSet.getLong(ACCOUNT_ID_LABEL);
+        int assessment = resultSet.getInt(ASSESSMENT_LABEL);
+        return new UserRatingDto(id, assessedId, assessorId, assessment);
     }
 }

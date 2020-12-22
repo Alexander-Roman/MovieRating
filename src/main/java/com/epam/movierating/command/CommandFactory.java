@@ -16,10 +16,7 @@ public class CommandFactory {
 
     public static Command create(String command) {
         if (command == null) {
-            DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
-            Validator<Movie> movieValidator = new MovieValidator();
-            MovieService movieService = new MovieServiceImpl(factory, movieValidator);
-            return new HomeCommand(movieService);
+            throw new IllegalArgumentException("Command not defined!");
         }
 
         switch (command) {
@@ -128,7 +125,7 @@ public class CommandFactory {
                 return new DeleteCommentCommand(commentService);
             }
             default: {
-                throw new IllegalArgumentException(command + " is unknown command!");
+                throw new IllegalArgumentException("Command unknown: " + command);
             }
         }
     }

@@ -3,7 +3,10 @@ package com.epam.movierating.command;
 import com.epam.movierating.constant.Attribute;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.constant.Parameter;
-import com.epam.movierating.logic.*;
+import com.epam.movierating.logic.CommentService;
+import com.epam.movierating.logic.MovieService;
+import com.epam.movierating.logic.ServiceException;
+import com.epam.movierating.logic.UserRatingService;
 import com.epam.movierating.model.dto.CommentDto;
 import com.epam.movierating.model.entity.Account;
 import com.epam.movierating.model.entity.Movie;
@@ -31,11 +34,7 @@ public class MovieCommand implements Command {
         long id = Long.parseLong(idParameter);
 
 
-        Optional<Movie> movieFound = movieService.getById(id);
-        if (!movieFound.isPresent()) {
-            throw new PageNotFoundException("Movie not found!");
-        }
-        Movie movie = movieFound.get();
+        Movie movie = movieService.getById(id);
         request.setAttribute(Attribute.MOVIE, movie);
 
 

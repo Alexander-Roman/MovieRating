@@ -26,17 +26,11 @@ public class CreateCommentCommand implements Command {
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute(Attribute.ACCOUNT);
-        if (account == null) {
-            throw new ServiceException("Comment author undefined!");
-        }
 
         String movieIdParameter = request.getParameter(Parameter.ID);
         long movieId = Long.parseLong(movieIdParameter);
 
         String text = request.getParameter(Parameter.TEXT);
-        if (text == null) {
-            throw new ServiceException("No comment text included!");
-        }
 
         LocalDateTime dateTime = LocalDateTime.now();
 

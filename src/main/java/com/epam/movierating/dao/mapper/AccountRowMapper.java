@@ -1,6 +1,5 @@
 package com.epam.movierating.dao.mapper;
 
-import com.epam.movierating.dao.DaoException;
 import com.epam.movierating.model.Role;
 import com.epam.movierating.model.entity.Account;
 
@@ -16,17 +15,13 @@ public class AccountRowMapper implements RowMapper<Account> {
     private static final String BLOCKED_LABEL = "blocked";
 
     @Override
-    public Account map(ResultSet resultSet) throws DaoException {
-        try {
-            long id = resultSet.getLong(ACCOUNT_ID_LABEL);
-            String userName = resultSet.getString(USER_NAME_LABEL);
-            String password = null;
-            String roleValue = resultSet.getString(ROLE_LABEL);
-            Role role = Role.valueOf(roleValue);
-            boolean blocked = resultSet.getBoolean(BLOCKED_LABEL);
-            return new Account(id, userName, null, role, blocked);
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
+    public Account map(ResultSet resultSet) throws SQLException {
+        long id = resultSet.getLong(ACCOUNT_ID_LABEL);
+        String userName = resultSet.getString(USER_NAME_LABEL);
+        String password = null;
+        String roleValue = resultSet.getString(ROLE_LABEL);
+        Role role = Role.valueOf(roleValue);
+        boolean blocked = resultSet.getBoolean(BLOCKED_LABEL);
+        return new Account(id, userName, null, role, blocked);
     }
 }

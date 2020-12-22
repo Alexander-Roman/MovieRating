@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
 
 public class DeleteMovieCommand implements Command {
 
@@ -27,14 +26,8 @@ public class DeleteMovieCommand implements Command {
         String idParameter = request.getParameter(Parameter.ID);
         long id = Long.parseLong(idParameter);
 
-        Optional<Movie> found = movieService.getById(id);
-        String posterPath;
-        if (found.isPresent()) {
-            Movie movie = found.get();
-            posterPath = movie.getPosterPath();
-        } else {
-            throw new ServiceException("No movie found to delete!");
-        }
+        Movie movie = movieService.getById(id);
+        String posterPath = movie.getPosterPath();
 
         movieService.deleteMovieById(id);
 
@@ -43,13 +36,11 @@ public class DeleteMovieCommand implements Command {
             String applicationPath = servletContext.getRealPath("");
             Path path = Paths.get(applicationPath, posterPath);
             try {
-                Files.deleteIfExists(path);
+                Files.delete(path);
             } catch (IOException e) {
                 throw new ServiceException(e);
             }
-
         }
-
         return CommandResult.redirect(Page.INDEX);
     }
 }

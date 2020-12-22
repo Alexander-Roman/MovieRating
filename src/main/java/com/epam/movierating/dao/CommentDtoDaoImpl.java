@@ -48,14 +48,11 @@ public class CommentDtoDaoImpl extends AbstractDao<CommentDto> implements Commen
         String text = commentDto.getText();
         if (id == null) {
             Optional<Long> result = updateSingle(SQL_INSERT_COMMENT, movieId, accountId, dateTime, text);
-            if (result.isPresent()) {
-                return result.get();
-            }
+            return result.orElseThrow(() -> new DaoException("Unacceptable query result!"));
         } else {
             updateSingle(SQL_UPDATE_COMMENT, movieId, accountId, dateTime, text, id);
             return id;
         }
-        throw new DaoException("Unacceptable query result!");
     }
 
     @Override

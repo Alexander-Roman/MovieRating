@@ -1,6 +1,5 @@
 package com.epam.movierating.dao.mapper;
 
-import com.epam.movierating.dao.DaoException;
 import com.epam.movierating.model.entity.Movie;
 
 import java.sql.ResultSet;
@@ -17,18 +16,14 @@ public class MovieRowMapper implements RowMapper<Movie> {
     private static final String RATING_LABEL = "rating";
 
     @Override
-    public Movie map(ResultSet resultSet) throws DaoException {
-        try {
-            long id = resultSet.getLong(MOVIE_ID_LABEL);
-            String title = resultSet.getString(TITLE_LABEL);
-            String director = resultSet.getString(DIRECTOR_LABEL);
-            int releaseYear = resultSet.getInt(RELEASE_YEAR_LABEL);
-            String synopsis = resultSet.getString(SYNOPSIS_LABEL);
-            String posterPath = resultSet.getString(POSTER_PATH_LABEL);
-            Double rating = (Double) resultSet.getObject(RATING_LABEL);
-            return new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
+    public Movie map(ResultSet resultSet) throws SQLException {
+        long id = resultSet.getLong(MOVIE_ID_LABEL);
+        String title = resultSet.getString(TITLE_LABEL);
+        String director = resultSet.getString(DIRECTOR_LABEL);
+        int releaseYear = resultSet.getInt(RELEASE_YEAR_LABEL);
+        String synopsis = resultSet.getString(SYNOPSIS_LABEL);
+        String posterPath = resultSet.getString(POSTER_PATH_LABEL);
+        Double rating = (Double) resultSet.getObject(RATING_LABEL);
+        return new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
     }
 }

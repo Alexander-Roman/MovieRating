@@ -61,7 +61,8 @@
                                 <p><b><fmt:message key="movie.description.rating"/></b> - / 10</p>
                             </c:when>
                             <c:otherwise>
-                                <p><b><fmt:message key="movie.description.rating"/></b> ${requestScope.movie.rating} /
+                                <p><b><fmt:message key="movie.description.rating"/></b>
+                                    <fmt:formatNumber type="number" minFractionDigits="1" maxFractionDigits="1" value="${requestScope.movie.rating}"/> /
                                     10</p>
                             </c:otherwise>
                         </c:choose>
