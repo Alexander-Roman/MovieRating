@@ -10,7 +10,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,16 +21,16 @@ public class FrontController extends HttpServlet {
     private final CommandContext commandContext = new CommandContext();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         process(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         process(req, resp);
     }
 
-    private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private void process(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             String commandRequest = request.getParameter(Parameter.COMMAND);
             Command command = commandContext.getByCommandName(commandRequest);
@@ -45,11 +44,11 @@ public class FrontController extends HttpServlet {
                 requestDispatcher.forward(request, response);
             }
         } catch (NotFoundException e) {
-            LOGGER.debug(e.getMessage(), e);
+            LOGGER.debug(e);
             response.sendError(404);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
-            throw new RuntimeException(e);
+            response.sendError(500);
         }
     }
 

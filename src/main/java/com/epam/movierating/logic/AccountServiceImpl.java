@@ -1,6 +1,7 @@
 package com.epam.movierating.logic;
 
 import com.epam.movierating.dao.AccountDao;
+import com.epam.movierating.dao.DaoException;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.model.Role;
@@ -33,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
             return accountDao.findAccountByUsernameAndPassword(username, password);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -46,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
             AccountDao accountDao = manager.createAccountDao();
             long numberOfItems = accountDao.getAccountsAmount();
             return (int) Math.ceil(numberOfItems / (double) itemsPerPage);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -59,7 +60,7 @@ public class AccountServiceImpl implements AccountService {
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
             return accountDao.findBatch(itemsPerPage, firstItemNumber);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -105,7 +106,7 @@ public class AccountServiceImpl implements AccountService {
             String password = account.getPassword();
             Account changed = new Account(id, userName, password, roleActual, blocked);
             accountDao.save(changed);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -143,7 +144,7 @@ public class AccountServiceImpl implements AccountService {
             Boolean blocked = account.getBlocked();
             Account changed = new Account(id, userName, password, toRole, blocked);
             accountDao.save(changed);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

@@ -4,13 +4,12 @@ import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.logic.*;
-import com.epam.movierating.logic.validator.CommentDtoValidator;
-import com.epam.movierating.logic.validator.MovieValidator;
-import com.epam.movierating.logic.validator.UserRatingDtoValidator;
-import com.epam.movierating.logic.validator.Validator;
+import com.epam.movierating.logic.validator.*;
 import com.epam.movierating.model.dto.CommentDto;
 import com.epam.movierating.model.dto.UserRatingDto;
 import com.epam.movierating.model.entity.Movie;
+
+import javax.servlet.http.Part;
 
 public class CommandContext {
 
@@ -19,6 +18,7 @@ public class CommandContext {
     private final Validator<Movie> movieValidator = new MovieValidator();
     private final Validator<CommentDto> commentDtoValidator = new CommentDtoValidator();
     private final Validator<UserRatingDto> userRatingDtoValidator = new UserRatingDtoValidator();
+    private final Validator<Part> posterValidator = new PosterValidator();
 
     private final MovieService movieService = new MovieServiceImpl(factory, movieValidator);
     private final AccountService accountService = new AccountServiceImpl(factory);
@@ -29,7 +29,7 @@ public class CommandContext {
     private final Command movieCommand = new MovieCommand(movieService, userRatingService, commentService);
     private final Command editMovieCommand = new EditMovieCommand(movieService);
     private final Command createMovieCommand = new PageForwardCommand(Page.MOVIE_EDITOR);
-    private final Command saveMovieCommand = new SaveMovieCommand(movieService);
+    private final Command saveMovieCommand = new SaveMovieCommand(movieService, posterValidator);
     private final Command deleteMovieCommand = new DeleteMovieCommand(movieService);
     private final Command localizationCommand = new LocalizationCommand();
     private final Command loginPageCommand = new PageForwardCommand(Page.LOGIN);

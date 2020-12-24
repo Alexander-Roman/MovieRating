@@ -4,13 +4,12 @@ import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Page;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.logic.*;
-import com.epam.movierating.logic.validator.CommentDtoValidator;
-import com.epam.movierating.logic.validator.MovieValidator;
-import com.epam.movierating.logic.validator.UserRatingDtoValidator;
-import com.epam.movierating.logic.validator.Validator;
+import com.epam.movierating.logic.validator.*;
 import com.epam.movierating.model.dto.CommentDto;
 import com.epam.movierating.model.dto.UserRatingDto;
 import com.epam.movierating.model.entity.Movie;
+
+import javax.servlet.http.Part;
 
 public class CommandFactory {
 
@@ -49,7 +48,8 @@ public class CommandFactory {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();
                 Validator<Movie> movieValidator = new MovieValidator();
                 MovieService movieService = new MovieServiceImpl(factory, movieValidator);
-                return new SaveMovieCommand(movieService);
+                Validator<Part> posterValidator = new PosterValidator();
+                return new SaveMovieCommand(movieService, posterValidator);
             }
             case CommandName.DELETE_MOVIE: {
                 DaoConnectionManagerFactory factory = new DaoConnectionManagerFactory();

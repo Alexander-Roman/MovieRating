@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="<fmt:message key="html.lang"/>">
 <head>
-    <title>404</title>
+    <title><fmt:message key="page.error.404.title"/></title>
     <jsp:include page="../template/metadata.jsp"/>
 </head>
 
@@ -22,7 +22,8 @@
 
             <div class="main">
 
-                <h2>404: Page not found!</h2>
+                <h2><fmt:message key="page.error.404.header"/></h2>
+                <p><fmt:message key="page.error.404.description"/></p>
 
             </div>
         </div>
@@ -32,4 +33,3 @@
 </div>
 </body>
 </html>
-

@@ -1,6 +1,7 @@
 package com.epam.movierating.logic;
 
 import com.epam.movierating.dao.CommentDtoDao;
+import com.epam.movierating.dao.DaoException;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
 import com.epam.movierating.logic.validator.Validator;
@@ -27,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
         try (DaoConnectionManager manager = factory.create()) {
             CommentDtoDao commentDtoDao = manager.createCommentDtoDao();
             return commentDtoDao.getByMovieId(movieId);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -39,7 +40,7 @@ public class CommentServiceImpl implements CommentService {
         try (DaoConnectionManager manager = factory.create()) {
             CommentDtoDao commentDtoDao = manager.createCommentDtoDao();
             commentDtoDao.delete(id);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -57,7 +58,7 @@ public class CommentServiceImpl implements CommentService {
         try (DaoConnectionManager manager = factory.create()) {
             CommentDtoDao commentDtoDao = manager.createCommentDtoDao();
             return commentDtoDao.save(commentDto);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

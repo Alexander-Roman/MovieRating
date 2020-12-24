@@ -4,6 +4,7 @@ import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.logic.MovieService;
 import com.epam.movierating.logic.ServiceException;
+import com.epam.movierating.logic.validator.Validator;
 import com.epam.movierating.model.entity.Movie;
 
 import javax.servlet.ServletContext;
@@ -20,14 +21,15 @@ import java.util.UUID;
 
 public class SaveMovieCommand implements Command {
 
-    private static final int MAX_POSTER_SIZE = 1024 * 1024; //1MB
     private static final String POSTER_PART = "poster";
     private static final String POSTERS_DIRECTORY = "/static/img/posters/";
     private static final String MOVIE_COMMAND_PATH = "/controller" + "?" + Parameter.COMMAND + "=" + CommandName.MOVIE;
     private final MovieService movieService;
+    private final Validator<Part> posterValidator;
 
-    public SaveMovieCommand(MovieService movieService) {
+    public SaveMovieCommand(MovieService movieService, Validator<Part> posterValidator) {
         this.movieService = movieService;
+        this.posterValidator = posterValidator;
     }
 
     @Override
@@ -37,17 +39,27 @@ public class SaveMovieCommand implements Command {
         if (idParameter != null && !idParameter.isEmpty()) {
             id = Long.parseLong(idParameter);
         }
+
         String title = request.getParameter(Parameter.TITLE);
+
         String director = request.getParameter(Parameter.DIRECTOR);
+        if (director != null && director.isEmpty()) {
+            director = null;
+        }
+
         String yearParameter = request.getParameter(Parameter.RELEASE_YEAR);
         Integer releaseYear = null;
         if (yearParameter != null && !yearParameter.isEmpty()) {
             releaseYear = Integer.parseInt(yearParameter);
         }
-        String synopsis = request.getParameter(Parameter.SYNOPSIS);
-        String posterPath = request.getParameter(Parameter.POSTER_PATH);
 
-        if (posterPath.isEmpty()) {
+        String synopsis = request.getParameter(Parameter.SYNOPSIS);
+        if (synopsis != null && synopsis.isEmpty()) {
+            synopsis = null;
+        }
+
+        String posterPath = request.getParameter(Parameter.POSTER_PATH);
+        if (posterPath != null && posterPath.isEmpty()) {
             posterPath = null;
         }
 
@@ -57,7 +69,6 @@ public class SaveMovieCommand implements Command {
             rating = Double.parseDouble(ratingParameter);
         }
 
-        ServletContext servletContext = request.getServletContext();
 
         Part poster;
         try {
@@ -68,8 +79,8 @@ public class SaveMovieCommand implements Command {
 
 
         if (poster != null && poster.getSize() > 0) {
-            if  (poster.getSize() > MAX_POSTER_SIZE) {
-                throw new ServiceException("Maximum upload file size exceeded!");
+            if (!posterValidator.isValid(poster)) {
+                throw new ServiceException("Invalid poster object: " + poster);
             }
 
             if (posterPath == null) {
@@ -77,6 +88,7 @@ public class SaveMovieCommand implements Command {
                 posterPath = POSTERS_DIRECTORY + uuid;
             }
 
+            ServletContext servletContext = request.getServletContext();
             String applicationPath = servletContext.getRealPath("");
             Path path = Paths.get(applicationPath, posterPath);
 
@@ -90,6 +102,7 @@ public class SaveMovieCommand implements Command {
         Movie movie = new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
         long confirmedId = movieService.save(movie);
 
+        ServletContext servletContext = request.getServletContext();
         String contextPath = servletContext.getContextPath();
         return CommandResult.redirect(contextPath + MOVIE_COMMAND_PATH + "&" + Parameter.ID + "=" + confirmedId);
     }

@@ -1,5 +1,6 @@
 package com.epam.movierating.logic;
 
+import com.epam.movierating.dao.DaoException;
 import com.epam.movierating.dao.MovieDao;
 import com.epam.movierating.dao.manager.DaoConnectionManager;
 import com.epam.movierating.dao.manager.DaoConnectionManagerFactory;
@@ -31,7 +32,7 @@ public class MovieServiceImpl implements MovieService {
             MovieDao movieDao = manager.createMovieDao();
             long numberOfItems = movieDao.getMoviesAmount();
             return (int) Math.ceil(numberOfItems / (double) itemsPerPage);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -45,7 +46,7 @@ public class MovieServiceImpl implements MovieService {
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
             return movieDao.findBatch(itemsPerPage, firstItem);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -58,7 +59,7 @@ public class MovieServiceImpl implements MovieService {
             MovieDao movieDao = manager.createMovieDao();
             Optional<Movie> found = movieDao.find(id);
             return found.orElseThrow(() -> new NotFoundException("No movie found by id: " + id));
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -72,7 +73,7 @@ public class MovieServiceImpl implements MovieService {
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
             return movieDao.save(movie);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -84,7 +85,7 @@ public class MovieServiceImpl implements MovieService {
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
             movieDao.delete(id);
-        } catch (Exception e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

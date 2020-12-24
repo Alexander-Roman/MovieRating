@@ -15,4 +15,7 @@ public interface DaoConnectionManager extends AutoCloseable {
     void beginTransaction() throws DaoException;
 
     void commitTransaction() throws DaoException;
+
+    @Override
+    void close() throws DaoException;
 }

@@ -7,5 +7,6 @@
 <footer class="page-footer">
     <div class="footer">
         <h2><fmt:message key="footer.text"/></h2>
+        <a class="download-link" href="https://github.com/Alexander-Roman/MovieRating/archive/review.zip"><fmt:message key="footer.download"/></a>
     </div>
 </footer>

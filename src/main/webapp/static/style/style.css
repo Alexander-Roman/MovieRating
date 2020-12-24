@@ -1046,3 +1046,11 @@ body {
         margin-top: 0;
     }
 }
+
+/* Project download link */
+
+.footer .download-link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
