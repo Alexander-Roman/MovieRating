@@ -14,6 +14,7 @@ import java.io.IOException;
 public class AccessControlFilter implements Filter {
 
     private static final Role DEFAULT_ROLE = Role.GUEST;
+    private static final int FORBIDDEN_ERROR_CODE = 403;
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -32,7 +33,7 @@ public class AccessControlFilter implements Filter {
         if (command == null || role.hasAccess(command)) {
             chain.doFilter(request, response);
         } else {
-            ((HttpServletResponse) response).sendError(403);
+            ((HttpServletResponse) response).sendError(FORBIDDEN_ERROR_CODE);
         }
     }
 }

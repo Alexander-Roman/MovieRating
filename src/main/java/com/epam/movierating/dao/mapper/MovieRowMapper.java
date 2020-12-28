@@ -17,13 +17,13 @@ public class MovieRowMapper implements RowMapper<Movie> {
 
     @Override
     public Movie map(ResultSet resultSet) throws SQLException {
-        long id = resultSet.getLong(MOVIE_ID_LABEL);
+        Long id = resultSet.getLong(MOVIE_ID_LABEL);
         String title = resultSet.getString(TITLE_LABEL);
         String director = resultSet.getString(DIRECTOR_LABEL);
-        int releaseYear = resultSet.getInt(RELEASE_YEAR_LABEL);
+        Integer releaseYear = resultSet.getObject(RELEASE_YEAR_LABEL, Integer.class);
         String synopsis = resultSet.getString(SYNOPSIS_LABEL);
         String posterPath = resultSet.getString(POSTER_PATH_LABEL);
-        Double rating = (Double) resultSet.getObject(RATING_LABEL);
+        Double rating = resultSet.getObject(RATING_LABEL, Double.class);
         return new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
     }
 }

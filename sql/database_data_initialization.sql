@@ -3,75 +3,83 @@ USE movie_rating;
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('The Hitchhiker\'s Guide to the Galaxy', 'Garth Jennings', 2005,
         'Mere seconds before the Earth is to be demolished by an alien construction crew, journeyman Arthur Dent is swept off the planet by his friend Ford Prefect, a researcher penning a new edition of "The Hitchhiker\'s Guide to the Galaxy." ',
-        '/static/img/posters/1', 7.9);
+        '/static/img/posters/1', 8.2);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('The Shawshank Redemption', 'Frank Darabont', 1994,
         'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.',
-        '/static/img/posters/2', 8.3);
+        '/static/img/posters/2', 8.2);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('The Godfather: Part II', 'Francis Ford Coppola', 1974,
         'The early life and career of Vito Corleone in 1920s New York City is portrayed, while his son, Michael, expands and tightens his grip on the family crime syndicate.',
-        '/static/img/posters/3', 8.8);
+        '/static/img/posters/3', 9.0);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('The Dark Knight', 'Christopher Nolan', 2008,
         'When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.',
-        '/static/img/posters/4', 7.9);
+        '/static/img/posters/4', 7.7);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Schindler\'s List', 'Steven Spielberg', 1993,
         'In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.',
-        '/static/img/posters/5', 8.6);
+        '/static/img/posters/5', 7.8);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Pulp Fiction', 'Quentin Tarantino', 1994,
         'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.',
-        '/static/img/posters/6', 7.4);
+        '/static/img/posters/6', 8.7);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Fight Club', 'David Fincher', 1999,
         'An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.',
-        '/static/img/posters/7', 9.5);
+        '/static/img/posters/7', 9.0);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Forrest Gump', 'Robert Zemeckis', 1994,
         'The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.',
-        '/static/img/posters/8', 7.4);
+        '/static/img/posters/8', 7.8);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Goodfellas', 'Martin Scorsese', 1990,
         'The story of Henry Hill and his life in the mob, covering his relationship with his wife Karen Hill and his mob partners Jimmy Conway and Tommy DeVito in the Italian-American crime syndicate.',
-        '/static/img/posters/9', 7.3);
+        '/static/img/posters/9', 9.3);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('One Flew Over the Cuckoo\'s Nest', 'Milos Forman', 1975,
         'A criminal pleads insanity and is admitted to a mental institution, where he rebels against the oppressive nurse and rallies up the scared patients.',
-        '/static/img/posters/10', 8.9);
+        '/static/img/posters/10', 9.0);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Léon', 'Luc Besson', 1994,
         'Mathilda, a 12-year-old girl, is reluctantly taken in by Léon, a professional assassin, after her family is murdered. An unusual relationship forms as she becomes his protégée and learns the assassin\'s trade.',
-        '/static/img/posters/11', 8.6);
+        '/static/img/posters/11', 9.0);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('The Usual Suspects', 'Bryan Singer', 1995,
         'A sole survivor tells of the twisty events leading up to a horrific gun battle on a boat, which began when five criminals met at a seemingly random police lineup.',
-        '/static/img/posters/12', 7.6);
+        '/static/img/posters/12', 8.5);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Whiplash', 'Damien Chazelle', 2014,
         'A promising young drummer enrolls at a cut-throat music conservatory where his dreams of greatness are mentored by an instructor who will stop at nothing to realize a student\'s potential.',
-        '/static/img/posters/13', 7.7);
+        '/static/img/posters/13', 7.8);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Apocalypse Now', 'Francis Ford Coppola', 1979,
         'A U.S. Army officer serving in Vietnam is tasked with assassinating a renegade Special Forces Colonel who sees himself as a god.',
-        '/static/img/posters/14', 8.0);
+        '/static/img/posters/14', 8.7);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Memento', 'Christopher Nolan', 2000,
         'A man with short-term memory loss attempts to track down his wife\'s murderer.', '/static/img/posters/15',
-        7.6);
+        9.0);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Eternal Sunshine of the Spotless Mind', 'Michel Gondry', 2004,
         'When their relationship turns sour, a couple undergoes a medical procedure to have each other erased from their memories.',
-        '/static/img/posters/16', 7.5);
+        '/static/img/posters/16', 8.2);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Snatch', 'Guy Ritchie', 2000,
         'Unscrupulous boxing promoters, violent bookmakers, a Russian gangster, incompetent amateur robbers and supposedly Jewish jewelers fight to track down a priceless stolen diamond.',
-        '/static/img/posters/17', 7.7);
+        '/static/img/posters/17', 8.2);
 INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
 VALUES ('Scarface', 'Brian De Palma', 1983,
         'In 1980 Miami, a determined Cuban immigrant takes over a drug cartel and succumbs to greed.',
-        '/static/img/posters/18', 8.5);
+        '/static/img/posters/18', 8.8);
+INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
+VALUES ('Брат 2', 'Алексей Балабанов', 2000,
+        'Участвуя в программе на телевидении, Данила Багров встречает своих друзей по Чечне. Одного из них внезапно убивают. Данила знает, что у того были неприятности из-за брата-хоккеиста в Америке. Данила должен разобраться. Он вылетает в Америку и для компании берёт с собой брата. Теперь его фотография ходит по рукам русской и американской мафии. Новоявленные «Аль Капоне» понимают, что нарвались на профессионала…',
+        '/static/img/posters/19', 8.3);
+INSERT INTO movies (title, director, release_year, synopsis, poster_path, rating)
+VALUES ('Джентльмены удачи', 'Александр Серый', 1971,
+        'Заведующему детсадом Трошкину фатально не повезло: он оказался как две капли воды похож на бандита по кличке «Доцент», похитившего уникальный шлем Александра Македонского. Милиция внедряет добряка Трошкина в воровскую среду - и ему ничего не остается, кроме как старательно изображать своего двойника-злодея, путая всех окружающих. Со временем он настолько блестяще входит в роль, что сам начинает порой приходить в ужас. Между тем, жизни его угрожает смертельная опасность...',
+        '/static/img/posters/20', 8.8);
 
 
 INSERT INTO accounts (user_name, password, role, blocked)
@@ -100,6 +108,24 @@ INSERT INTO accounts (user_name, password, role, blocked)
 VALUES ('user12', SHA1('pass12'), 'USER', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
 VALUES ('user13', SHA1('pass13'), 'USER', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('sergej_a', SHA1('zerga'), 'ADMIN', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('sergej_e', SHA1('zerge'), 'EDITOR', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('sergej_u', SHA1('zergu'), 'USER', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('vera_a', SHA1('avera'), 'ADMIN', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('vera_e', SHA1('evera'), 'EDITOR', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('vera_u', SHA1('uvera'), 'USER', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('maks_a', SHA1('maksa'), 'ADMIN', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('maks_e', SHA1('makse'), 'EDITOR', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('maks_u', SHA1('maksu'), 'USER', 0);
 
 
 INSERT INTO comments (movie_id, account_id, date_time, text)
@@ -210,285 +236,244 @@ INSERT INTO comments (movie_id, account_id, date_time, text)
 VALUES (18, 7, '2020-10-25 04:03:45',
         'Предварительные выводы неутешительны: реализация намеченных плановых заданий, в своём классическом представлении, допускает внедрение распределения внутренних резервов и ресурсов.');
 
+
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (14, 2, 10);
+VALUES (1, 1, 8);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (17, 11, 7);
+VALUES (2, 1, 8);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (17, 10, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (15, 8, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (9, 4, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (13, 7, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (4, 10, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (10, 11, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (2, 2, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (5, 11, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (9, 12, 7);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (13, 4, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (3, 10, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (4, 4, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (4, 3, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (12, 7, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (8, 1, 7);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (3, 3, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (9, 8, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (12, 1, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (8, 6, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (3, 8, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (13, 9, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (5, 13, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (4, 13, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (14, 7, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (1, 9, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (18, 12, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (2, 1, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (11, 7, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (9, 10, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (15, 13, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (2, 12, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (11, 2, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (18, 13, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (10, 1, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (18, 2, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (14, 1, 7);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (4, 6, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (11, 3, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (16, 3, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (10, 7, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (15, 10, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (6, 6, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (11, 12, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (2, 10, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (9, 2, 7);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (5, 4, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (16, 8, 7);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (10, 12, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (13, 8, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (5, 12, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (6, 10, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (17, 13, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (16, 12, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (9, 1, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (16, 9, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (13, 10, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (12, 13, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (1, 3, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (8, 12, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (12, 3, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (6, 1, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (8, 10, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (6, 9, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (10, 9, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (6, 12, 7);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (11, 8, 7);
+VALUES (3, 1, 10);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
 VALUES (4, 1, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (2, 7, 8);
+VALUES (5, 1, 8);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (14, 8, 8);
+VALUES (6, 1, 10);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (4, 9, 9);
+VALUES (7, 1, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (16, 2, 8);
+VALUES (8, 1, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (7, 11, 9);
+VALUES (9, 1, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (10, 3, 9);
+VALUES (10, 1, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (9, 5, 6);
+VALUES (11, 1, 10);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (18, 9, 10);
+VALUES (12, 1, 10);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (12, 10, 9);
+VALUES (13, 1, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (5, 5, 10);
+VALUES (14, 1, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (11, 4, 6);
+VALUES (15, 1, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (17, 8, 10);
+VALUES (16, 1, 8);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (1, 7, 7);
+VALUES (17, 1, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (17, 5, 6);
+VALUES (18, 1, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (18, 11, 10);
+VALUES (19, 1, 8);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (1, 12, 7);
+VALUES (20, 1, 10);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (18, 3, 8);
+VALUES (1, 2, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (13, 3, 9);
+VALUES (2, 2, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (16, 4, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (9, 11, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (16, 6, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (18, 7, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (14, 3, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (6, 8, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (10, 5, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (15, 1, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (7, 4, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (5, 9, 7);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (3, 6, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (18, 4, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (12, 11, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (4, 8, 7);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (12, 9, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (8, 9, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (17, 3, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (15, 3, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (11, 10, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (7, 7, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (1, 13, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (7, 12, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (6, 3, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (7, 9, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (2, 8, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (2, 6, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (3, 5, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (18, 8, 8);
+VALUES (3, 2, 8);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
 VALUES (4, 2, 10);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (9, 13, 7);
+VALUES (5, 2, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (6, 2, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (7, 2, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (8, 2, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (9, 2, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (10, 2, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (11, 2, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (12, 2, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (13, 2, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (14, 2, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (15, 2, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (16, 2, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (17, 2, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (18, 2, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (19, 2, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (20, 2, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (1, 3, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (2, 3, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (3, 3, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (4, 3, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (5, 3, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (6, 3, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (7, 3, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (8, 3, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (9, 3, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (10, 3, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (11, 3, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (12, 3, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (13, 3, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (14, 3, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (15, 3, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (16, 3, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (17, 3, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (18, 3, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (19, 3, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (20, 3, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (1, 4, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (2, 4, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (3, 4, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (4, 4, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (5, 4, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (6, 4, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (7, 4, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (8, 4, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (9, 4, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (10, 4, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (11, 4, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (12, 4, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (13, 4, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (14, 4, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (15, 4, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (16, 4, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (17, 4, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (18, 4, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (19, 4, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (20, 4, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (1, 5, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (2, 5, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (3, 5, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (4, 5, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (5, 5, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
 VALUES (6, 5, 8);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (12, 6, 7);
+VALUES (7, 5, 10);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (12, 12, 9);
+VALUES (8, 5, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (10, 13, 6);
+VALUES (9, 5, 10);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (5, 3, 10);
+VALUES (10, 5, 10);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (2, 4, 10);
+VALUES (11, 5, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (14, 4, 9);
+VALUES (12, 5, 10);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (4, 11, 10);
+VALUES (13, 5, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (17, 6, 7);
+VALUES (14, 5, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (15, 5, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
 VALUES (16, 5, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (6, 7, 8);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (14, 13, 9);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (9, 6, 7);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (8, 2, 10);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (8, 5, 6);
-INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (14, 9, 6);
+VALUES (17, 5, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
 VALUES (18, 5, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (2, 3, 8);
+VALUES (19, 5, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (1, 4, 9);
+VALUES (20, 5, 8);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (1, 8, 8);
+VALUES (1, 6, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (11, 6, 10);
+VALUES (2, 6, 9);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (10, 8, 7);
+VALUES (3, 6, 8);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (14, 5, 7);
+VALUES (4, 6, 7);
 INSERT INTO user_ratings (movie_id, account_id, assessment)
-VALUES (7, 2, 9);
+VALUES (5, 6, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (6, 6, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (7, 6, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (8, 6, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (9, 6, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (10, 6, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (11, 6, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (12, 6, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (13, 6, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (14, 6, 10);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (15, 6, 8);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (16, 6, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (17, 6, 7);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (18, 6, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (19, 6, 9);
+INSERT INTO user_ratings (movie_id, account_id, assessment)
+VALUES (20, 6, 9);

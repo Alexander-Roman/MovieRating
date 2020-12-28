@@ -17,7 +17,10 @@ import java.io.IOException;
 
 public class FrontController extends HttpServlet {
 
+    private static final int NOT_FOUND_ERROR_CODE = 404;
+    private static final int INTERNAL_SERVER_ERROR_CODE = 500;
     private static final Logger LOGGER = LogManager.getLogger();
+
     private final CommandContext commandContext = new CommandContext();
 
     @Override
@@ -45,10 +48,10 @@ public class FrontController extends HttpServlet {
             }
         } catch (NotFoundException e) {
             LOGGER.debug(e);
-            response.sendError(404);
+            response.sendError(NOT_FOUND_ERROR_CODE);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
-            response.sendError(500);
+            response.sendError(INTERNAL_SERVER_ERROR_CODE);
         }
     }
 

@@ -1,3 +1,5 @@
+/* DROP DATABASE movie_rating; */
+
 CREATE DATABASE movie_rating CHARACTER SET UTF8 COLLATE utf8_bin;
 
 USE movie_rating;
@@ -38,7 +40,7 @@ CREATE TABLE comments
 
 CREATE TABLE user_ratings
 (
-    rate_id    BIGINT NOT NULL UNIQUE AUTO_INCREMENT,
+    rate_id    BIGINT              NOT NULL UNIQUE AUTO_INCREMENT,
     movie_id   BIGINT,
     account_id BIGINT,
     assessment TINYINT(2) UNSIGNED NOT NULL,
@@ -46,8 +48,3 @@ CREATE TABLE user_ratings
     FOREIGN KEY (movie_id) REFERENCES movies (movie_id) ON DELETE CASCADE,
     FOREIGN KEY (account_id) REFERENCES accounts (account_id) ON DELETE CASCADE
 );
-
-/*
-CREATE UNIQUE INDEX rate_index
-    ON user_ratings (movie_id, account_id);
-*/

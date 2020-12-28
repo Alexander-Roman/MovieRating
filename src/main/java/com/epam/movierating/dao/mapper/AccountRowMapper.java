@@ -16,7 +16,7 @@ public class AccountRowMapper implements RowMapper<Account> {
 
     @Override
     public Account map(ResultSet resultSet) throws SQLException {
-        long id = resultSet.getLong(ACCOUNT_ID_LABEL);
+        Long id = resultSet.getLong(ACCOUNT_ID_LABEL);
         String userName = resultSet.getString(USER_NAME_LABEL);
         String password = null;
         String roleValue = resultSet.getString(ROLE_LABEL);

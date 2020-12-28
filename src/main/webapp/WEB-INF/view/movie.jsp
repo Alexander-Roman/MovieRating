@@ -30,7 +30,7 @@
                         </a>
                     </ctg:access>
                     <ctg:access accessName="deleteMovie">
-                        <form class="movie-delete-form" action="<c:url value="/controller"/>">
+                        <form class="movie-delete-form" action="<c:url value="/controller"/>" method="post">
                             <input type="hidden" name="command" value="deleteMovie">
                             <input type="hidden" name="id" value="${requestScope.movie.id}">
                             <button class="edit-button movie-delete-button" type="submit">
