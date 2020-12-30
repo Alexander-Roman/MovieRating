@@ -30,7 +30,10 @@ public class CreateCommentCommand implements Command {
         String movieIdParameter = request.getParameter(Parameter.ID);
         long movieId = Long.parseLong(movieIdParameter);
 
-        String text = request.getParameter(Parameter.TEXT);
+        String text = request.getParameter(Parameter.TEXT)
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;");
 
         LocalDateTime dateTime = LocalDateTime.now();
 

@@ -26,19 +26,19 @@ public class MovieValidator implements Validator<Movie> {
         if (id != null && id < MIN_ID_VALUE) {
             return false;
         }
-        if (title == null || title.isEmpty() || title.length() > MAX_TITLE_LENGTH) {
+        if (title == null || title.trim().isEmpty() || title.length() > MAX_TITLE_LENGTH) {
             return false;
         }
-        if (director != null && (director.isEmpty() || director.length() > MAX_DIRECTOR_LENGTH)) {
+        if (director != null && (director.trim().isEmpty() || director.length() > MAX_DIRECTOR_LENGTH)) {
             return false;
         }
         if (releaseYear != null && releaseYear < FIRST_MOVIE_YEAR) {
             return false;
         }
-        if (synopsis != null && (synopsis.isEmpty() || synopsis.length() > MAX_SYNOPSIS_LENGTH)) {
+        if (synopsis != null && (synopsis.trim().isEmpty() || synopsis.length() > MAX_SYNOPSIS_LENGTH)) {
             return false;
         }
-        if (posterPath != null && (posterPath.isEmpty() || posterPath.length() > MAX_POSTER_PATH_LENGTH)) {
+        if (posterPath != null && (posterPath.trim().isEmpty() || posterPath.length() > MAX_POSTER_PATH_LENGTH)) {
             return false;
         }
         return rating == null || (MIN_RATING <= rating && rating <= MAX_RATING);

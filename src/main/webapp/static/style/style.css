@@ -848,8 +848,12 @@ body {
     cursor: pointer;
 }
 
-.comment-form-container input[type=submit]:hover {
+.comment-form-container input[type=submit]:hover:not(:disabled) {
     background-color: #ff7f50;
+}
+
+.comment-form-container input[type=submit]:disabled {
+    cursor: auto;
 }
 
 .comment-form-container {

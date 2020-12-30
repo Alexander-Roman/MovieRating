@@ -95,6 +95,7 @@
     <jsp:include page="../template/footer.jsp"/>
 
 </div>
+<script src="<c:url value="/static/js/save-movie-form-validator.js"/>"></script>
 <script src="<c:url value="/static/js/poster-validator.js"/>"></script>
 </body>
 </html>

@@ -112,13 +112,13 @@ public final class Movie implements Identifiable {
         }
 
         public Builder(Movie movie) {
-            this.id = movie.id;
-            this.title = movie.title;
-            this.director = movie.director;
-            this.releaseYear = movie.releaseYear;
-            this.synopsis = movie.synopsis;
-            this.posterPath = movie.posterPath;
-            this.rating = movie.rating;
+            id = movie.id;
+            title = movie.title;
+            director = movie.director;
+            releaseYear = movie.releaseYear;
+            synopsis = movie.synopsis;
+            posterPath = movie.posterPath;
+            rating = movie.rating;
         }
 
         public Builder setId(Long id) {
@@ -154,6 +154,10 @@ public final class Movie implements Identifiable {
         public Builder setRating(Double rating) {
             this.rating = rating;
             return this;
+        }
+
+        public Movie build() {
+            return new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
         }
     }
 }

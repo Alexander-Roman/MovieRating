@@ -174,10 +174,10 @@
                                 <div class="comment-form-row">
                                     <textarea id="text" name="text"
                                               placeholder="<fmt:message key="movie.comments.form.placeholder"/>"
-                                              wrap="soft" required></textarea>
+                                              required></textarea>
                                 </div>
                                 <div class="comment-form-row">
-                                    <input type="submit" value="<fmt:message key="movie.comments.form.button.submit"/>">
+                                    <input id="comment-form-submit" type="submit" value="<fmt:message key="movie.comments.form.button.submit"/>">
                                 </div>
                             </form>
                         </div>
@@ -191,5 +191,6 @@
     <jsp:include page="../template/footer.jsp"/>
 
 </div>
+<script src="<c:url value="/static/js/comment-form-validator.js"/>"></script>
 </body>
 </html>

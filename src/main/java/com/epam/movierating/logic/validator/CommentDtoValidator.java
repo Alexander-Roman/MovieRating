@@ -26,7 +26,7 @@ public class CommentDtoValidator implements Validator<CommentDto> {
         if (movieId == null || account == null || dateTime == null || text == null) {
             return false;
         }
-        if (text.isEmpty()) {
+        if (text.trim().isEmpty()) {
             return false;
         }
         return text.length() <= MAX_TEXT_LENGTH;
