@@ -16,4 +16,15 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
+    <tag>
+        <name>multiLineText</name>
+        <tag-class>com.epam.movierating.view.tag.MultiLineTextTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>text</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>

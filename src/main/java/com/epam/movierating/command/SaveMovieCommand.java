@@ -17,6 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class SaveMovieCommand implements Command {
@@ -31,6 +33,31 @@ public class SaveMovieCommand implements Command {
         this.movieService = movieService;
         this.posterValidator = posterValidator;
     }
+
+    private Movie extractFromParameters(HttpServletRequest request) {
+        HashMap<String, String> parameters = extractParameters(request);
+        return null;
+    }
+
+    private HashMap<String, String> extractParameters(HttpServletRequest request) {
+        HashMap<String, String> parameters = new HashMap<>();
+        Enumeration<String> names = request.getParameterNames();
+        while (names.hasMoreElements()) {
+            String key = names.nextElement();
+            String value = request.getParameter(key);
+            value = value
+                    .trim()
+                    .replace("&", "&amp;")
+                    .replace("<", "&lt;")
+                    .replace(">", "&gt;");
+            if (!value.isEmpty()) {
+                parameters.put(key, value);
+            }
+        }
+        return parameters;
+    }
+
+
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws ServiceException {

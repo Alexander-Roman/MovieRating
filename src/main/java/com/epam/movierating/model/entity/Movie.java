@@ -97,4 +97,63 @@ public final class Movie implements Identifiable {
                 ", rating=" + rating +
                 '}';
     }
+
+    public static class Builder {
+
+        private Long id;
+        private String title;
+        private String director;
+        private Integer releaseYear;
+        private String synopsis;
+        private String posterPath;
+        private Double rating;
+
+        public Builder() {
+        }
+
+        public Builder(Movie movie) {
+            this.id = movie.id;
+            this.title = movie.title;
+            this.director = movie.director;
+            this.releaseYear = movie.releaseYear;
+            this.synopsis = movie.synopsis;
+            this.posterPath = movie.posterPath;
+            this.rating = movie.rating;
+        }
+
+        public Builder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setDirector(String director) {
+            this.director = director;
+            return this;
+        }
+
+        public Builder setReleaseYear(Integer releaseYear) {
+            this.releaseYear = releaseYear;
+            return this;
+        }
+
+        public Builder setSynopsis(String synopsis) {
+            this.synopsis = synopsis;
+            return this;
+        }
+
+        public Builder setPosterPath(String posterPath) {
+            this.posterPath = posterPath;
+            return this;
+        }
+
+        public Builder setRating(Double rating) {
+            this.rating = rating;
+            return this;
+        }
+    }
 }

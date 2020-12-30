@@ -62,11 +62,12 @@
                             </c:when>
                             <c:otherwise>
                                 <p><b><fmt:message key="movie.description.rating"/></b>
-                                    <fmt:formatNumber type="number" minFractionDigits="1" maxFractionDigits="1" value="${requestScope.movie.rating}"/> /
+                                    <fmt:formatNumber type="number" minFractionDigits="1" maxFractionDigits="1"
+                                                      value="${requestScope.movie.rating}"/> /
                                     10</p>
                             </c:otherwise>
                         </c:choose>
-                        <p>${requestScope.movie.synopsis}</p>
+                        <p><ctg:multiLineText text="${requestScope.movie.synopsis}"/></p>
                     </div>
                 </div>
 
@@ -137,7 +138,7 @@
                 <c:forEach var="comment" items="${requestScope.comments}">
                     <div class="comment-container">
                         <ctg:access accessName="deleteComment">
-                            <form class="comment-remove-form" action="<c:url value="/controller"/>">
+                            <form class="comment-remove-form" action="<c:url value="/controller"/>" method="post">
                                 <input type="hidden" name="command" value="deleteComment">
                                 <input type="hidden" name="id" value="${comment.id}">
                                 <button class="comment-remove-button" type="submit">
@@ -146,7 +147,7 @@
                             </form>
                         </ctg:access>
                         <p><b>${comment.author.userName}</b></p>
-                        <p>${comment.text}</p>
+                        <p><ctg:multiLineText text="${comment.text}"/></p>
                         <fmt:parseDate value="${comment.dateTime}" pattern="y-M-dd'T'H:m" var="date"/>
                         <span class="comment-time"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH-mm"/></span>
                     </div>
@@ -171,8 +172,9 @@
                                     <h3><label for="text"><fmt:message key="movie.comments.form.header"/></label></h3>
                                 </div>
                                 <div class="comment-form-row">
-                            <textarea id="text" name="text"
-                                      placeholder="<fmt:message key="movie.comments.form.placeholder"/>"></textarea>
+                                    <textarea id="text" name="text"
+                                              placeholder="<fmt:message key="movie.comments.form.placeholder"/>"
+                                              wrap="soft" required></textarea>
                                 </div>
                                 <div class="comment-form-row">
                                     <input type="submit" value="<fmt:message key="movie.comments.form.button.submit"/>">
