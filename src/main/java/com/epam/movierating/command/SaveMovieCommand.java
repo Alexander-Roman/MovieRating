@@ -17,8 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class SaveMovieCommand implements Command {
@@ -37,8 +35,11 @@ public class SaveMovieCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
-        HashMap<String, String> parameters = extractParameters(request);
-        Movie movie = extractFromParameters(parameters);
+
+        //HashMap<String, String> parameters = extractParameters(request);
+        //Movie movie = extractFromParameters(parameters);
+
+        Movie movie = extractFromRequest(request);
 
         Part poster;
         try {
@@ -80,6 +81,54 @@ public class SaveMovieCommand implements Command {
         return CommandResult.redirect(contextPath + MOVIE_COMMAND_PATH + "&" + Parameter.ID + "=" + confirmedId);
     }
 
+    private Movie extractFromRequest(HttpServletRequest request) {
+        String idParam = request.getParameter(Parameter.ID);
+        Long id = idParam != null
+                ? Long.parseLong(idParam)
+                : null;
+
+        String titleParam = request.getParameter(Parameter.TITLE);
+        String title = titleParam != null
+                ? normalizeIncomingStringData(titleParam)
+                : null;
+
+        String directorParam = request.getParameter(Parameter.DIRECTOR);
+        String director = directorParam != null
+                ? normalizeIncomingStringData(directorParam)
+                : null;
+
+        String yearParam = request.getParameter(Parameter.RELEASE_YEAR);
+        Integer releaseYear = yearParam != null
+                ? Integer.parseInt(yearParam)
+                : null;
+
+        String synopsisParam = request.getParameter(Parameter.SYNOPSIS);
+        String synopsis = synopsisParam != null
+                ? normalizeIncomingStringData(synopsisParam)
+                : null;
+
+        String posterPathParam = request.getParameter(Parameter.POSTER_PATH);
+        String posterPath = posterPathParam != null
+                ? normalizeIncomingStringData(posterPathParam)
+                : null;
+
+        String ratingParam = request.getParameter(Parameter.RATE);
+        Double rating = ratingParam != null
+                ? Double.parseDouble(ratingParam)
+                : null;
+
+        return new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
+    }
+
+    private String normalizeIncomingStringData(String parameter) {
+        return parameter
+                .trim()
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;");
+    }
+
+    /*
     private HashMap<String, String> extractParameters(HttpServletRequest request) {
         HashMap<String, String> parameters = new HashMap<>();
         Enumeration<String> names = request.getParameterNames();
@@ -97,7 +146,9 @@ public class SaveMovieCommand implements Command {
         }
         return parameters;
     }
+     */
 
+    /*
     private Movie extractFromParameters(HashMap<String, String> parameters) {
         String idValue = parameters.get(Parameter.ID);
         Long id = idValue != null
@@ -117,4 +168,5 @@ public class SaveMovieCommand implements Command {
                 : null;
         return new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
     }
+     */
 }

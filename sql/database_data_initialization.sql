@@ -126,6 +126,12 @@ INSERT INTO accounts (user_name, password, role, blocked)
 VALUES ('maks_e', SHA1('makse'), 'EDITOR', 0);
 INSERT INTO accounts (user_name, password, role, blocked)
 VALUES ('maks_u', SHA1('maksu'), 'USER', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('maks_fin_a', SHA1('sc2a'), 'ADMIN', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('maks_fin_e', SHA1('sc2e'), 'EDITOR', 0);
+INSERT INTO accounts (user_name, password, role, blocked)
+VALUES ('maks_fin_u', SHA1('sc2u'), 'USER', 0);
 
 
 INSERT INTO comments (movie_id, account_id, date_time, text)

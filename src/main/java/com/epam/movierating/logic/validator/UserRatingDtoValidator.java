@@ -10,6 +10,10 @@ public class UserRatingDtoValidator implements Validator<UserRatingDto> {
 
     @Override
     public boolean isValid(UserRatingDto userRatingDto) {
+        if (userRatingDto == null) {
+            return false;
+        }
+
         Long id = userRatingDto.getId();
         Long assessedId = userRatingDto.getAssessedId();
         Long assessorId = userRatingDto.getAssessorId();

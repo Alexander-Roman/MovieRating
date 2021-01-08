@@ -38,8 +38,7 @@ public class MovieCommand implements Command {
         request.setAttribute(Attribute.MOVIE, movie);
 
 
-        long movieId = movie.getId();
-        List<CommentDto> comments = commentService.getMovieComments(movieId);
+        List<CommentDto> comments = commentService.getMovieComments(id);
         request.setAttribute(Attribute.COMMENTS, comments);
 
 
@@ -48,7 +47,7 @@ public class MovieCommand implements Command {
         Optional<Integer> personalRateFound = Optional.empty();
         if (account != null) {
             long accountId = account.getId();
-            personalRateFound = userRatingService.getPersonalAssessment(movieId, accountId);
+            personalRateFound = userRatingService.getPersonalAssessment(id, accountId);
         }
         if (personalRateFound.isPresent()) {
             int personalRate = personalRateFound.get();

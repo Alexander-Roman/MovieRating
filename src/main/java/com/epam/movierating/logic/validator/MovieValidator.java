@@ -15,6 +15,10 @@ public class MovieValidator implements Validator<Movie> {
 
     @Override
     public boolean isValid(Movie movie) {
+        if (movie == null) {
+            return false;
+        }
+
         Long id = movie.getId();
         String title = movie.getTitle();
         String director = movie.getDirector();
