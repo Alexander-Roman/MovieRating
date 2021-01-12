@@ -75,11 +75,4 @@ public class DaoConnectionManagerImpl implements DaoConnectionManager {
             }
         }
     }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-                "connection=" + connection +
-                '}';
-    }
 }

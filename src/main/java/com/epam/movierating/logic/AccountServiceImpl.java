@@ -15,6 +15,7 @@ public class AccountServiceImpl implements AccountService {
 
     private static final long MIN_ID_VALUE = 1L;
     private static final int MIN_PAGE_VALUE = 1;
+    private static final int MIN_NUMBER_OF_PAGES = 1;
     private static final int MIN_ITEMS_PER_PAGE = 1;
     private static final int MAX_USERNAME_LENGTH = 45;
     private final DaoConnectionManagerFactory factory;
@@ -46,6 +47,9 @@ public class AccountServiceImpl implements AccountService {
         try (DaoConnectionManager manager = factory.create()) {
             AccountDao accountDao = manager.createAccountDao();
             long numberOfItems = accountDao.getAccountsAmount();
+            if (numberOfItems == 0) {
+                return MIN_NUMBER_OF_PAGES;
+            }
             return (int) Math.ceil(numberOfItems / (double) itemsPerPage);
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -55,6 +59,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> getPage(int page, int itemsPerPage) throws ServiceException {
         Preconditions.checkArgument(page >= MIN_PAGE_VALUE, "Invalid page parameter: " + page);
+        Preconditions.checkArgument(itemsPerPage >= MIN_ITEMS_PER_PAGE, "Invalid items per page parameter: " + itemsPerPage);
 
         int firstItemNumber = (page - 1) * itemsPerPage + 1;
         try (DaoConnectionManager manager = factory.create()) {
@@ -96,7 +101,7 @@ public class AccountServiceImpl implements AccountService {
 
             boolean blockedActual = account.getBlocked();
             if (blockedActual == blocked) {
-                throw new ServiceException("Nothing to set!");
+                throw new ServiceException("Nothing to change!");
             }
             Role roleActual = account.getRole();
             if (!role.equals(roleActual)) {

@@ -48,6 +48,11 @@ public class UserRatingServiceImpl implements UserRatingService {
             throw new ServiceException("Invalid UserRatingDto object: " + userRatingDto);
         }
 
+        Long id = userRatingDto.getId();
+        if (id != null) {
+            throw new ServiceException("New UserRatingDto should not contain id: " + userRatingDto);
+        }
+
         long movieId = userRatingDto.getAssessedId();
         try (DaoConnectionManager manager = factory.create()) {
             UserRatingDtoDao userRatingDtoDao = manager.createUserRatingDtoDao();

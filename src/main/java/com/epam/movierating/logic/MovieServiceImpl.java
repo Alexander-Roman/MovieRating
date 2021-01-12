@@ -16,6 +16,7 @@ public class MovieServiceImpl implements MovieService {
     private static final long MIN_ID_VALUE = 1L;
     private static final int MIN_ITEM_PER_PAGE_VALUE = 1;
     private static final int MIN_PAGE_VALUE = 1;
+    private static final int MIN_NUMBER_OF_PAGES = 1;
     private final DaoConnectionManagerFactory factory;
     private final Validator<Movie> movieValidator;
 
@@ -31,6 +32,9 @@ public class MovieServiceImpl implements MovieService {
         try (DaoConnectionManager manager = factory.create()) {
             MovieDao movieDao = manager.createMovieDao();
             long numberOfItems = movieDao.getMoviesAmount();
+            if (numberOfItems == 0) {
+                return MIN_NUMBER_OF_PAGES;
+            }
             return (int) Math.ceil(numberOfItems / (double) itemsPerPage);
         } catch (DaoException e) {
             throw new ServiceException(e);
