@@ -10,7 +10,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public final class ConnectionPool {
+public class ConnectionPool {
 
     private static final int POOL_SIZE = 10;
     private static final int MAX_TIMEOUT = 1;
@@ -82,7 +82,7 @@ public final class ConnectionPool {
                 ProxyConnection proxyConnection = connections.take();
                 proxyConnection.closeConnection();
             }
-        } catch (SQLException | InterruptedException e) {
+        } catch (InterruptedException e) {
             throw new ConnectionPoolException(e);
         }
     }

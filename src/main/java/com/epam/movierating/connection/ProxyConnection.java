@@ -18,14 +18,18 @@ public class ProxyConnection implements Connection {
     }
 
     //package-private
-    void closeConnection() throws SQLException {
-        connection.close();
+    void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new ConnectionPoolException();
+        }
     }
 
     @Override
     public void close() throws SQLException {
-        if (!connection.getAutoCommit()) {
-            connection.setAutoCommit(true);
+        if (!this.getAutoCommit()) {
+            this.setAutoCommit(true);
         }
         connectionPool.releaseConnection(this);
     }

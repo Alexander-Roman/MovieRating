@@ -42,20 +42,20 @@ public class DaoConnectionManagerImpl implements DaoConnectionManager {
 
     @Override
     public MovieDao createMovieDao() {
-        RowMapper<Movie> rowMapper = new MovieRowMapper();
-        return new MovieDaoImpl(connection, rowMapper);
+        RowMapper<Movie> movieRowMapper = new MovieRowMapper();
+        return new MovieDaoImpl(connection, movieRowMapper);
     }
 
     @Override
     public AccountDao createAccountDao() {
-        RowMapper<Account> rowMapper = new AccountRowMapper();
-        return new AccountDaoImpl(connection, rowMapper);
+        RowMapper<Account> accountRowMapper = new AccountRowMapper();
+        return new AccountDaoImpl(connection, accountRowMapper);
     }
 
     @Override
     public UserRatingDtoDao createUserRatingDtoDao() {
-        RowMapper<UserRatingDto> rowMapper = new UserRatingDtoRowMapper();
-        return new UserRatingDtoDaoImpl(connection, rowMapper);
+        RowMapper<UserRatingDto> userRatingDtoRowMapper = new UserRatingDtoRowMapper();
+        return new UserRatingDtoDaoImpl(connection, userRatingDtoRowMapper);
     }
 
     @Override
