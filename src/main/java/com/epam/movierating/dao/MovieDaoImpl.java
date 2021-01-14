@@ -20,7 +20,7 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
             "VALUES (?, ?, ?, ?, ?, null);";
     private static final String SQL_UPDATE_MOVIE = "UPDATE movies " +
             "SET title = ?, director = ?, release_year = ?, synopsis = ?, poster_path = ?, rating = " +
-            "(SELECT AVG(assessment) FROM user_ratings WHERE user_ratings.movie_id = movies.movie_id HAVING COUNT(movie_id) > 3) " +
+            "(SELECT AVG(assessment) FROM user_ratings WHERE user_ratings.movie_id = movies.movie_id HAVING COUNT(movie_id) >= 3) " +
             "WHERE movie_id = ?;";
     private static final String SQL_SELECT_ALL = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating FROM movies;";
     private static final String SQL_SELECT_BY_ID = "SELECT movie_id, title, director, release_year, synopsis, poster_path, rating " +

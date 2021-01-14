@@ -67,7 +67,7 @@
                                     10</p>
                             </c:otherwise>
                         </c:choose>
-                        <p><ctg:multiLineText text="${requestScope.movie.synopsis}"/></p>
+                        <p style="white-space: pre-wrap;">${requestScope.movie.synopsis}</p>
                     </div>
                 </div>
 
@@ -147,7 +147,7 @@
                             </form>
                         </ctg:access>
                         <p><b>${comment.author.userName}</b></p>
-                        <p><ctg:multiLineText text="${comment.text}"/></p>
+                        <p style="white-space: pre-wrap;">${comment.text}</p>
                         <fmt:parseDate value="${comment.dateTime}" pattern="y-M-dd'T'H:m" var="date"/>
                         <span class="comment-time"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH-mm"/></span>
                     </div>
@@ -177,7 +177,8 @@
                                               required></textarea>
                                 </div>
                                 <div class="comment-form-row">
-                                    <input id="comment-form-submit" type="submit" value="<fmt:message key="movie.comments.form.button.submit"/>">
+                                    <input id="comment-form-submit" type="submit"
+                                           value="<fmt:message key="movie.comments.form.button.submit"/>">
                                 </div>
                             </form>
                         </div>

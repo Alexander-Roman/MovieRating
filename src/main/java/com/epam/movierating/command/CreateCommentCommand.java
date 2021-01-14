@@ -31,6 +31,7 @@ public class CreateCommentCommand implements Command {
         long movieId = Long.parseLong(movieIdParameter);
 
         String text = request.getParameter(Parameter.TEXT)
+                .trim()
                 .replace("&", "&amp;")
                 .replace("<", "&lt;")
                 .replace(">", "&gt;");
