@@ -2,9 +2,19 @@ package com.epam.movierating.command;
 
 import java.util.Objects;
 
+/**
+ * The class provides information for the servlet about further navigation
+ */
 public final class CommandResult {
 
+    /**
+     * Jump page address
+     */
     private final String page;
+
+    /**
+     * Transition type. Redirect if true. Forward by default
+     */
     private final boolean redirect;
 
     private CommandResult(String page, Boolean redirect) {
