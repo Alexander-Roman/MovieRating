@@ -113,7 +113,6 @@ body {
     display: -ms-flex;
     display: flex;
     -webkit-justify-content: center;
-    -ms-justify-content: center;
     justify-content: center;
 }
 
@@ -125,7 +124,6 @@ body {
     flex-wrap: wrap;
 
     -webkit-flex-basis: 1200px;
-    -ms-flex-basis: 1200px;
     flex-basis: 1200px;
 }
 
@@ -146,10 +144,8 @@ body {
     padding: 20px;
 
     -webkit-flex-basis: 90px;
-    -ms-flex-basis: 90px;
     flex-basis: 90px;
     -webkit-flex-grow: 3;
-    -ms-flex-grow: 3;
     flex-grow: 3;
 }
 
@@ -161,10 +157,8 @@ body {
     padding: 20px;
 
     -webkit-flex-basis: 210px;
-    -ms-flex-basis: 210px;
     flex-basis: 210px;
     -webkit-flex-grow: 7;
-    -ms-flex-grow: 7;
     flex-grow: 7;
 }
 
@@ -232,7 +226,6 @@ body {
     border: none;
 
     -webkit-flex-grow: 1;
-    -ms-flex-grow: 1;
     flex-grow: 1;
 }
 
@@ -256,7 +249,6 @@ body {
     display: -ms-flex;
     display: flex;
     -webkit-justify-content: space-between;
-    -ms-justify-content: space-between;
     justify-content: space-between;
 
     -webkit-flex-wrap: wrap;
@@ -278,7 +270,6 @@ body {
 
 .flex-right {
     -webkit-justify-content: flex-end;
-    -ms-justify-content: flex-end;
     justify-content: flex-end;
 }
 
@@ -287,7 +278,6 @@ body {
     display: -ms-flex;
     display: flex;
     -webkit-justify-content: center;
-    -ms-justify-content: center;
     justify-content: center;
 }
 
@@ -584,7 +574,6 @@ body {
     display: -ms-flex;
     display: flex;
     -webkit-justify-content: flex-end;
-    -ms-justify-content: flex-end;
     justify-content: flex-end;
 }
 
@@ -610,7 +599,6 @@ body {
     display: -ms-flex;
     display: flex;
     -webkit-justify-content: flex-end;
-    -ms-justify-content: flex-end;
     justify-content: flex-end;
     margin-bottom: 10px;
 }
@@ -814,12 +802,31 @@ body {
     height: 30px;
     width: 30px;
     background-color: #ddd;
-    background-image: url(../icons/trash.svg);
     background-repeat: no-repeat;
     background-size: 20px;
     background-position: 50% 50%;
     border: 1px solid #ccc;
     border-radius: 50px;
+}
+
+.comment-remove-options .comment-remove-button-img {
+    background-image: url(../icons/trash.svg);
+    background-size: 20px;
+}
+
+.comment-remove-submit .comment-remove-button-img {
+    background-image: url(../icons/confirm.svg);
+    background-size: 16px;
+}
+
+.comment-remove-cancel .comment-remove-button-img {
+    background-image: url(../icons/cancel.svg);
+    background-size: 16px;
+}
+
+.comment-remove-submit,
+.comment-remove-cancel {
+    display: none;
 }
 
 /* Comment form */

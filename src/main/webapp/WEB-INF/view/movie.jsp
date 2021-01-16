@@ -136,12 +136,19 @@
                 <h3><fmt:message key="movie.comments.header"/></h3>
 
                 <c:forEach var="comment" items="${requestScope.comments}">
-                    <div class="comment-container">
+                    <div id="comment${comment.id}" class="comment-container">
                         <ctg:access accessName="deleteComment">
                             <form class="comment-remove-form" action="<c:url value="/controller"/>" method="post">
                                 <input type="hidden" name="command" value="deleteComment">
                                 <input type="hidden" name="id" value="${comment.id}">
-                                <button class="comment-remove-button" type="submit">
+                                <button class="comment-remove-button comment-remove-submit" type="button"
+                                        onclick="removeComment(${comment.id})">
+                                    <span class="comment-remove-button-img"></span>
+                                </button>
+                                <button class="comment-remove-button comment-remove-cancel" type="button">
+                                    <span class="comment-remove-button-img"></span>
+                                </button>
+                                <button class="comment-remove-button comment-remove-options" type="button">
                                     <span class="comment-remove-button-img"></span>
                                 </button>
                             </form>
@@ -193,5 +200,20 @@
 
 </div>
 <script src="<c:url value="/static/js/comment-form-validator.js"/>"></script>
+<script src="<c:url value="/static/js/remove-comment-confirm.js"/>"></script>
+<script>
+    function removeComment(commentId) {
+        let request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let comment = document.getElementById("comment" + commentId);
+                comment.remove();
+            }
+        };
+        request.open("POST", "<c:url value="/controller"/>", true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send("command=deleteComment&id=" + commentId);
+    }
+</script>
 </body>
 </html>
