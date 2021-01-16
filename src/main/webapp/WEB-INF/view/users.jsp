@@ -37,8 +37,21 @@
                     <c:forEach var="user" items="${requestScope.users}">
                         <tr>
                             <td>${user.userName}</td>
-                            <td>${user.role}</td>
 
+                            <c:choose>
+                                <c:when test="${user.role == 'USER'}">
+                                    <td><fmt:message key="users.table.role.user"/></td>
+                                </c:when>
+                                <c:when test="${user.role == 'EDITOR'}">
+                                    <td><fmt:message key="users.table.role.editor"/></td>
+                                </c:when>
+                                <c:when test="${user.role == 'ADMIN'}">
+                                    <td><fmt:message key="users.table.role.admin"/></td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>${user.role}</td>
+                                </c:otherwise>
+                            </c:choose>
 
                             <c:choose>
                                 <c:when test="${user.role == 'USER'}">
