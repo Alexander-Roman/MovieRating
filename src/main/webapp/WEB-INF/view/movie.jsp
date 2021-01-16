@@ -30,13 +30,9 @@
                         </a>
                     </ctg:access>
                     <ctg:access accessName="deleteMovie">
-                        <form class="movie-delete-form" action="<c:url value="/controller"/>" method="post">
-                            <input type="hidden" name="command" value="deleteMovie">
-                            <input type="hidden" name="id" value="${requestScope.movie.id}">
-                            <button class="edit-button movie-delete-button" type="submit">
-                                <fmt:message key="movie.button.delete"/>
-                            </button>
-                        </form>
+                        <button class="edit-button movie-delete-button" type="button">
+                            <fmt:message key="movie.button.delete"/>
+                        </button>
                     </ctg:access>
                 </div>
 
@@ -199,8 +195,31 @@
     <jsp:include page="../template/footer.jsp"/>
 
 </div>
+
+<div class="delete-movie-modal">
+    <span class="delete-movie-close" title="<fmt:message key="movie.delete.modal.button.close.title"/>">×</span>
+    <form class="delete-movie-modal-content" action="<c:url value="/controller"/>" method="post">
+        <input type="hidden" name="command" value="deleteMovie">
+        <input type="hidden" name="id" value="${requestScope.movie.id}">
+        <div class="delete-movie-container">
+            <h1><fmt:message key="movie.delete.modal.header"/> ${requestScope.movie.title}</h1>
+            <p><fmt:message key="movie.delete.modal.message"/></p>
+
+            <div class="delete-movie-clear-fix">
+                <button type="submit" class="delete-movie-confirm">
+                    <fmt:message key="movie.delete.modal.button.delete"/>
+                </button>
+                <button type="button" class="delete-movie-cancel">
+                    <fmt:message key="movie.delete.modal.button.cancel"/>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
 <script src="<c:url value="/static/js/comment-form-validator.js"/>"></script>
 <script src="<c:url value="/static/js/remove-comment-confirm.js"/>"></script>
+<script src="<c:url value="/static/js/remove-movie-confirm.js"/>"></script>
 <script>
     function removeComment(commentId) {
         let request = new XMLHttpRequest();

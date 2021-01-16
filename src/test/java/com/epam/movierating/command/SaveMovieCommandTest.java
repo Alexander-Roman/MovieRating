@@ -58,7 +58,7 @@ public class SaveMovieCommandTest {
         //given
         normalExecuteScenario();
         //when
-        when(request.getParameter(Parameter.ID)).thenReturn(null);
+        when(request.getParameter(Parameter.ID)).thenReturn("");
         saveMovieCommand.execute(request);
         //then
         verify(movieService, times(1)).save(any());
@@ -79,7 +79,7 @@ public class SaveMovieCommandTest {
         //given
         normalExecuteScenario();
         //when
-        when(request.getParameter(Parameter.RELEASE_YEAR)).thenReturn(null);
+        when(request.getParameter(Parameter.RELEASE_YEAR)).thenReturn("");
         saveMovieCommand.execute(request);
         //then
         verify(movieService, times(1)).save(any());
@@ -111,7 +111,7 @@ public class SaveMovieCommandTest {
         //given
         normalExecuteScenario();
         //when
-        when(request.getParameter(Parameter.RATE)).thenReturn(INVALID_RATING_PARAM);
+        when(request.getParameter(Parameter.RATING)).thenReturn(INVALID_RATING_PARAM);
         saveMovieCommand.execute(request);
         //then
     }
@@ -144,7 +144,7 @@ public class SaveMovieCommandTest {
         when(request.getParameter(Parameter.RELEASE_YEAR)).thenReturn(VALID_RELEASE_YEAR_PARAM);
         when(request.getParameter(Parameter.SYNOPSIS)).thenReturn(SYNOPSIS_PARAM);
         when(request.getParameter(Parameter.POSTER_PATH)).thenReturn(POSTER_PATH_PARAM);
-        when(request.getParameter(Parameter.RATE)).thenReturn(VALID_RATING_PARAM);
+        when(request.getParameter(Parameter.RATING)).thenReturn(VALID_RATING_PARAM);
         when(posterValidator.isValid(any())).thenReturn(true);
         when(request.getServletContext()).thenReturn(servletContext);
         when(servletContext.getRealPath(anyString())).thenReturn(REAL_PATH);

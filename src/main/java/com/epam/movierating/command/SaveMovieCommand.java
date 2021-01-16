@@ -83,39 +83,39 @@ public class SaveMovieCommand implements Command {
 
     private Movie extractFromRequest(HttpServletRequest request) {
         String idParam = request.getParameter(Parameter.ID);
-        Long id = idParam != null
-                ? Long.parseLong(idParam)
-                : null;
+        Long id = idParam.isEmpty()
+                ? null
+                : Long.parseLong(idParam);
 
         String titleParam = request.getParameter(Parameter.TITLE);
-        String title = titleParam != null
-                ? normalizeIncomingStringData(titleParam)
-                : null;
+        String title = titleParam.isEmpty()
+                ? null
+                : normalizeIncomingStringData(titleParam);
 
         String directorParam = request.getParameter(Parameter.DIRECTOR);
-        String director = directorParam != null
-                ? normalizeIncomingStringData(directorParam)
-                : null;
+        String director = directorParam.isEmpty()
+                ? null
+                : normalizeIncomingStringData(directorParam);
 
         String yearParam = request.getParameter(Parameter.RELEASE_YEAR);
-        Integer releaseYear = yearParam != null
-                ? Integer.parseInt(yearParam)
-                : null;
+        Integer releaseYear = yearParam.isEmpty()
+                ? null
+                : Integer.parseInt(yearParam);
 
         String synopsisParam = request.getParameter(Parameter.SYNOPSIS);
-        String synopsis = synopsisParam != null
-                ? normalizeIncomingStringData(synopsisParam)
-                : null;
+        String synopsis = synopsisParam.isEmpty()
+                ? null
+                : normalizeIncomingStringData(synopsisParam);
 
         String posterPathParam = request.getParameter(Parameter.POSTER_PATH);
-        String posterPath = posterPathParam != null
-                ? normalizeIncomingStringData(posterPathParam)
-                : null;
+        String posterPath = posterPathParam.isEmpty()
+                ? null
+                : normalizeIncomingStringData(posterPathParam);
 
-        String ratingParam = request.getParameter(Parameter.RATE);
-        Double rating = ratingParam != null
-                ? Double.parseDouble(ratingParam)
-                : null;
+        String ratingParam = request.getParameter(Parameter.RATING);
+        Double rating = ratingParam.isEmpty()
+                ? null
+                : Double.parseDouble(ratingParam);
 
         return new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
     }

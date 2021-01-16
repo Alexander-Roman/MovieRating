@@ -1066,3 +1066,96 @@ body {
     color: black;
     font-weight: bold;
 }
+
+/* Remove Movie confirm modal */
+
+.delete-movie-modal button {
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.delete-movie-modal button:hover {
+    opacity:1;
+}
+
+/* Float cancel and delete buttons and add an equal width */
+.delete-movie-confirm,
+.delete-movie-cancel {
+    float: left;
+    width: 50%;
+}
+
+/* Add a color to the cancel button */
+.delete-movie-cancel {
+    background-color: #ccc;
+    color: black;
+}
+
+/* Add a color to the delete button */
+.delete-movie-confirm {
+    background-color: #f44336;
+}
+
+/* Add padding and center-align text to the container */
+.delete-movie-container {
+    padding: 16px;
+    text-align: center;
+}
+
+/* The Modal (background) */
+.delete-movie-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.delete-movie-modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+/* The Modal Close Button (x) */
+.delete-movie-close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+.delete-movie-close:hover,
+.delete-movie-close:focus {
+    color: #f44336;
+    cursor: pointer;
+}
+
+/* Clear floats */
+.delete-movie-clear-fix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and delete button on extra small screens */
+@media screen and (max-width: 300px) {
+    .delete-movie-confirm,
+    .delete-movie-cancel {
+        width: 100%;
+    }
+}
