@@ -17,6 +17,7 @@ import org.testng.annotations.Test;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -35,7 +36,7 @@ public class CommentServiceImplTest {
     private CommentDtoDao commentDtoDao;
 
     @BeforeMethod
-    public void setUp() {
+    public void setUp() throws DaoException {
         factory = Mockito.mock(DaoConnectionManagerFactory.class);
         commentDtoValidator = Mockito.mock(CommentDtoValidator.class);
         commentService = new CommentServiceImpl(factory, commentDtoValidator);
@@ -45,6 +46,7 @@ public class CommentServiceImplTest {
         when(factory.create()).thenReturn(daoConnectionManager);
         when(daoConnectionManager.createCommentDtoDao()).thenReturn(commentDtoDao);
         when(commentDtoValidator.isValid(any())).thenReturn(true);
+        when(commentDtoDao.find(VALID_ID)).thenReturn(Optional.of(COMMENT_DTO_EXISTING));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -64,6 +66,15 @@ public class CommentServiceImplTest {
         //then
         List<CommentDto> expected = Collections.singletonList(COMMENT_DTO_EXISTING);
         Assert.assertEquals(actual, expected);
+    }
+
+    @Test(expectedExceptions = NotFoundException.class)
+    public void testDeleteCommentByIdShouldThrowExceptionWhenCommentNotExist() throws ServiceException, DaoException {
+        //given
+        //when
+        when(commentDtoDao.find(anyLong())).thenReturn(Optional.empty());
+        commentService.deleteCommentById(VALID_ID);
+        //then
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

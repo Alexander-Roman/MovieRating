@@ -9,6 +9,7 @@ import com.epam.movierating.model.dto.CommentDto;
 import com.google.common.base.Preconditions;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CommentServiceImpl implements CommentService {
 
@@ -39,6 +40,12 @@ public class CommentServiceImpl implements CommentService {
 
         try (DaoConnectionManager manager = factory.create()) {
             CommentDtoDao commentDtoDao = manager.createCommentDtoDao();
+
+            Optional<CommentDto> found = commentDtoDao.find(id);
+            if (!found.isPresent()) {
+                throw new NotFoundException("Comment with specified ID is not present: " + id);
+            }
+
             commentDtoDao.delete(id);
         } catch (DaoException e) {
             throw new ServiceException(e);

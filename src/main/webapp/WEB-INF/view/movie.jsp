@@ -217,16 +217,58 @@
     </form>
 </div>
 
+<!-- Prepared layout of dynamic elements -->
+<div style="display: none">
+
+    <!-- 200 alert for delete comment command -->
+    <div class="alert alert-success delete-command-alert-success-sample">
+                            <span class="alert-closebtn"
+                                  onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong><fmt:message key="movie.comment.delete.alert.success.header"/></strong>
+        <fmt:message key="movie.comment.delete.alert.success.text"/>
+    </div>
+
+    <!-- 404 alert for delete comment command -->
+    <div class="alert alert-warning delete-command-alert-404-sample">
+                            <span class="alert-closebtn"
+                                  onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong><fmt:message key="movie.comment.delete.error.404.header"/></strong>
+        <fmt:message key="movie.comment.delete.error.404.text"/>
+    </div>
+
+    <!-- 500 alert for delete comment command -->
+    <div class="alert alert-error delete-command-alert-500-sample">
+                            <span class="alert-closebtn"
+                                  onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong><fmt:message key="movie.comment.delete.error.500.header"/></strong>
+        <fmt:message key="movie.comment.delete.error.500.text"/>
+    </div>
+
+</div>
+
 <script src="<c:url value="/static/js/comment-form-validator.js"/>"></script>
 <script src="<c:url value="/static/js/remove-comment-confirm.js"/>"></script>
 <script src="<c:url value="/static/js/remove-movie-confirm.js"/>"></script>
 <script>
+    let alertSuccess = document.querySelector(".delete-command-alert-success-sample");
+    let alertNotFound = document.querySelector(".delete-command-alert-404-sample");
+    let alertError = document.querySelector(".delete-command-alert-500-sample");
     function removeComment(commentId) {
+        let comment = document.getElementById("comment" + commentId);
+
         let request = new XMLHttpRequest();
         request.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                let comment = document.getElementById("comment" + commentId);
-                comment.remove();
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    let cloneAlert = alertSuccess.cloneNode(true);
+                    comment.replaceWith(cloneAlert);
+                } else if (this.status === 404) {
+                    let cloneAlert = alertNotFound.cloneNode(true);
+                    comment.replaceWith(cloneAlert);
+                } else if (this.status === 500) {
+                    let cloneAlert = alertError.cloneNode(true);
+                    comment.before(cloneAlert)
+                }
             }
         };
         request.open("POST", "<c:url value="/controller"/>", true);
