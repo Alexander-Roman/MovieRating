@@ -55,8 +55,9 @@
 
                             <c:choose>
                                 <c:when test="${user.role == 'USER'}">
-                                    <td>
-                                        <ctg:access accessName="blockUser">
+
+                                    <ctg:access accessName="blockUser">
+                                        <td>
                                             <c:choose>
                                                 <c:when test="${user.blocked}">
                                                     <form action="<c:url value="/controller"/>">
@@ -77,12 +78,14 @@
                                                     </form>
                                                 </c:otherwise>
                                             </c:choose>
-                                        </ctg:access>
-                                    </td>
+                                        </td>
+                                    </ctg:access>
+
                                 </c:when>
                                 <c:when test="${user.role == 'EDITOR'}">
-                                    <td>
-                                        <ctg:access accessName="blockEditor">
+
+                                    <ctg:access accessName="blockEditor">
+                                        <td>
                                             <c:choose>
                                                 <c:when test="${user.blocked}">
                                                     <form action="<c:url value="/controller"/>">
@@ -103,8 +106,9 @@
                                                     </form>
                                                 </c:otherwise>
                                             </c:choose>
-                                        </ctg:access>
-                                    </td>
+                                        </td>
+                                    </ctg:access>
+
                                 </c:when>
                                 <c:otherwise>
                                     <ctg:access accessName="blockUser">

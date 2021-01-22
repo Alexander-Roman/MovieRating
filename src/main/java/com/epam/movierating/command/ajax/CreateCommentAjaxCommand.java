@@ -1,29 +1,33 @@
-package com.epam.movierating.command;
+package com.epam.movierating.command.ajax;
 
 import com.epam.movierating.constant.Attribute;
-import com.epam.movierating.constant.CommandName;
 import com.epam.movierating.constant.Parameter;
 import com.epam.movierating.logic.CommentService;
 import com.epam.movierating.logic.ServiceException;
 import com.epam.movierating.model.dto.CommentDto;
 import com.epam.movierating.model.entity.Account;
+import com.epam.movierating.model.view.CommentView;
+import com.epam.movierating.view.json.adapter.LocalDateTimeAdapter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-public class CreateCommentCommand implements Command {
+public class CreateCommentAjaxCommand implements AjaxCommand {
 
-    private static final String MOVIE_COMMAND_PATH = "/controller" + "?" + Parameter.COMMAND + "=" + CommandName.MOVIE;
     private final CommentService commentService;
 
-    public CreateCommentCommand(CommentService commentService) {
+    public CreateCommentAjaxCommand(CommentService commentService) {
         this.commentService = commentService;
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest request) throws ServiceException {
+    public Optional<String> execute(HttpServletRequest request) throws ServiceException {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute(Attribute.ACCOUNT);
 
@@ -37,8 +41,17 @@ public class CreateCommentCommand implements Command {
         CommentDto commentDto = new CommentDto(null, movieId, account, dateTime, text);
         commentService.createNewComment(commentDto);
 
-        ServletContext servletContext = request.getServletContext();
-        String contextPath = servletContext.getContextPath();
-        return CommandResult.redirect(contextPath + MOVIE_COMMAND_PATH + "&" + Parameter.ID + "=" + movieId);
+        List<CommentDto> comments = commentService.getMovieComments(movieId);
+        List<CommentView> commentViews = comments
+                .stream()
+                .map(CommentView::from)
+                .collect(Collectors.toList());
+
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
+        String json = gson.toJson(commentViews);
+        return Optional.of(json);
     }
 }

@@ -844,7 +844,7 @@ body {
     display: block;
 }
 
-.comment-form-container input[type=submit] {
+.comment-form-container button {
     float: right;
 
     padding: 6px 10px;
@@ -855,11 +855,11 @@ body {
     cursor: pointer;
 }
 
-.comment-form-container input[type=submit]:hover:not(:disabled) {
+.comment-form-container button:hover:not(:disabled) {
     background-color: #ff7f50;
 }
 
-.comment-form-container input[type=submit]:disabled {
+.comment-form-container button:disabled {
     cursor: auto;
 }
 

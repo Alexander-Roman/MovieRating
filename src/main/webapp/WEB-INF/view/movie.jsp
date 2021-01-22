@@ -30,7 +30,7 @@
                         </a>
                     </ctg:access>
                     <ctg:access accessName="deleteMovie">
-                        <button class="edit-button movie-delete-button" type="button">
+                        <button class="edit-button movie-delete-button" type="button" onclick="showDeleteModal()">
                             <fmt:message key="movie.button.delete"/>
                         </button>
                     </ctg:access>
@@ -131,31 +131,35 @@
 
                 <h3><fmt:message key="movie.comments.header"/></h3>
 
-                <c:forEach var="comment" items="${requestScope.comments}">
-                    <div id="comment${comment.id}" class="comment-container">
-                        <ctg:access accessName="deleteComment">
-                            <form class="comment-remove-form" action="<c:url value="/controller"/>" method="post">
-                                <input type="hidden" name="command" value="deleteComment">
-                                <input type="hidden" name="id" value="${comment.id}">
-                                <button class="comment-remove-button comment-remove-submit" type="button"
-                                        onclick="removeComment(${comment.id})">
-                                    <span class="comment-remove-button-img"></span>
-                                </button>
-                                <button class="comment-remove-button comment-remove-cancel" type="button">
-                                    <span class="comment-remove-button-img"></span>
-                                </button>
-                                <button class="comment-remove-button comment-remove-options" type="button">
-                                    <span class="comment-remove-button-img"></span>
-                                </button>
-                            </form>
-                        </ctg:access>
-                        <p><b>${comment.author.userName}</b></p>
-                        <p style="white-space: pre-wrap;">${comment.text}</p>
-                        <fmt:parseDate value="${comment.dateTime}" pattern="y-M-dd'T'H:m" var="date"/>
-                        <span class="comment-time"><fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH-mm"/></span>
-                    </div>
-                </c:forEach>
-
+                <div id="comments-block">
+                    <c:forEach var="comment" items="${requestScope.comments}">
+                        <div data-id="${comment.id}" class="comment-container">
+                            <ctg:access accessName="deleteComment">
+                                <form class="comment-remove-form" action="<c:url value="/controller"/>" method="post">
+                                    <input type="hidden" name="command" value="deleteComment">
+                                    <input type="hidden" name="id" value="${comment.id}">
+                                    <button class="comment-remove-button comment-remove-submit" type="button"
+                                            onclick="deleteComment(this)">
+                                        <span class="comment-remove-button-img"></span>
+                                    </button>
+                                    <button class="comment-remove-button comment-remove-cancel" type="button"
+                                            onclick="cancelCommentRemove(this)">
+                                        <span class="comment-remove-button-img"></span>
+                                    </button>
+                                    <button class="comment-remove-button comment-remove-options" type="button"
+                                            onclick="showCommentRemoveOptions(this)">
+                                        <span class="comment-remove-button-img"></span>
+                                    </button>
+                                </form>
+                            </ctg:access>
+                            <p><b>${comment.author.userName}</b></p>
+                            <p style="white-space: pre-wrap;">${comment.text}</p>
+                            <fmt:parseDate value="${comment.dateTime}" pattern="y-M-dd'T'H:m" var="date"/>
+                            <span class="comment-time"><fmt:formatDate value="${date}"
+                                                                       pattern="yyyy-MM-dd HH-mm"/></span>
+                        </div>
+                    </c:forEach>
+                </div>
 
                 <c:choose>
                     <c:when test="${sessionScope.account == null}">
@@ -168,20 +172,22 @@
                     </c:when>
                     <c:otherwise>
                         <div class="comment-form-container">
-                            <form action="<c:url value="/controller"/>" method="post">
+                            <form class="comment-form" action="<c:url value="/ajax"/>" method="post">
                                 <input type="hidden" name="command" value="addComment">
                                 <input type="hidden" name="id" value="${requestScope.movie.id}">
                                 <div class="comment-form-row">
                                     <h3><label for="text"><fmt:message key="movie.comments.form.header"/></label></h3>
                                 </div>
                                 <div class="comment-form-row">
-                                    <textarea id="text" name="text"
+                                    <textarea id="text" name="text" oninput="validateCommentText()"
                                               placeholder="<fmt:message key="movie.comments.form.placeholder"/>"
                                               required></textarea>
                                 </div>
                                 <div class="comment-form-row">
-                                    <input id="comment-form-submit" type="submit"
-                                           value="<fmt:message key="movie.comments.form.button.submit"/>">
+                                    <button id="comment-form-submit" type="button" disabled
+                                            onclick="addComment()">
+                                        <fmt:message key="movie.comments.form.button.submit"/>
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -196,85 +202,130 @@
 
 </div>
 
-<div class="delete-movie-modal">
-    <span class="delete-movie-close" title="<fmt:message key="movie.delete.modal.button.close.title"/>">×</span>
-    <form class="delete-movie-modal-content" action="<c:url value="/controller"/>" method="post">
-        <input type="hidden" name="command" value="deleteMovie">
-        <input type="hidden" name="id" value="${requestScope.movie.id}">
-        <div class="delete-movie-container">
-            <h1><fmt:message key="movie.delete.modal.header"/> ${requestScope.movie.title}</h1>
-            <p><fmt:message key="movie.delete.modal.message"/></p>
+<ctg:access accessName="deleteMovie">
+    <div class="delete-movie-modal">
+        <span class="delete-movie-close" title="<fmt:message key="movie.delete.modal.button.close.title"/>"
+              onclick="hideDeleteModal()">×</span>
+        <form class="delete-movie-modal-content" action="<c:url value="/controller"/>" method="post">
+            <input type="hidden" name="command" value="deleteMovie">
+            <input type="hidden" name="id" value="${requestScope.movie.id}">
+            <div class="delete-movie-container">
+                <h1><fmt:message key="movie.delete.modal.header"/> ${requestScope.movie.title}</h1>
+                <p><fmt:message key="movie.delete.modal.message"/></p>
 
-            <div class="delete-movie-clear-fix">
-                <button type="submit" class="delete-movie-confirm">
-                    <fmt:message key="movie.delete.modal.button.delete"/>
-                </button>
-                <button type="button" class="delete-movie-cancel">
-                    <fmt:message key="movie.delete.modal.button.cancel"/>
-                </button>
+                <div class="delete-movie-clear-fix">
+                    <button type="submit" class="delete-movie-confirm">
+                        <fmt:message key="movie.delete.modal.button.delete"/>
+                    </button>
+                    <button type="button" class="delete-movie-cancel" onclick="hideDeleteModal()">
+                        <fmt:message key="movie.delete.modal.button.cancel"/>
+                    </button>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+    <script>
+        let movieDeleteConfirmModal = document.querySelector('.delete-movie-modal');
+    </script>
+    <script src="<c:url value="/static/js/dynamic/movie-remove-confirm.js"/>"></script>
+</ctg:access>
 
 <!-- Prepared layout of dynamic elements -->
 <div style="display: none">
 
-    <!-- 200 alert for delete comment command -->
-    <div class="alert alert-success delete-command-alert-success-sample">
+    <!-- Global variables -->
+    <script>
+        let movieId = ${requestScope.movie.id};
+        let controllerActionPath = "<c:url value="/controller"/>";
+        let ajaxActionPath = "<c:url value="/ajax"/>";
+    </script>
+
+    <ctg:access accessName="deleteComment">
+
+        <!-- 200 alert for delete comment command -->
+        <div class="alert alert-success delete-command-alert-success-sample">
                             <span class="alert-closebtn"
                                   onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong><fmt:message key="movie.comment.delete.alert.success.header"/></strong>
-        <fmt:message key="movie.comment.delete.alert.success.text"/>
-    </div>
+            <strong><fmt:message key="movie.comment.delete.alert.success.header"/></strong>
+            <fmt:message key="movie.comment.delete.alert.success.text"/>
+        </div>
+        <script>
+            let deleteCommentAlertSuccess = document.querySelector(".delete-command-alert-success-sample");
+        </script>
 
-    <!-- 404 alert for delete comment command -->
-    <div class="alert alert-warning delete-command-alert-404-sample">
+        <!-- 404 alert for delete comment command -->
+        <div class="alert alert-warning delete-command-alert-404-sample">
                             <span class="alert-closebtn"
                                   onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong><fmt:message key="movie.comment.delete.error.404.header"/></strong>
-        <fmt:message key="movie.comment.delete.error.404.text"/>
-    </div>
+            <strong><fmt:message key="movie.comment.delete.error.404.header"/></strong>
+            <fmt:message key="movie.comment.delete.error.404.text"/>
+        </div>
+        <script>
+            let deleteCommentAlertNotFound = document.querySelector(".delete-command-alert-404-sample");
+        </script>
 
-    <!-- 500 alert for delete comment command -->
-    <div class="alert alert-error delete-command-alert-500-sample">
+        <!-- 500 alert for delete comment command -->
+        <div class="alert alert-error delete-command-alert-500-sample">
                             <span class="alert-closebtn"
                                   onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong><fmt:message key="movie.comment.delete.error.500.header"/></strong>
-        <fmt:message key="movie.comment.delete.error.500.text"/>
-    </div>
+            <strong><fmt:message key="movie.comment.delete.error.500.header"/></strong>
+            <fmt:message key="movie.comment.delete.error.500.text"/>
+        </div>
+        <script>
+            let deleteCommentAlertError = document.querySelector(".delete-command-alert-500-sample");
+        </script>
 
+        <script src="<c:url value="/static/js/ajax/delete-comment.js"/>"></script>
+    </ctg:access>
+
+    <ctg:access accessName="addComment">
+        <!-- Comment block sample -->
+        <div data-id="" class="comment-container-sample comment-container">
+            <ctg:access accessName="deleteComment">
+                <form class="comment-remove-form" action="<c:url value="/controller"/>" method="post">
+                    <input type="hidden" name="command" value="deleteComment">
+                    <input type="hidden" name="id" value="">
+                    <button class="comment-remove-button comment-remove-submit" type="button"
+                            onclick="deleteComment(this)">
+                        <span class="comment-remove-button-img"></span>
+                    </button>
+                    <button class="comment-remove-button comment-remove-cancel" type="button"
+                            onclick="cancelCommentRemove(this)">
+                        <span class="comment-remove-button-img"></span>
+                    </button>
+                    <button class="comment-remove-button comment-remove-options" type="button"
+                            onclick="showCommentRemoveOptions(this)">
+                        <span class="comment-remove-button-img"></span>
+                    </button>
+                </form>
+            </ctg:access>
+            <p class="author-name" style="font-weight: bold;"></p>
+            <p class="comment-text" style="white-space: pre-wrap;"></p>
+            <span class="comment-time"></span>
+        </div>
+        <script>
+            let newCommentContainerSample = document.querySelector(".comment-container-sample");
+        </script>
+
+        <!-- Error alert for add comment command -->
+        <div class="alert alert-error add-comment-error-sample">
+                            <span class="alert-closebtn"
+                                  onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong><fmt:message key="movie.comment.add.error.header"/></strong>
+            <fmt:message key="movie.comment.add.error.text"/>
+        </div>
+        <script>
+            let addCommentAlertError = document.querySelector(".delete-command-alert-500-sample");
+        </script>
+
+        <script src="<c:url value="/static/js/ajax/add-comment.js"/>"></script>
+    </ctg:access>
 </div>
-
-<script src="<c:url value="/static/js/comment-form-validator.js"/>"></script>
-<script src="<c:url value="/static/js/remove-comment-confirm.js"/>"></script>
-<script src="<c:url value="/static/js/remove-movie-confirm.js"/>"></script>
-<script>
-    let alertSuccess = document.querySelector(".delete-command-alert-success-sample");
-    let alertNotFound = document.querySelector(".delete-command-alert-404-sample");
-    let alertError = document.querySelector(".delete-command-alert-500-sample");
-    function removeComment(commentId) {
-        let comment = document.getElementById("comment" + commentId);
-
-        let request = new XMLHttpRequest();
-        request.onreadystatechange = function () {
-            if (this.readyState === 4) {
-                if (this.status === 200) {
-                    let cloneAlert = alertSuccess.cloneNode(true);
-                    comment.replaceWith(cloneAlert);
-                } else if (this.status === 404) {
-                    let cloneAlert = alertNotFound.cloneNode(true);
-                    comment.replaceWith(cloneAlert);
-                } else if (this.status === 500) {
-                    let cloneAlert = alertError.cloneNode(true);
-                    comment.before(cloneAlert)
-                }
-            }
-        };
-        request.open("POST", "<c:url value="/controller"/>", true);
-        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        request.send("command=deleteComment&id=" + commentId);
-    }
-</script>
+<ctg:access accessName="addComment">
+    <script src="<c:url value="/static/js/validator/comment-form-validator.js"/>"></script>
+</ctg:access>
+<ctg:access accessName="deleteComment">
+    <script src="<c:url value="/static/js/dynamic/comment-remove-confirm.js"/>"></script>
+</ctg:access>
 </body>
 </html>

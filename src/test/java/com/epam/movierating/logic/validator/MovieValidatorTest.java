@@ -43,30 +43,10 @@ public class MovieValidatorTest {
 
     @DataProvider(name = "invalidMovieProvider")
     public Object[][] provideInvalidMovieObjects() {
-
-        StringBuilder titleStringBuilder = new StringBuilder("The length of the string exceeds " + MAX_TITLE_LENGTH + " characters:");
-        for (int i = 0; i <= MAX_TITLE_LENGTH; i++) {
-            titleStringBuilder.append(".");
-        }
-        String titleLengthExceeded = titleStringBuilder.toString();
-
-        StringBuilder directorStringBuilder = new StringBuilder("The length of the string exceeds " + MAX_DIRECTOR_LENGTH + " characters:");
-        for (int i = 0; i <= MAX_DIRECTOR_LENGTH; i++) {
-            directorStringBuilder.append(".");
-        }
-        String directorLengthExceeded = directorStringBuilder.toString();
-
-        StringBuilder synopsisStringBuilder = new StringBuilder("The length of the string exceeds " + MAX_SYNOPSIS_LENGTH + " characters:");
-        for (int i = 0; i <= MAX_SYNOPSIS_LENGTH; i++) {
-            synopsisStringBuilder.append(".");
-        }
-        String synopsisLengthExceeded = synopsisStringBuilder.toString();
-
-        StringBuilder posterPathStringBuilder = new StringBuilder("The length of the string exceeds " + MAX_POSTER_PATH_LENGTH + " characters:");
-        for (int i = 0; i <= MAX_POSTER_PATH_LENGTH; i++) {
-            posterPathStringBuilder.append(".");
-        }
-        String posterPathLengthExceeded = posterPathStringBuilder.toString();
+        String titleLengthExceeded = buildStringExceedingLength(MAX_TITLE_LENGTH);
+        String directorLengthExceeded = buildStringExceedingLength(MAX_DIRECTOR_LENGTH);
+        String synopsisLengthExceeded = buildStringExceedingLength(MAX_SYNOPSIS_LENGTH);
+        String posterPathLengthExceeded = buildStringExceedingLength(MAX_POSTER_PATH_LENGTH);
 
         return new Movie[][]{
                 {null},
@@ -97,5 +77,13 @@ public class MovieValidatorTest {
                 {new Movie(VALID_ID, VALID_TITLE, VALID_DIRECTOR, VALID_RELEASE_YEAR, VALID_SYNOPSIS, VALID_POSTER_PATH, -0.1)},
                 {new Movie(VALID_ID, VALID_TITLE, VALID_DIRECTOR, VALID_RELEASE_YEAR, VALID_SYNOPSIS, VALID_POSTER_PATH, 10.1)}
         };
+    }
+
+    private String buildStringExceedingLength(int length) {
+        StringBuilder stringBuilder = new StringBuilder("The length of the string exceeds " + length + " characters:");
+        for (int i = 0; i <= length; i++) {
+            stringBuilder.append(".");
+        }
+        return stringBuilder.toString();
     }
 }

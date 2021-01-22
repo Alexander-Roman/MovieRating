@@ -33,6 +33,16 @@
     </filter-mapping>
 
     <filter>
+        <filter-name>RequestFilter</filter-name>
+        <filter-class>com.epam.movierating.filter.RequestFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>RequestFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>LocalizationFilter</filter-name>
         <filter-class>com.epam.movierating.filter.LocalizationFilter</filter-class>
     </filter>
@@ -62,6 +72,11 @@
     <error-page>
         <error-code>400</error-code>
         <location>/WEB-INF/error/error400.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>401</error-code>
+        <location>/WEB-INF/view/login.jsp</location>
     </error-page>
 
     <error-page>

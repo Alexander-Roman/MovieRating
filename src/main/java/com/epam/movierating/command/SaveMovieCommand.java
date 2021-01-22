@@ -35,10 +35,6 @@ public class SaveMovieCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request) throws ServiceException {
-
-        //HashMap<String, String> parameters = extractParameters(request);
-        //Movie movie = extractFromParameters(parameters);
-
         Movie movie = extractFromRequest(request);
 
         Part poster;
@@ -90,12 +86,12 @@ public class SaveMovieCommand implements Command {
         String titleParam = request.getParameter(Parameter.TITLE);
         String title = titleParam.isEmpty()
                 ? null
-                : normalizeIncomingStringData(titleParam);
+                : titleParam;
 
         String directorParam = request.getParameter(Parameter.DIRECTOR);
         String director = directorParam.isEmpty()
                 ? null
-                : normalizeIncomingStringData(directorParam);
+                : directorParam;
 
         String yearParam = request.getParameter(Parameter.RELEASE_YEAR);
         Integer releaseYear = yearParam.isEmpty()
@@ -105,12 +101,12 @@ public class SaveMovieCommand implements Command {
         String synopsisParam = request.getParameter(Parameter.SYNOPSIS);
         String synopsis = synopsisParam.isEmpty()
                 ? null
-                : normalizeIncomingStringData(synopsisParam);
+                : synopsisParam;
 
         String posterPathParam = request.getParameter(Parameter.POSTER_PATH);
         String posterPath = posterPathParam.isEmpty()
                 ? null
-                : normalizeIncomingStringData(posterPathParam);
+                : posterPathParam;
 
         String ratingParam = request.getParameter(Parameter.RATING);
         Double rating = ratingParam.isEmpty()
@@ -119,54 +115,4 @@ public class SaveMovieCommand implements Command {
 
         return new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
     }
-
-    private String normalizeIncomingStringData(String parameter) {
-        return parameter
-                .trim()
-                .replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;");
-    }
-
-    /*
-    private HashMap<String, String> extractParameters(HttpServletRequest request) {
-        HashMap<String, String> parameters = new HashMap<>();
-        Enumeration<String> names = request.getParameterNames();
-        while (names.hasMoreElements()) {
-            String key = names.nextElement();
-            String value = request.getParameter(key);
-            value = value.trim();
-            if (!value.isEmpty()) {
-                value = value
-                        .replace("&", "&amp;")
-                        .replace("<", "&lt;")
-                        .replace(">", "&gt;");
-                parameters.put(key, value);
-            }
-        }
-        return parameters;
-    }
-     */
-
-    /*
-    private Movie extractFromParameters(HashMap<String, String> parameters) {
-        String idValue = parameters.get(Parameter.ID);
-        Long id = idValue != null
-                ? Long.parseLong(idValue)
-                : null;
-        String title = parameters.get(Parameter.TITLE);
-        String director = parameters.get(Parameter.DIRECTOR);
-        String yearValue = parameters.get(Parameter.RELEASE_YEAR);
-        Integer releaseYear = yearValue != null
-                ? Integer.parseInt(yearValue)
-                : null;
-        String synopsis = parameters.get(Parameter.SYNOPSIS);
-        String posterPath = parameters.get(Parameter.POSTER_PATH);
-        String ratingValue = parameters.get(Parameter.RATE);
-        Double rating = ratingValue != null
-                ? Double.parseDouble(ratingValue)
-                : null;
-        return new Movie(id, title, director, releaseYear, synopsis, posterPath, rating);
-    }
-     */
 }
