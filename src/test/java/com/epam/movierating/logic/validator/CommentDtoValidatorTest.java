@@ -13,7 +13,7 @@ public class CommentDtoValidatorTest {
 
     private static final long VALID_ID = 1L;
     private static final String VALID_TEXT = "text";
-    private static final Account ACCOUNT = new Account(1L, "userName", null, Role.USER, false);
+    private static final Account ACCOUNT = new Account(1L, "userName", Role.USER, false);
     private static final CommentDto VALID_COMMENT_DTO = new CommentDto(VALID_ID, VALID_ID, ACCOUNT, LocalDateTime.now(), VALID_TEXT);
 
     private final CommentDtoValidator commentDtoValidator = new CommentDtoValidator();

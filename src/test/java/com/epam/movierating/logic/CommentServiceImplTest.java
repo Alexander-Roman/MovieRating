@@ -25,7 +25,7 @@ public class CommentServiceImplTest {
 
     private static final long VALID_ID = 1L;
     private static final long INVALID_ID = -1L;
-    private static final Account ACCOUNT = new Account(VALID_ID, "username", "password", Role.USER, false);
+    private static final Account ACCOUNT = new Account(VALID_ID, "username", Role.USER, false);
     private static final CommentDto COMMENT_DTO_EXISTING = new CommentDto(VALID_ID, VALID_ID, ACCOUNT, LocalDateTime.now(), "text");
     private static final CommentDto COMMENT_DTO_CREATED = new CommentDto(null, VALID_ID, ACCOUNT, LocalDateTime.now(), "text");
 

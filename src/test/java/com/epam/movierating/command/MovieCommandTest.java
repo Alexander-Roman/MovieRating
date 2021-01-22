@@ -28,7 +28,7 @@ public class MovieCommandTest {
     private static final long VALID_ID = 1L;
     private static final String INVALID_ID_PARAM = "id";
     private static final Movie MOVIE = new Movie(VALID_ID, "Title", "Director", 2021, "Synopsis", null, null);
-    private static final Account ACCOUNT = new Account(VALID_ID, "userName", null, Role.USER, false);
+    private static final Account ACCOUNT = new Account(VALID_ID, "userName", Role.USER, false);
     private static final int ASSESSMENT = 5;
 
     private MovieService movieService;

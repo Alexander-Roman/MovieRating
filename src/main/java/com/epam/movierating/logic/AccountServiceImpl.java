@@ -108,8 +108,7 @@ public class AccountServiceImpl implements AccountService {
                 throw new ServiceException("Unexpected account role!");
             }
             String userName = account.getUserName();
-            String password = account.getPassword();
-            Account changed = new Account(id, userName, password, roleActual, blocked);
+            Account changed = new Account(id, userName, roleActual, blocked);
             accountDao.save(changed);
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -145,9 +144,8 @@ public class AccountServiceImpl implements AccountService {
                 throw new ServiceException("Unexpected account role!");
             }
             String userName = account.getUserName();
-            String password = account.getPassword();
             Boolean blocked = account.getBlocked();
-            Account changed = new Account(id, userName, password, toRole, blocked);
+            Account changed = new Account(id, userName, toRole, blocked);
             accountDao.save(changed);
         } catch (DaoException e) {
             throw new ServiceException(e);

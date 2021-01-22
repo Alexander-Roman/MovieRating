@@ -11,14 +11,12 @@ public final class Account implements Identifiable {
 
     private final Long id;
     private final String userName;
-    private final String password;
     private final Role role;
     private final Boolean blocked;
 
-    public Account(Long id, String userName, String password, Role role, Boolean blocked) {
+    public Account(Long id, String userName, Role role, Boolean blocked) {
         this.id = id;
         this.userName = userName;
-        this.password = password;
         this.role = role;
         this.blocked = blocked;
     }
@@ -30,10 +28,6 @@ public final class Account implements Identifiable {
 
     public String getUserName() {
         return userName;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public Role getRole() {
@@ -55,7 +49,6 @@ public final class Account implements Identifiable {
         Account account = (Account) o;
         return Objects.equals(id, account.id) &&
                 Objects.equals(userName, account.userName) &&
-                Objects.equals(password, account.password) &&
                 role == account.role &&
                 Objects.equals(blocked, account.blocked);
     }
@@ -64,7 +57,6 @@ public final class Account implements Identifiable {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
         result = 31 * result + (blocked != null ? blocked.hashCode() : 0);
         return result;
@@ -75,7 +67,6 @@ public final class Account implements Identifiable {
         return getClass().getSimpleName() + "{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
                 ", role=" + role +
                 ", blocked=" + blocked +
                 '}';

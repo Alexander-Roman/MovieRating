@@ -23,7 +23,7 @@ public class AccountServiceImplTest {
     private static final String VALID_USERNAME = "username";
     private static final String VALID_PASSWORD = "password";
     private static final int MAX_USERNAME_LENGTH = 45;
-    private static final Account ACCOUNT = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, false);
+    private static final Account ACCOUNT = new Account(VALID_ID, VALID_USERNAME, Role.USER, false);
     private static final int VALID_ITEMS_PER_PAGE = 8;
     private static final int INVALID_ITEMS_PER_PAGE = 0;
     private static final int VALID_PAGE = 8;
@@ -113,12 +113,12 @@ public class AccountServiceImplTest {
     @Test
     public void testBlockUserByIdShouldSaveChanges() throws ServiceException, DaoException {
         //given
-        Account userUnblocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, false);
+        Account userUnblocked = new Account(VALID_ID, VALID_USERNAME, Role.USER, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(userUnblocked));
         accountService.blockUserById(VALID_ID);
         //then
-        Account userBlocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, true);
+        Account userBlocked = new Account(VALID_ID, VALID_USERNAME, Role.USER, true);
         verify(accountDao, times(1)).save(userBlocked);
     }
 
@@ -142,7 +142,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testBlockUserByIdShouldThrowExceptionWhenNotingToChange() throws ServiceException, DaoException {
         //given
-        Account userBlocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, true);
+        Account userBlocked = new Account(VALID_ID, VALID_USERNAME, Role.USER, true);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(userBlocked));
         accountService.blockUserById(VALID_ID);
@@ -152,7 +152,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testBlockUserByIdShouldThrowExceptionWhenRoleUnexpected() throws ServiceException, DaoException {
         //given
-        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.ADMIN, false);
+        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, Role.ADMIN, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(differentRoleAccount));
         accountService.blockUserById(VALID_ID);
@@ -162,12 +162,12 @@ public class AccountServiceImplTest {
     @Test
     public void testBlockEditorByIdShouldSaveChanges() throws ServiceException, DaoException {
         //given
-        Account editorUnblocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.EDITOR, false);
+        Account editorUnblocked = new Account(VALID_ID, VALID_USERNAME, Role.EDITOR, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(editorUnblocked));
         accountService.blockEditorById(VALID_ID);
         //then
-        Account editorBlocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.EDITOR, true);
+        Account editorBlocked = new Account(VALID_ID, VALID_USERNAME, Role.EDITOR, true);
         verify(accountDao, times(1)).save(editorBlocked);
     }
 
@@ -191,7 +191,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testBlockEditorByIdShouldThrowExceptionWhenNotingToChange() throws ServiceException, DaoException {
         //given
-        Account editorBlocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, true);
+        Account editorBlocked = new Account(VALID_ID, VALID_USERNAME, Role.USER, true);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(editorBlocked));
         accountService.blockEditorById(VALID_ID);
@@ -201,7 +201,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testBlockEditorByIdShouldThrowExceptionWhenRoleUnexpected() throws ServiceException, DaoException {
         //given
-        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.ADMIN, false);
+        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, Role.ADMIN, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(differentRoleAccount));
         accountService.blockEditorById(VALID_ID);
@@ -211,12 +211,12 @@ public class AccountServiceImplTest {
     @Test
     public void testUnblockUserByIdShouldSaveChanges() throws ServiceException, DaoException {
         //given
-        Account userBlocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, true);
+        Account userBlocked = new Account(VALID_ID, VALID_USERNAME, Role.USER, true);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(userBlocked));
         accountService.unblockUserById(VALID_ID);
         //then
-        Account userUnblocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, false);
+        Account userUnblocked = new Account(VALID_ID, VALID_USERNAME, Role.USER, false);
         verify(accountDao, times(1)).save(userUnblocked);
     }
 
@@ -240,7 +240,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testUnblockUserByIdShouldThrowExceptionWhenNotingToChange() throws ServiceException, DaoException {
         //given
-        Account userUnblocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, false);
+        Account userUnblocked = new Account(VALID_ID, VALID_USERNAME, Role.USER, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(userUnblocked));
         accountService.unblockUserById(VALID_ID);
@@ -250,7 +250,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testUnblockUserByIdShouldThrowExceptionWhenRoleUnexpected() throws ServiceException, DaoException {
         //given
-        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.EDITOR, true);
+        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, Role.EDITOR, true);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(differentRoleAccount));
         accountService.unblockUserById(VALID_ID);
@@ -260,12 +260,12 @@ public class AccountServiceImplTest {
     @Test
     public void testUnblockEditorByIdShouldSaveChanges() throws ServiceException, DaoException {
         //given
-        Account editorBlocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.EDITOR, true);
+        Account editorBlocked = new Account(VALID_ID, VALID_USERNAME, Role.EDITOR, true);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(editorBlocked));
         accountService.unblockEditorById(VALID_ID);
         //then
-        Account editorUnblocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.EDITOR, false);
+        Account editorUnblocked = new Account(VALID_ID, VALID_USERNAME, Role.EDITOR, false);
         verify(accountDao, times(1)).save(editorUnblocked);
     }
 
@@ -289,7 +289,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testUnblockEditorByIdShouldThrowExceptionWhenNotingToChange() throws ServiceException, DaoException {
         //given
-        Account editorUnblocked = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, false);
+        Account editorUnblocked = new Account(VALID_ID, VALID_USERNAME, Role.USER, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(editorUnblocked));
         accountService.unblockEditorById(VALID_ID);
@@ -299,7 +299,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testUnblockEditorByIdShouldThrowExceptionWhenRoleUnexpected() throws ServiceException, DaoException {
         //given
-        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, true);
+        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, Role.USER, true);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(differentRoleAccount));
         accountService.unblockEditorById(VALID_ID);
@@ -309,12 +309,12 @@ public class AccountServiceImplTest {
     @Test
     public void testPromoteUserToEditorShouldSaveChanges() throws ServiceException, DaoException {
         //given
-        Account userAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, false);
+        Account userAccount = new Account(VALID_ID, VALID_USERNAME, Role.USER, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(userAccount));
         accountService.promoteUserToEditor(VALID_ID);
         //then
-        Account editorAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.EDITOR, false);
+        Account editorAccount = new Account(VALID_ID, VALID_USERNAME, Role.EDITOR, false);
         verify(accountDao, times(1)).save(editorAccount);
     }
 
@@ -338,7 +338,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testPromoteUserToEditorShouldThrowExceptionWhenNotingToChange() throws ServiceException, DaoException {
         //given
-        Account editorAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.EDITOR, false);
+        Account editorAccount = new Account(VALID_ID, VALID_USERNAME, Role.EDITOR, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(editorAccount));
         accountService.promoteUserToEditor(VALID_ID);
@@ -348,7 +348,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testPromoteUserToEditorShouldThrowExceptionWhenRoleUnexpected() throws ServiceException, DaoException {
         //given
-        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.ADMIN, false);
+        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, Role.ADMIN, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(differentRoleAccount));
         accountService.promoteUserToEditor(VALID_ID);
@@ -358,12 +358,12 @@ public class AccountServiceImplTest {
     @Test
     public void testDemoteEditorToUserShouldSaveChanges() throws ServiceException, DaoException {
         //given
-        Account editorAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.EDITOR, false);
+        Account editorAccount = new Account(VALID_ID, VALID_USERNAME, Role.EDITOR, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(editorAccount));
         accountService.demoteEditorToUser(VALID_ID);
         //then
-        Account userAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, false);
+        Account userAccount = new Account(VALID_ID, VALID_USERNAME, Role.USER, false);
         verify(accountDao, times(1)).save(userAccount);
     }
 
@@ -387,7 +387,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testDemoteEditorToUserShouldThrowExceptionWhenNotingToChange() throws ServiceException, DaoException {
         //given
-        Account userAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.USER, false);
+        Account userAccount = new Account(VALID_ID, VALID_USERNAME, Role.USER, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(userAccount));
         accountService.demoteEditorToUser(VALID_ID);
@@ -397,7 +397,7 @@ public class AccountServiceImplTest {
     @Test(expectedExceptions = ServiceException.class)
     public void testDemoteEditorToUserShouldThrowExceptionWhenRoleUnexpected() throws ServiceException, DaoException {
         //given
-        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, VALID_PASSWORD, Role.ADMIN, false);
+        Account differentRoleAccount = new Account(VALID_ID, VALID_USERNAME, Role.ADMIN, false);
         //when
         when(accountDao.find(VALID_ID)).thenReturn(Optional.of(differentRoleAccount));
         accountService.demoteEditorToUser(VALID_ID);

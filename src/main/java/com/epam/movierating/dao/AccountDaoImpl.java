@@ -14,7 +14,7 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
     private static final String SQL_SELECT_BY_USERNAME_AND_PASSWORD = "SELECT account_id, user_name, password, role, blocked " +
             "FROM accounts WHERE user_name=? and password=SHA1(?);";
     private static final String SQL_COUNT = "SELECT COUNT(*) FROM accounts";
-    private static final String SQL_SELECT_PAGE = "SELECT account_id, user_name, password, role, blocked " +
+    private static final String SQL_SELECT_PAGE = "SELECT account_id, user_name, role, blocked " +
             "FROM accounts ORDER BY user_name LIMIT ? OFFSET ?;";
     private static final String SQL_INSERT_ACCOUNT = "INSERT INTO accounts (user_name, password, role, blocked) " +
             "VALUES (?, SHA1(?), ?, ?);";
@@ -24,8 +24,8 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
     private static final String SQL_UPDATE_ACCOUNT_WITH_PASSWORD = "UPDATE accounts " +
             "SET user_name = ?, password = SHA1(?), role = ?, blocked = ? " +
             "WHERE account_id = ?;";
-    private static final String SQL_SELECT_ALL = "SELECT account_id, user_name, password, role, blocked FROM accounts;";
-    private static final String SQL_SELECT_BY_ID = "SELECT account_id, user_name, password, role, blocked " +
+    private static final String SQL_SELECT_ALL = "SELECT account_id, user_name, role, blocked FROM accounts;";
+    private static final String SQL_SELECT_BY_ID = "SELECT account_id, user_name, role, blocked " +
             "FROM accounts WHERE account_id = ?;";
     private static final String SQL_DELETE_BY_ID = "DELETE FROM accounts WHERE account_id = ?;";
 
@@ -54,18 +54,14 @@ public class AccountDaoImpl extends AbstractDao<Account> implements AccountDao {
     public long save(Account account) throws DaoException {
         Long id = account.getId();
         String userName = account.getUserName();
-        String password = account.getPassword();
         Role role = account.getRole();
         String roleName = role.name();
         Boolean blocked = account.getBlocked();
+
         if (id == null) {
-            Optional<Long> result = updateSingle(SQL_INSERT_ACCOUNT, userName, password, roleName, blocked);
-            return result.orElseThrow(() -> new DaoException("Unacceptable query result!"));
-        } else if (password == null) {
-            updateSingle(SQL_UPDATE_ACCOUNT_WITHOUT_PASSWORD, userName, roleName, blocked, id);
-            return id;
+            throw new DaoException("The method does not support creating Account new records!");
         } else {
-            updateSingle(SQL_UPDATE_ACCOUNT_WITH_PASSWORD, userName, password, roleName, blocked, id);
+            updateSingle(SQL_UPDATE_ACCOUNT_WITHOUT_PASSWORD, userName, roleName, blocked, id);
             return id;
         }
     }

@@ -18,8 +18,8 @@ import static org.mockito.Mockito.*;
 
 public class LoginCommandTest {
 
-    private static final Account ACTIVE = new Account(1L, "userName", null, Role.USER, false);
-    private static final Account BLOCKED = new Account(1L, "userName", null, Role.USER, true);
+    private static final Account ACTIVE = new Account(1L, "userName", Role.USER, false);
+    private static final Account BLOCKED = new Account(1L, "userName", Role.USER, true);
 
     private HttpServletRequest request;
     private HttpSession session;

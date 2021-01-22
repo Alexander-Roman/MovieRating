@@ -27,7 +27,7 @@ public class RateMovieCommandTest {
     private static final int VALID_RATE = 5;
     private static final String INVALID_RATE_PARAM = "rate";
     private static final String CONTEXT_PATH = "contextPath";
-    private static final Account ACCOUNT = new Account(VALID_ID, "userName", null, Role.USER, false);
+    private static final Account ACCOUNT = new Account(VALID_ID, "userName", Role.USER, false);
     private static final UserRatingDto USER_RATING_DTO = new UserRatingDto(null, VALID_ID, VALID_ID, VALID_RATE);
 
     private UserRatingService userRatingService;

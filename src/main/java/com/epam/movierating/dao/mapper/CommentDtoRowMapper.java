@@ -11,7 +11,6 @@ public class CommentDtoRowMapper implements RowMapper<CommentDto> {
 
     private static final String COMMENT_ID_LABEL = "comment_id";
     private static final String MOVIE_ID_LABEL = "movie_id";
-    private static final String ACCOUNT_ID_LABEL = "account_id";
     private static final String DATE_TIME_LABEL = "date_time";
     private static final String TEXT_LABEL = "text";
 
