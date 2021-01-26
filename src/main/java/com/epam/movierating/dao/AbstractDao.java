@@ -65,14 +65,15 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
      * Gets scalar values as counts, max, min, average, ect.
      * @param sql prepared query
      * @param parameters query parameters
-     * @return Optional container with an object without casting, or empty when no value found
+     * @return Optional container with an result object, or empty when no value found
      * @throws DaoException in case of errors
      */
-    protected Optional<Object> selectScalar(String sql, Object... parameters) throws DaoException {
+    @SuppressWarnings("unchecked")
+    protected <E> Optional<E> selectScalar(String sql, Object... parameters) throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             ResultSet resultSet = getResultSet(preparedStatement, parameters);
             if (resultSet.next()) {
-                Object result = resultSet.getObject(1);
+                E result = (E) resultSet.getObject(1);
                 return Optional.of(result);
             } else {
                 return Optional.empty();

@@ -39,8 +39,8 @@ public class MovieDaoImpl extends AbstractDao<Movie> implements MovieDao {
 
     @Override
     public long getMoviesAmount() throws DaoException {
-        Optional<Object> result = selectScalar(SQL_COUNT);
-        return (long) result.orElse(NO_ITEMS_RESULT);
+        Optional<Long> result = selectScalar(SQL_COUNT);
+        return result.orElse(NO_ITEMS_RESULT);
     }
 
     @Override

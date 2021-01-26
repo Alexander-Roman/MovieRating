@@ -1,7 +1,5 @@
 package com.epam.movierating.command.request;
 
-import com.google.common.base.Preconditions;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.Arrays;
@@ -11,6 +9,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HttpServletRequestWrapperImpl extends HttpServletRequestWrapper {
+
+    private static final String AMPERSAND = "&";
+    private static final String AMPERSAND_REPLACEMENT = "&amp;";
+    private static final String LESS_THAN = "<";
+    private static final String LESS_THAN_REPLACEMENT = "&lt;";
+    private static final String GREATER_THAN = ">";
+    private static final String GREATER_THAN_REPLACEMENT = "&gt;";
 
     public HttpServletRequestWrapperImpl(HttpServletRequest request) {
         super(request);
@@ -23,9 +28,9 @@ public class HttpServletRequestWrapperImpl extends HttpServletRequestWrapper {
 
         return value
                 .trim()
-                .replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;");
+                .replace(AMPERSAND, AMPERSAND_REPLACEMENT)
+                .replace(LESS_THAN, LESS_THAN_REPLACEMENT)
+                .replace(GREATER_THAN, GREATER_THAN_REPLACEMENT);
     }
 
     @Override
