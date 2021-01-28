@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
@@ -25,22 +26,27 @@ public class LoginCommandTest {
     private HttpSession session;
     private AccountService accountService;
     private LoginCommand loginCommand;
+    private ServletContext servletContext;
 
     @BeforeMethod
-    public void setUp() {
+    public void setUp() throws ServiceException {
         request = Mockito.mock(HttpServletRequest.class);
         session = Mockito.mock(HttpSession.class);
         accountService = Mockito.mock(AccountService.class);
         loginCommand = new LoginCommand(accountService);
+        servletContext = Mockito.mock(ServletContext.class);
+
+        when(request.getParameter(anyString())).thenReturn("anyString");
+        when(accountService.authenticate(anyString(), anyString())).thenReturn(Optional.of(ACTIVE));
+        when(request.getSession()).thenReturn(session);
+        when(request.getServletContext()).thenReturn(servletContext);
+        when(servletContext.getContextPath()).thenReturn("contextPath");
     }
 
     @Test
     public void testExecuteShouldReturnRedirectCommandResultWhenLoginSuccess() throws ServiceException {
         //given
         //when
-        when(request.getParameter(anyString())).thenReturn("anyString");
-        when(accountService.authenticate(anyString(), anyString())).thenReturn(Optional.of(ACTIVE));
-        when(request.getSession()).thenReturn(session);
         CommandResult commandResult = loginCommand.execute(request);
         //then
         boolean actual = commandResult.isRedirect();
@@ -51,9 +57,6 @@ public class LoginCommandTest {
     public void testExecuteShouldAuthenticate() throws ServiceException {
         //given
         //when
-        when(request.getParameter(anyString())).thenReturn("anyString");
-        when(accountService.authenticate(anyString(), anyString())).thenReturn(Optional.of(ACTIVE));
-        when(request.getSession()).thenReturn(session);
         loginCommand.execute(request);
         //then
         verify(accountService, times(1)).authenticate(anyString(), anyString());
@@ -63,9 +66,6 @@ public class LoginCommandTest {
     public void testExecuteShouldSetAccountSessionAttributeWhenLoginSuccess() throws ServiceException {
         //given
         //when
-        when(request.getParameter(anyString())).thenReturn("anyString");
-        when(accountService.authenticate(anyString(), anyString())).thenReturn(Optional.of(ACTIVE));
-        when(request.getSession()).thenReturn(session);
         loginCommand.execute(request);
         //then
         verify(session, times(1)).setAttribute(Attribute.ACCOUNT, ACTIVE);
@@ -75,9 +75,7 @@ public class LoginCommandTest {
     public void testExecuteShouldNotSetAccountWhenBlocked() throws ServiceException {
         //given
         //when
-        when(request.getParameter(anyString())).thenReturn("anyString");
         when(accountService.authenticate(anyString(), anyString())).thenReturn(Optional.of(BLOCKED));
-        when(request.getSession()).thenReturn(session);
         loginCommand.execute(request);
         //then
         verify(request, never()).setAttribute(eq(Attribute.ACCOUNT), any());
@@ -87,12 +85,9 @@ public class LoginCommandTest {
     public void testExecuteShouldNotSetAccountLoginNotSuccess() throws ServiceException {
         //given
         //when
-        when(request.getParameter(anyString())).thenReturn("anyString");
         when(accountService.authenticate(anyString(), anyString())).thenReturn(Optional.empty());
-        when(request.getSession()).thenReturn(session);
         loginCommand.execute(request);
         //then
         verify(request, never()).setAttribute(eq(Attribute.ACCOUNT), any());
     }
-
 }

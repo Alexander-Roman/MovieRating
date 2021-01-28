@@ -16,5 +16,6 @@ public class Parameter {
     public static final String RATING = "rating";
     public static final String POSTER_PATH = "posterPath";
     public static final String TEXT = "text";
+    public static final String AUTHENTICATION = "authentication";
 
 }

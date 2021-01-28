@@ -32,7 +32,7 @@ public class CommandContext {
     private final Command saveMovieCommand = new SaveMovieCommand(movieService, posterValidator);
     private final Command deleteMovieCommand = new DeleteMovieCommand(movieService);
     private final Command localizationCommand = new LocalizationCommand();
-    private final Command loginPageCommand = new PageForwardCommand(Page.LOGIN);
+    private final Command loginPageCommand = new LoginPageCommand();
     private final Command loginCommand = new LoginCommand(accountService);
     private final Command logoutCommand = new LogoutCommand();
     private final Command userListCommand = new UserListCommand(accountService);
