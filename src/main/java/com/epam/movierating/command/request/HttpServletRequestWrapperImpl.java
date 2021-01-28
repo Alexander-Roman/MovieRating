@@ -4,9 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class HttpServletRequestWrapperImpl extends HttpServletRequestWrapper {
 
@@ -42,6 +41,9 @@ public class HttpServletRequestWrapperImpl extends HttpServletRequestWrapper {
     @Override
     public String[] getParameterValues(String name) {
         String[] values = super.getParameterValues(name);
+        if (values == null) {
+            return null;
+        }
         return Arrays.stream(values)
                 .map(this::normalizeIncomingParameter)
                 .toArray(String[]::new);
@@ -49,11 +51,13 @@ public class HttpServletRequestWrapperImpl extends HttpServletRequestWrapper {
 
     @Override
     public Map<String, String[]> getParameterMap() {
-        Enumeration<String> enumeration = super.getParameterNames();
-        Map<String, String[]> parameters = Collections.list(enumeration).stream().collect(Collectors.toMap(
-                key -> key,
-                this::getParameterValues
-        ));
-        return Collections.unmodifiableMap(parameters);
+        Map<String, String[]> originalParameters = super.getParameterMap();
+        Map<String, String[]> normalizedParameters = new HashMap<>();
+        for (Map.Entry<String, String[]> entry : originalParameters.entrySet()) {
+            String key = entry.getKey();
+            String[] values = this.getParameterValues(key);
+            normalizedParameters.put(key, values);
+        }
+        return Collections.unmodifiableMap(normalizedParameters);
     }
 }

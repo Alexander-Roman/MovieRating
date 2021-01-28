@@ -48,7 +48,6 @@ public class CreateCommentAjaxCommand implements AjaxCommand {
                 .collect(Collectors.toList());
 
         Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .create();
         String json = gson.toJson(commentViews);
