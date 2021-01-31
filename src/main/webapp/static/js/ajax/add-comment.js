@@ -46,8 +46,8 @@ function updateCommentList(newCommentList) {
             commentsBlock.append(updated);
         }
     } else if (oldCount > newCount) {
-        for (let i = newCount; i < oldCount; i++) {
-            oldElementsList[i].remove();
+        while (oldElementsList[newCount] !== undefined) {
+            oldElementsList[newCount].remove();
         }
     }
 }

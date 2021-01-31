@@ -81,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="cancel" onclick="history.back();">
+                    <button class="cancel" onclick="history.back();" type="button">
                         <fmt:message key="editor.form.button.cancel"/>
                     </button>
                     <button id="save-movie-button" class="save" type="submit">
