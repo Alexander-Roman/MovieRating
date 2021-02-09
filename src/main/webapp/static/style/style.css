@@ -1,0 +1,1174 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Holy Grail Layout */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+div.table-layout {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+header.page-header,
+footer.page-footer {
+    display: table-row;
+    height: 1px;
+}
+
+
+/* Style the body */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+/* Header Title */
+.header {
+    padding: 80px;
+    text-align: center;
+    background: #ff7f50;
+    /*color: white;*/
+}
+
+@media screen and (max-width: 480px) {
+    .header {
+        display: none;
+    }
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+    font-size: 40px;
+}
+
+/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+.navbar {
+    /*overflow: hidden;*/
+    background-color: #333;
+    top: 0;
+
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+}
+
+/* overflow: hidden; avoidance */
+/*header.page-header {
+  background-color: #333;
+  }*/
+
+/* Style the navigation bar links */
+.navbar a.navbar-item {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    cursor: pointer;
+
+    min-width: 72px;
+    min-height: 46px;
+}
+
+/* Right-aligned links after */
+.navbar .right {
+    margin-left: auto;
+}
+
+/* Change color on hover */
+.navbar a.navbar-item:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Active (current) link */
+.navbar a.active {
+    background-color: #666;
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 480px) {
+    .navbar a.navbar-item {
+        float: none;
+        width: 100%;
+    }
+
+    .navbar {
+        display: block;
+    }
+}
+
+/* Main container */
+
+.page-main {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+/* Column container */
+.row {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+
+    -webkit-flex-basis: 1200px;
+    flex-basis: 1200px;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+/*@media screen and (max-width: 700px) {
+  .row {
+    flex-direction: column;
+  }
+  }*/
+
+/* Create two unequal columns that sits next to each other */
+
+/* Sidebar (left) column */
+.side {
+    /*-ms-flex: 30%;*/ /* IE10 */
+    /*flex: 30%;*/
+    background-color: #f1f1f1;
+    padding: 20px;
+
+    -webkit-flex-basis: 90px;
+    flex-basis: 90px;
+    -webkit-flex-grow: 3;
+    flex-grow: 3;
+}
+
+/* Main column */
+.main {
+    /*-ms-flex: 70%;*/ /* IE10 */
+    /*flex: 70%;*/
+    background-color: white;
+    padding: 20px;
+
+    -webkit-flex-basis: 210px;
+    flex-basis: 210px;
+    -webkit-flex-grow: 7;
+    flex-grow: 7;
+}
+
+/* Footer */
+.footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+}
+
+/* Navbar Hoverable Dropdown */
+
+.localization {
+    height: 100%;
+    background-image: url(../icons/localization-white.svg);
+    background-repeat: no-repeat;
+    background-size: 32px;
+    background-position: 50% 50%;
+}
+
+.localization:hover {
+    background-image: url(../icons/localization-black.svg);
+}
+
+.navbar-dropdown {
+    position: relative;
+}
+
+.navbar-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
+    min-width: 100%;
+}
+
+/* Important */
+.navbar-dropdown a.navbar-drop-item {
+    float: none;
+}
+
+.navbar-dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.navbar-dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.navbar-dropdown-content input[type=submit] {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border: none;
+    font-size: 16px;
+}
+
+.navbar-dropdown-content input[type=submit]:hover {
+    background-color: #ddd;
+}
+
+.navbar-dropdown:hover .navbar-dropdown-content {
+    display: block;
+}
+
+/* Responsive Search Bar */
+
+.search-container input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 16px;
+    border: none;
+
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+
+.search-container button {
+    padding: 6px 10px;
+    margin-top: 8px;
+    background: #ddd;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background: #ccc;
+}
+
+/* Regular Flex Containers */
+
+.flex-box {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.flex {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+}
+
+.flex-wrap {
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.flex-right {
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+
+.flex-middle {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+/* Round Range Slider */
+
+.slider-container {
+    width: 100%;
+    position: relative;
+    height: 2em;
+    margin-bottom: 30px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 15px;
+    outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #ff7f50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #ff7f50;
+    cursor: pointer;
+}
+
+/* Multi-range slider */
+
+.lower-slider,
+.upper-slider {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.upper-slider {
+    background: #d3d3d3;
+}
+
+.lower-slider {
+    background: transparent;
+}
+
+.slider::-webkit-slider-thumb {
+    z-index: 2;
+    position: relative;
+    pointer-events: all;
+
+}
+
+.slider::-moz-range-thumb {
+    z-index: 2;
+    pointer-events: all;
+}
+
+
+.lower-slider::-moz-range-track {
+    background-color: transparent;
+}
+
+.lower-slider::-webkit-slider-runnable-track {
+    background: transparent;
+}
+
+/* Input boxes */
+
+.multi-range-container input[type=number] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 16px;
+    border: none;
+    width: 70px;
+}
+
+/* Custom Checkboxes */
+
+/* The container */
+.checkbox-container {
+    display: block;
+    position: relative;
+    /*padding-left: 35px;*/
+    margin-bottom: 12px;
+    cursor: pointer;
+    /*font-size: 22px;*/
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    padding: 4px 4px 4px 35px;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add background color */
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #ff7f50;
+}
+
+/* Create the checkmark-indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark-indicator */
+.checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Tables */
+
+.table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+.table td, .table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #ff7f50;
+    color: white;
+}
+
+/* Movies table */
+
+#movies tr:hover {
+    background-color: #ddd;
+}
+
+#movies tr:not(:first-child) {
+    cursor: pointer;
+}
+
+#movies .title-cell {
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+}
+
+#movies .title-cell-img {
+    margin-right: 10px;
+}
+
+#movies .title-cell-img img {
+    width: 60px;
+    max-height: 100px;
+}
+
+@media screen and (max-width: 480px) {
+    #movies .wide {
+        display: none;
+    }
+}
+
+/* Users table */
+
+#users tr {
+    height: 47px;
+}
+
+/* Clickable Dropdown */
+
+.clickable-dropbtn {
+    background-color: #ddd;
+    /*color: white;*/
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.clickable-dropbtn:hover, .clickable-dropbtn:focus {
+    background-color: #ff7f50;
+}
+
+.clickable-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.clickable-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    overflow: auto;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.clickable-dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.clickable-dropdown a:hover {
+    background-color: #ddd;
+}
+
+.show {
+    display: block;
+}
+
+/* Pagination */
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+.pagination a.pagination-active {
+    background-color: #ff7f50;
+    /*color: white;*/
+}
+
+.pagination a.pagination-available:hover {
+    background-color: #ddd;
+}
+
+.pagination a.pagination-disabled {
+    opacity: 0.5;
+}
+
+/* Add button */
+
+.add-button-container {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+
+.add-button {
+    padding: 6px 10px;
+    margin-top: 8px;
+    background: #ddd;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+.add-button:hover {
+    background: #ff7f50;
+}
+
+/* Edit buttons */
+
+.edit-button-container {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.edit-button {
+    padding: 6px 10px;
+    margin-left: 8px;
+    background: #ddd;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+.edit-button:hover {
+    background: #ff7f50;
+}
+
+/* Table buttons */
+
+.table-button {
+    padding: 6px 10px;
+    background: #ddd;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+.table-button:hover {
+    background: #ff7f50;
+}
+
+/* Responsive Inline Login Form */
+
+.login-form-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.login-form-inline label {
+    margin: 5px 10px 5px 0;
+}
+
+.login-form-inline input {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.login-form-inline button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    border: 1px solid #ddd;
+    color: white;
+    cursor: pointer;
+
+    opacity: 0.8;
+}
+
+.login-form-inline button:hover {
+
+    opacity: 1;
+}
+
+@media (max-width: 800px) {
+    .login-form-inline input {
+        margin: 10px 0;
+    }
+
+    .login-form-inline {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* Alert Messages */
+
+.alert {
+    padding: 20px;
+    color: black;
+    opacity: 0.83;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+}
+
+.alert-closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.alert-closebtn:hover {
+    color: black;
+}
+
+.alert-error {
+    background-color: #f44336;
+}
+
+.alert-success {
+    background-color: #4CAF50;
+}
+
+.alert-info {
+    background-color: #2196F3;
+}
+
+.alert-warning {
+    background-color: #ff9800;
+}
+
+/* Movie */
+
+.movie-info {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.poster-container {
+    max-width: 300px;
+    margin-right: 20px;
+}
+
+.poster {
+    max-width: 300px;
+}
+
+.movie-description {
+    flex-basis: 300px;
+    flex-grow: 1;
+}
+
+.poster-validation-alert {
+    font-size: 13px;
+}
+
+/* Comments */
+
+.comment-container {
+    border: 1px solid #dedede;
+    border-radius: 2px;
+    background-color: #f1f1f1;
+    padding: 0 10px;
+    margin: 10px 0;
+}
+
+.comment-container:nth-child(odd) {
+    border-color: #ccc;
+    background-color: #ddd;
+}
+
+.comment-container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.comment-time {
+    float: right;
+    color: #aaa;
+}
+
+/* Comment Remove Form */
+
+.comment-remove-form {
+    float: right;
+    margin-top: 10px;
+}
+
+.comment-remove-button {
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+.comment-remove-button:hover .comment-remove-button-img {
+    background-color: #ff7f50;
+}
+
+.comment-remove-button-img {
+    display: block;
+    height: 30px;
+    width: 30px;
+    background-color: #ddd;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 50% 50%;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+}
+
+.comment-remove-options .comment-remove-button-img {
+    background-image: url(../icons/trash.svg);
+    background-size: 20px;
+}
+
+.comment-remove-submit .comment-remove-button-img {
+    background-image: url(../icons/confirm.svg);
+    background-size: 16px;
+}
+
+.comment-remove-cancel .comment-remove-button-img {
+    background-image: url(../icons/cancel.svg);
+    background-size: 16px;
+}
+
+.comment-remove-submit,
+.comment-remove-cancel {
+    display: none;
+}
+
+/* Comment form */
+
+.comment-form-container textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    height: 200px;
+}
+
+.comment-form-container label {
+    padding: 12px 12px 12px 0;
+    display: block;
+}
+
+.comment-form-container button {
+    float: right;
+
+    padding: 6px 10px;
+    margin-top: 8px;
+    background: #ddd;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.comment-form-container button:hover:not(:disabled) {
+    background-color: #ff7f50;
+}
+
+.comment-form-container button:disabled {
+    cursor: auto;
+}
+
+.comment-form-container {
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+/* Clear floats after the columns */
+.comment-form-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Custom Radio Buttons */
+
+.radio-container {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    margin-top: 4px;
+    margin-right: 5px;
+    min-width: 52px;
+}
+
+.radio-container:last-of-type {
+    margin-right: 15px;
+}
+
+
+/* Hide the browser's default radio button */
+.radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.radio-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.radio-container:hover input ~ .radio-checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio-container input:checked ~ .radio-checkmark {
+    background-color: #ff7f50;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.radio-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio-container input:checked ~ .radio-checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio-container .radio-checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.custom-radio input[type=submit] {
+    padding: 6px 10px;
+    background: #ddd;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+
+    display: inline-block;
+}
+
+.custom-radio input[type=submit]:hover {
+    background: #ff7f50;
+}
+
+.custom-radio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* Movie edit form */
+
+#edit-title {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 24px;
+}
+
+.edit-description-container input, .edit-description-container textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.edit-description-container textarea {
+    height: 200px;
+}
+
+.edit-description-container label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.edit-description-container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.movie-edit-col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.movie-edit-col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.movie-edit-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.movie-edit-form button {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    color: white;
+    cursor: pointer;
+    opacity: 0.8;
+    float: right;
+    margin: 10px 0 10px 10px;
+}
+
+.movie-edit-form button.save {
+    background-color: #4CAF50;
+}
+
+.movie-edit-form button.save:disabled {
+    cursor: auto;
+    background-color: grey;
+}
+
+.movie-edit-form button.cancel {
+    background-color: red;
+}
+
+.movie-edit-form button:hover:not(:disabled) {
+    opacity: 1;
+}
+
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .movie-edit-col-25, .movie-edit-col-75 {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+/* Project download link */
+
+.footer .download-link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+/* Remove Movie confirm modal */
+
+.delete-movie-modal button {
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.delete-movie-modal button:hover {
+    opacity:1;
+}
+
+/* Float cancel and delete buttons and add an equal width */
+.delete-movie-confirm,
+.delete-movie-cancel {
+    float: left;
+    width: 50%;
+}
+
+/* Add a color to the cancel button */
+.delete-movie-cancel {
+    background-color: #ccc;
+    color: black;
+}
+
+/* Add a color to the delete button */
+.delete-movie-confirm {
+    background-color: #f44336;
+}
+
+/* Add padding and center-align text to the container */
+.delete-movie-container {
+    padding: 16px;
+    text-align: center;
+}
+
+/* The Modal (background) */
+.delete-movie-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.delete-movie-modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+/* The Modal Close Button (x) */
+.delete-movie-close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+.delete-movie-close:hover,
+.delete-movie-close:focus {
+    color: #f44336;
+    cursor: pointer;
+}
+
+/* Clear floats */
+.delete-movie-clear-fix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and delete button on extra small screens */
+@media screen and (max-width: 300px) {
+    .delete-movie-confirm,
+    .delete-movie-cancel {
+        width: 100%;
+    }
+}
