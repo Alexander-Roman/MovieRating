@@ -9,7 +9,7 @@ CREATE TABLE movies
     movie_id     BIGINT AUTO_INCREMENT,
     title        VARCHAR(255) NOT NULL,
     director     VARCHAR(45),
-    release_year YEAR,
+    release_year INT(4) UNSIGNED,
     synopsis     VARCHAR(1000),
     poster_path  VARCHAR(255) UNIQUE,
     rating       DOUBLE(4, 2),
